@@ -1,0 +1,69 @@
+id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_3,option_4,long description,footnote
+1.1.1,Water accounting,Score (0 - 1),,discrete,0.3,1,No,Yes
+1.1.2,Protection of water sources,Score (0 - 3),,discrete,0.25,3,No,"There is a plan to protect water resources, but it is not funded and there is no budget outlined or indication given of potential costs","There is a plan to protect water resources, and a budget has been outlined but the source of funding is unclear","Yes, the city has ongoing water source protection projects or a funded plan is in place"
+1.1.3,Diversification of water sources,Score (0 - 3),,discrete,0.25,3,Not diversified; more than 80% of water comes from a single source,Slightly; 60-80% of water comes from a single source,Moderately; 40-60% of water comes from a single source,Highly; no single source provides more than 40% of the water supply
+1.1.4,Unconventional water sources,Score (0 - 3),,discrete,0.2,3,No,"There is a plan to protect water resources, but it is not funded and there is no budget outlined or indication given of potential costs","There is a plan to protect water resources, and a budget has been outlined but the source of funding is unclear","Yes, the city has ongoing water source protection projects or a funded plan is in place"
+1.2.1,Treatment to meet water quality guidelines,%,,continuous,0.35,100
+1.2.2,Water quality standards,Score (0 - 2),,discrete,0.3,2,"No, water quality standards do not meet or exceed WHO guidelines.","Yes, but the standards are not mandatory","Yes, water quality standards are mandatory and meet or exceed WHO guidelines"
+1.2.3,Water surveillance,Score (0 - 3),,discrete,0.35,3,Irregularly,Monthly,Weekly,Real-time/ Daily
+1.3.1,Long-term plan & strategy,Score (0 - 1),,discrete,0.3,1,No,Yes
+1.3.2a,City agency co-ordination,Score (0 - 2),,discrete,0.125,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
+1.3.2b,Upstream & downstream co-ordination,Score (0 - 2),,discrete,0.125,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
+1.3.3,Risk analysis & climate modeling,Score (0 - 3),,discrete,0.25,3,"No, the city has not identified risks or developed an adaptation plan","he city has identified risks and developed an adaption plan, but it is not funded and there is no budget outlined or indication given of potential costs","The city has identified risks and developed an adaption plan, and a budget has been outlined but the source of funding is unclear","Yes, the city has identified risks and developed an adaption plan, which is either funded or being currently implemented"
+1.3.4,Independent oversight,Score (0 - 2),,discrete,0.2,2,No,"Yes, but the oversight body does not have an enforcement mechanism",Yes
+2.1.1,Residential accessibility,%,,continuous,0.65,100
+2.1.2,Non-residential accessibility,%,,continuous,0.35,100
+2.2.1,Sewerage system coverage,%,,continuous,0.55,100
+2.2.2,Wastewater treatment,%,,continuous,0.45,100
+2.3.1,Coverage,%,,continuous,0.55,100
+2.3.2,Equity,Score (0 - 1),,discrete,0.45,1,No,Yes
+2.4.1,Risk reduction strategy,Score (0 - 1),,discrete,0.25,1,No,Yes
+2.4.2,Risk maps,Score (0 - 2),,discrete,0.25,2,No,"Yes, but the risks do not cover all the hazards the city faces",Yes and they cover all the hazards the city faces
+2.4.3,Early warning system,Score (0 - 2),,discrete,0.25,2,No,"Yes, but it does not cover all relevant risks in the city","Yes, there is an early warning system in place that covers all relevant risks in the city"
+2.4.4,Public awareness,%,,continuous,0.25,100
+2.5.1,Data & analysis,Score (0 - 3),,discrete,0.3,3,No,The city has access to one of these three projections,The city has access to two of these three projections,"Yes, the city has access to all three of these projections"
+2.5.2,Monitoring & evaluation of water infrastructure,Score (0 - 3),,discrete,0.3,3,No,"Yes, but it is ad hoc, not in real-time/daily","Yes, at regular intervals, but not in real-time/daily","Yes, the city conducts real-time/daily monitoring and evaluation"
+2.5.3,"Infrastructure expansion, maintenance, & upgrades",Score (0 - 2),,discrete,0.4,2,No,"Yes, but only for one of the three elements",Yes for both elements (improvement and maintenance)
+3.1.1a,Smart metering,Score (0 - 4),,discrete,0.2,4,None,Less than 25%,25-49%,50-74%,75% or more
+3.1.1b,Real-time monitoring system,Score (0 - 1),,discrete,0.2,1,No,Yes
+3.1.1c,Use of AI & machine learning,Score (0 - 2),,discrete,0.2,2,No,Evidence of pilot programs,Evidence of widespread use
+3.1.2a,Sewage sludge,%,,continuous,0.1333333333,100
+3.1.2b,Energy recovery,%,,continuous,0.1333333333,100
+3.1.2c,Nutrient recovery,%,,continuous,0.1333333333,100
+3.2.1,Continuity of water services,Score (0 - 2),,discrete,0.6,2,Non-continuous,widespread disruptions reported,continuous / virtually 24/7
+3.2.2,Non-revenue water,%,TRUE,continuous,0.4,100
+3.3.1,Building codes,Score (0 - 2),,discrete,0.35,2,No,"Yes, they include provisions to encourage water conservation, but do not enforce","Yes, they include provisions to enforce water conservation"
+3.3.2,Conservation-based pricing,Score (0 - 1),,discrete,0.35,1,No,Yes
+3.3.3,Public conservation education,Score (0 - 1),,discrete,0.3,1,No,Yes
+3.4.1,Legal status of reclaimed water,Score (0 - 2),,discrete,0.2,2,Ban use of reclaimed water,Allows the use of reclaimed water for any purpose,Mandates the use of reclaimed water
+3.4.2,Financial incentives for reclaimed water use,Score (0 - 1),,discrete,0.15,1,No,Yes
+3.4.3a,Distribution decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
+3.4.3b,Treatment decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
+3.4.4a,Reclaimed water mandate,Score (0 - 1),,discrete,0.1,1,No,Yes
+3.4.4b,Reclaimed water piping,Score (0 - 3),,discrete,0.1,3,No evidence of purple piping,Some but less than 25%,Over 25%,Above 50%
+3.4.5,Public perception of reclaimed water,%,,continuous,0.2,100
+3.5.1,Waste-to-resource collaboration,Score (0 - 1),,discrete,0.25,1,No,Yes
+3.5.2,Environmental protection,Score (0 - 1),,discrete,0.25,1,No,Yes
+3.5.3,Water-sensitive design principles,Score (0 - 1),,discrete,0.25,1,No,Yes
+3.5.4,Protection of critical aquatic habitats & ecosystems,Score (0 - 1),,discrete,0.25,1,No,Yes
+
+BG_1.01,Water stress,%
+BG_1.02,Average cost per cubic meter of water to householders,Variable currencies
+BG_1.03,Average cost per cubic meter of water to householders relative to income,%
+BG_1.04,"Litres per person per day (including residential, commercial, and industrial consumption)",Litres per person per day
+BG_1.05,Percentage of reclaimed water used for non-drinking purposes,%
+BG_1.06,Percentage of reclaimed water reincorporated back into a natural water source,%
+BG_1.07,Percentage of reclaimed water used for drinking without an environmental buffer,%
+BG_1.08,Percentage of total water loss in the distribution system,Gallons per person per day
+BG_1.09,Frequency of overflow of sewer due to rainwater runoff (days per year),Days per year
+BG_1.10,Percentage of treated wastewater gone through primary treatment only before discharge,%
+BG_1.11,Percentage of treated wastewater gone through secondary treatment only before discharge,%
+BG_1.12,Percentage of treated wastewater gone through tertiary treatment,%
+BG_1.13,"Annual freshwater withdrawals, total withdrawal (cubic meters)",m3
+BG_2.1,Population in 2021,millions
+BG_2.2,Population growth rate,% change in 2021
+BG_2.3,Population in 2030,millions
+BG_2.4,"GDP per capita ((USD, constant prices, constant PPP, base year 2015) data year 2018)",USD
+BG_2.5,"GDP Growth rate (Percentage change in real GDP, over year 2020 to 2021 (country-level))",% Change in GDP
+BG_2.6,Unemployment rate,%
+BG_2.7,Annual urbanization rate,%

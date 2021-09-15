@@ -1,0 +1,103 @@
+G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10,G11,G12,G13,G14,G15,G16,G17,G18
+all,geo,geo,geo,geo,geo,geo,geo,geo,geo,geo,geo,geo,geo,geo,income,income,income,income
+All countries,Africa,Asia,Central Asia,East Asia,Europe,Europe (EU),Gulf Cooperation Council,Latin America,Middle East and North Africa,North Africa,North America,South Asia,Southeast Asia-Pacific,Sub-Saharan Africa,High income,Low income,Lower middle income,Upper middle income
+Algeria,Algeria,Australia,Azerbaijan,China,Austria,Austria,Kuwait,Argentina,Algeria,Algeria,Canada,Bangladesh,Australia,Botswana,Australia,Burkina Faso,Bangladesh,Algeria
+Argentina,Botswana,Azerbaijan,Iran,Hong Kong,Belgium,Belgium,Bahrain,Brazil,Bahrain,Egypt,United States,India,Cambodia,Burkina Faso,Austria,Burundi,Cambodia,Argentina
+Australia,Burkina Faso,Bangladesh,Kazakhstan,Japan,Bulgaria,Bulgaria,Oman,Chile,Egypt,Morocco,,Pakistan,Indonesia,Burundi,Bahrain,Ethiopia,Cameroon,Azerbaijan
+Austria,Burundi,Cambodia,Uzbekistan,Mongolia,Croatia,Croatia,Qatar,Colombia,Kuwait,,,Sri Lanka,Malaysia,Cameroon,Belgium,Liberia,Côte d'Ivoire,Botswana
+Azerbaijan,Cameroon,China,,South Korea,Denmark,Denmark,Saudi Arabia,Cuba,Lebanon,,,,Myanmar,Côte d'Ivoire,Canada,Madagascar,Egypt,Brazil
+Bahrain,Côte d'Ivoire,Hong Kong,,Taiwan,Estonia,Estonia,UAE,El Salvador,Morocco,,,,Philippines,Ethiopia,Chile,Malawi,El Salvador,Bulgaria
+Bangladesh,Egypt,India,,,France,France,,Guatemala,Oman,,,,Singapore,Gabon,Croatia,Mozambique,Ghana,China
+Belgium,Ethiopia,Indonesia,,,Germany,Germany,,Honduras,Qatar,,,,Thailand,Ghana,Denmark,Rwanda,Honduras,Colombia
+Botswana,Gabon,Iran,,,Greece,Greece,,Jamaica,Saudi Arabia,,,,Vietnam,Kenya,Estonia,Tanzania,India,Cuba
+Brazil,Ghana,Japan,,,Hungary,Hungary,,Mexico,UAE,,,,New Zealand,Liberia,France,Uganda,Indonesia,Gabon
+Bulgaria,Kenya,Kazakhstan,,,Ireland,Ireland,,Nicaragua,,,,,Laos,Madagascar,Germany,,Kenya,Guatemala
+Burkina Faso,Liberia,Laos,,,Italy,Italy,,Paraguay,,,,,,Malawi,Greece,,Laos,Iran
+Burundi,Madagascar,Malaysia,,,Latvia,Latvia,,Peru,,,,,,Mozambique,Hong Kong,,Mongolia,Jamaica
+Cambodia,Malawi,Mongolia,,,Lithuania,Lithuania,,Trinidad & Tobago,,,,,,Namibia,Hungary,,Morocco,Kazakhstan
+Cameroon,Morocco,Myanmar,,,Netherlands,Netherlands,,Venezuela,,,,,,Nigeria,Ireland,,Myanmar,Lebanon
+Canada,Mozambique,New Zealand,,,Poland,Poland,,,,,,,,Rwanda,Italy,,Nicaragua,Malaysia
+Chile,Namibia,Pakistan,,,Portugal,Portugal,,,,,,,,Senegal,Japan,,Nigeria,Mexico
+China,Nigeria,Papua New Guinea,,,Romania,Romania,,,,,,,,South Africa,Kuwait,,Pakistan,Namibia
+Colombia,Rwanda,Philippines,,,Russia,Slovakia,,,,,,,,Sudan,Latvia,,Papua New Guinea,Paraguay
+Côte d'Ivoire,Senegal,Singapore,,,Slovakia,Spain,,,,,,,,Tanzania,Lithuania,,Philippines,Peru
+Croatia,South Africa,South Korea,,,Spain,Sweden,,,,,,,,Uganda,Netherlands,,Senegal,Romania
+Cuba,Sudan,Sri Lanka,,,Sweden,United Kingdom,,,,,,,,Zambia,New Zealand,,Sudan,Russia
+Denmark,Tanzania,Taiwan,,,Turkey,,,,,,,,,Zimbabwe,Oman,,Uzbekistan,South Africa
+Egypt,Uganda,Thailand,,,United Kingdom,,,,,,,,,,Poland,,Vietnam,Sri Lanka
+El Salvador,Zambia,Uzbekistan,,,,,,,,,,,,,Portugal,,Zambia,Thailand
+Estonia,Zimbabwe,Vietnam,,,,,,,,,,,,,Qatar,,Zimbabwe,Turkey
+Ethiopia,,,,,,,,,,,,,,,Saudi Arabia,,,Venezuela
+France,,,,,,,,,,,,,,,Singapore,,,
+Gabon,,,,,,,,,,,,,,,Slovakia,,,
+Germany,,,,,,,,,,,,,,,South Korea,,,
+Ghana,,,,,,,,,,,,,,,Spain,,,
+Greece,,,,,,,,,,,,,,,Sweden,,,
+Guatemala,,,,,,,,,,,,,,,Taiwan,,,
+Honduras,,,,,,,,,,,,,,,Trinidad & Tobago,,,
+Hong Kong,,,,,,,,,,,,,,,UAE,,,
+Hungary,,,,,,,,,,,,,,,United Kingdom,,,
+India,,,,,,,,,,,,,,,United States,,,
+Indonesia,,,,,,,,,,,,,,,,,,
+Iran,,,,,,,,,,,,,,,,,,
+Ireland,,,,,,,,,,,,,,,,,,
+Italy,,,,,,,,,,,,,,,,,,
+Jamaica,,,,,,,,,,,,,,,,,,
+Japan,,,,,,,,,,,,,,,,,,
+Kazakhstan,,,,,,,,,,,,,,,,,,
+Kenya,,,,,,,,,,,,,,,,,,
+Kuwait,,,,,,,,,,,,,,,,,,
+Laos,,,,,,,,,,,,,,,,,,
+Latvia,,,,,,,,,,,,,,,,,,
+Lebanon,,,,,,,,,,,,,,,,,,
+Liberia,,,,,,,,,,,,,,,,,,
+Lithuania,,,,,,,,,,,,,,,,,,
+Madagascar,,,,,,,,,,,,,,,,,,
+Malawi,,,,,,,,,,,,,,,,,,
+Malaysia,,,,,,,,,,,,,,,,,,
+Mexico,,,,,,,,,,,,,,,,,,
+Mongolia,,,,,,,,,,,,,,,,,,
+Morocco,,,,,,,,,,,,,,,,,,
+Mozambique,,,,,,,,,,,,,,,,,,
+Myanmar,,,,,,,,,,,,,,,,,,
+Namibia,,,,,,,,,,,,,,,,,,
+Netherlands,,,,,,,,,,,,,,,,,,
+New Zealand,,,,,,,,,,,,,,,,,,
+Nicaragua,,,,,,,,,,,,,,,,,,
+Nigeria,,,,,,,,,,,,,,,,,,
+Oman,,,,,,,,,,,,,,,,,,
+Pakistan,,,,,,,,,,,,,,,,,,
+Papua New Guinea,,,,,,,,,,,,,,,,,,
+Paraguay,,,,,,,,,,,,,,,,,,
+Peru,,,,,,,,,,,,,,,,,,
+Philippines,,,,,,,,,,,,,,,,,,
+Poland,,,,,,,,,,,,,,,,,,
+Portugal,,,,,,,,,,,,,,,,,,
+Qatar,,,,,,,,,,,,,,,,,,
+Romania,,,,,,,,,,,,,,,,,,
+Russia,,,,,,,,,,,,,,,,,,
+Rwanda,,,,,,,,,,,,,,,,,,
+Saudi Arabia,,,,,,,,,,,,,,,,,,
+Senegal,,,,,,,,,,,,,,,,,,
+Singapore,,,,,,,,,,,,,,,,,,
+Slovakia,,,,,,,,,,,,,,,,,,
+South Africa,,,,,,,,,,,,,,,,,,
+South Korea,,,,,,,,,,,,,,,,,,
+Spain,,,,,,,,,,,,,,,,,,
+Sri Lanka,,,,,,,,,,,,,,,,,,
+Sudan,,,,,,,,,,,,,,,,,,
+Sweden,,,,,,,,,,,,,,,,,,
+Taiwan,,,,,,,,,,,,,,,,,,
+Tanzania,,,,,,,,,,,,,,,,,,
+Thailand,,,,,,,,,,,,,,,,,,
+Trinidad & Tobago,,,,,,,,,,,,,,,,,,
+Turkey,,,,,,,,,,,,,,,,,,
+UAE,,,,,,,,,,,,,,,,,,
+Uganda,,,,,,,,,,,,,,,,,,
+United Kingdom,,,,,,,,,,,,,,,,,,
+United States,,,,,,,,,,,,,,,,,,
+Uzbekistan,,,,,,,,,,,,,,,,,,
+Venezuela,,,,,,,,,,,,,,,,,,
+Vietnam,,,,,,,,,,,,,,,,,,
+Zambia,,,,,,,,,,,,,,,,,,
+Zimbabwe,,,,,,,,,,,,,,,,,,

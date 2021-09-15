@@ -1,0 +1,101 @@
+CODE,name,type
+DZ,Algeria,Country
+AR,Argentina,Country
+AU,Australia,Country
+AT,Austria,Country
+AZ,Azerbaijan,Country
+BH,Bahrain,Country
+BD,Bangladesh,Country
+BE,Belgium,Country
+BW,Botswana,Country
+BR,Brazil,Country
+BG,Bulgaria,Country
+BF,Burkina Faso,Country
+BI,Burundi,Country
+KH,Cambodia,Country
+CM,Cameroon,Country
+CA,Canada,Country
+CL,Chile,Country
+CN,China,Country
+CO,Colombia,Country
+CI,Côte d'Ivoire,Country
+HR,Croatia,Country
+CU,Cuba,Country
+DK,Denmark,Country
+EG,Egypt,Country
+SV,El Salvador,Country
+EE,Estonia,Country
+ET,Ethiopia,Country
+FR,France,Country
+GA,Gabon,Country
+DE,Germany,Country
+GH,Ghana,Country
+GR,Greece,Country
+GT,Guatemala,Country
+HN,Honduras,Country
+HK,Hong Kong,Country
+HU,Hungary,Country
+IN,India,Country
+ID,Indonesia,Country
+IR,Iran,Country
+IE,Ireland,Country
+IT,Italy,Country
+JM,Jamaica,Country
+JP,Japan,Country
+KZ,Kazakhstan,Country
+KE,Kenya,Country
+KW,Kuwait,Country
+LA,Laos,Country
+LV,Latvia,Country
+LB,Lebanon,Country
+LR,Liberia,Country
+LT,Lithuania,Country
+MG,Madagascar,Country
+MW,Malawi,Country
+MY,Malaysia,Country
+MX,Mexico,Country
+MN,Mongolia,Country
+MA,Morocco,Country
+MZ,Mozambique,Country
+MM,Myanmar,Country
+NA,Namibia,Country
+NL,Netherlands,Country
+NZ,New Zealand,Country
+NI,Nicaragua,Country
+NG,Nigeria,Country
+OM,Oman,Country
+PK,Pakistan,Country
+PG,Papua New Guinea,Country
+PY,Paraguay,Country
+PE,Peru,Country
+PH,Philippines,Country
+PL,Poland,Country
+PT,Portugal,Country
+QA,Qatar,Country
+RO,Romania,Country
+RU,Russia,Country
+RW,Rwanda,Country
+SA,Saudi Arabia,Country
+SN,Senegal,Country
+SG,Singapore,Country
+SK,Slovakia,Country
+ZA,South Africa,Country
+KR,South Korea,Country
+ES,Spain,Country
+LK,Sri Lanka,Country
+SD,Sudan,Country
+SE,Sweden,Country
+TW,Taiwan,Country
+TZ,Tanzania,Country
+TH,Thailand,Country
+TT,Trinidad & Tobago,Country
+TR,Turkey,Country
+AE,UAE,Country
+UG,Uganda,Country
+GB,United Kingdom,Country
+US,United States,Country
+UZ,Uzbekistan,Country
+VE,Venezuela,Country
+VN,Vietnam,Country
+ZM,Zambia,Country
+ZW,Zimbabwe,Country

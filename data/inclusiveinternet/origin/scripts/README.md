@@ -1,0 +1,1 @@
+Scripts to transofrm the original inclusive interente data to a standard form
