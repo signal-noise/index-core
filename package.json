@@ -1,5 +1,5 @@
 {
-  "name": "indexer",
+  "name": "index-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "d3": "^7.0.1",
-    "d3-dsv": "^3.0.1"
+    "d3": "^7.0.1"
   }
 }
