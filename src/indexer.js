@@ -1,4 +1,4 @@
-import { calculateWeightedMean } from './utils.js'
+import { calculateWeightedMean, clone } from './utils.js'
 
 function indexer(groupsData, indicatorsData, entities){
   const groupsLookup = Object.fromEntries(groupsData.map(g=>[g.id,g]))
@@ -14,17 +14,20 @@ function indexer(groupsData, indicatorsData, entities){
     return entities.find(d=>d.name==name);
   }
 
-  function adjustEntity(name, indicatorID, value){
+  function adjustValue(name, indicatorID, value){
     let e = getEntity(name);
     if (!e.user) e.user = {};
     e.user[indicatorID] = value;
+    return indexEntity(Object.assign(clone(e), e.user))
   }
 
   function adjustWeight(indicatorID, weight){
-    indicators[indicatorID].userWeight = weight;
+        // TODO, allow group weighting adjustment
+    indicators[indicatorID].userWeighting = weight;
+    calculateIndex();
   }
 
-  function indexEntity(entity, index){
+  function indexEntity(entity){
     const indicatorList = Object.keys(entity).filter(k=>k.match(/^\d/)); // indicators are all the properties that start with a digit
     const groupScores = {};
     const pillarScores = {};
@@ -40,11 +43,11 @@ function indexer(groupsData, indicatorsData, entities){
       groupScores[key].push({
         id: indicator,
         value: Number(entity[indicator]),
-        weight: Number(index[indicator].weighting),
-        invert: index[indicator].invert ? true : false,
+        weight: indicators[indicator].userWeighting ? Number(indicators[indicator].userWeighting) : Number(indicators[indicator].weighting),
+        invert: indicators[indicator].invert ? true : false,
         range: [
-          index[indicator].min ? Number(index[indicator].min) : 0 , 
-          index[indicator].max ? Number(index[indicator].max) : 100
+          indicators[indicator].min ? Number(indicators[indicator].min) : 0 , 
+          indicators[indicator].max ? Number(indicators[indicator].max) : 100
         ]
       });
     });
@@ -73,7 +76,7 @@ function indexer(groupsData, indicatorsData, entities){
     pillarList.forEach((pillar)=>{
       if(!indexScore.components){
         indexScore.id = 0;
-        indexScore.weight=0;
+        indexScore.weight=1;
         indexScore.components = [];
       }
       indexScore.components.push({
@@ -90,7 +93,7 @@ function indexer(groupsData, indicatorsData, entities){
 
   function calculateIndex(){
     entities.forEach(entity => {
-      const indexedEntity = indexEntity(entity, indicators);
+      const indexedEntity = indexEntity(entity);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;
     });
@@ -99,8 +102,8 @@ function indexer(groupsData, indicatorsData, entities){
   return {
     getEntity,
     adjustWeight,
-    adjustEntity,
-    indexedData,
+    adjustValue,
+    indexedData
   };
 }
 
