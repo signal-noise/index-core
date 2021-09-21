@@ -1,4 +1,8 @@
-import { calculateWeightedMean } from '../src/utils';
+import {
+  calculateWeightedMean,
+  normalise
+} from '../src/utils';
+
 import { expect } from '@jest/globals';
 
 const testDataA = [{
@@ -44,7 +48,7 @@ const testDataC = [{
   range: [0,100]
 }];
 
-test('simple weighted mean', () => {
+test('simple weighted mean', ()=>{
   const meanA = calculateWeightedMean(testDataA, 1);
   const meanB = calculateWeightedMean(testDataB, 1);
   const meanC = calculateWeightedMean(testDataC, 1);
@@ -52,3 +56,9 @@ test('simple weighted mean', () => {
   expect(meanB).toBe(0.5);
   expect(meanC).toBe(0.5);
 });
+
+test('normalise', ()=>{
+  const normA = normalise(32,[0,64],100);
+  expect(normA).toBe(50);
+});
+
