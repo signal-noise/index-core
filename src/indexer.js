@@ -4,12 +4,9 @@ function indexer(groupsData, indicatorsData, entities){
   const groupsLookup = Object.fromEntries(groupsData.map(g=>[g.id,g]))
   const indicatorEntries = indicatorsData.map(indicator=>([indicator.id, indicator]));
   const indexMax = 100;
-  
-  const index = {};
-  const data = {
-    groups: groupsData,
-    indicators: Object.fromEntries(indicatorEntries)
-  };
+  const indicators = Object.fromEntries(indicatorEntries) // a look up for indicators
+
+  let indexedData = {};
 
   calculateIndex();
 
@@ -24,7 +21,7 @@ function indexer(groupsData, indicatorsData, entities){
   }
 
   function adjustWeight(indicatorID, weight){
-    data.indicators[indicatorID].userWeight = weight;
+    indicators[indicatorID].userWeight = weight;
   }
 
   function indexEntity(entity, index){
@@ -75,6 +72,8 @@ function indexer(groupsData, indicatorsData, entities){
     // calculate the index value of those pillars and put them into the top level index
     pillarList.forEach((pillar)=>{
       if(!indexScore.components){
+        indexScore.id = 0;
+        indexScore.weight=0;
         indexScore.components = [];
       }
       indexScore.components.push({
@@ -85,20 +84,24 @@ function indexer(groupsData, indicatorsData, entities){
       });
     });
     indexScore.value = calculateWeightedMean(indexScore.components, indexMax)
+
+    return indexScore;
   }
 
   function calculateIndex(){
     entities.forEach(entity => {
-      indexEntity(entity, data.indicators);
+      const indexedEntity = indexEntity(entity, indicators);
+      indexedEntity.data = entity;
+      indexedData[entity.name] = indexedEntity;
     });
   }
 
-  index.getEntity = getEntity;
-  index.adjustWeight = adjustWeight;
-  index.adjustEntity = adjustEntity;
-  index.calculateIndex = calculateIndex;
-  
-  return index;
+  return {
+    getEntity,
+    adjustWeight,
+    adjustEntity,
+    indexedData,
+  };
 }
 
 export default indexer;

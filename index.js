@@ -10,4 +10,6 @@ const waterEntities = csvParse(fs.readFileSync(`${rootDir}/entities.csv`, 'utf-8
 
 const waterOptimisationIndex = indexer(waterGroups, waterIndicators, waterEntities);
 
+console.log( waterOptimisationIndex.indexedData );
+
 // waterOptimisationIndex.calculateIndex();

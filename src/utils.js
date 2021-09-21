@@ -48,7 +48,7 @@ export function calculateWeightedMean(weightedValues, normaliseTo = 100){
     const weightedValue = weightedValues[i].invert 
       ? ((normaliseTo - normalisedValue) * weightedValues[i].weight)
       : (normalisedValue * weightedValues[i].weight);
-      console.log(weightedValue)
+
     weightedSum = weightedSum + weightedValue;
     cumulativeWeight = cumulativeWeight + weightedValues[i].weight
   }

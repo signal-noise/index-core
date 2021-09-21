@@ -11,14 +11,15 @@ const idLookup = Object.fromEntries(idLookupEntries);
 
 const entityData = countries.map((country)=>{
   const scores = getByScoresCountry(country.CODE);
-  console.log(country.name)
-  const row = { name: country.name }
+  const row = { name: country.name };
+  
   scores.forEach((score=>{
     const id = idLookup[ score.CODE.split('_')[1] ]
     if(id.match(/\d.\d.\d/)){
       row[id] = score['Score (unrounded)']
     }
-  }))
+  }));
+  
   return row;
 })
 
