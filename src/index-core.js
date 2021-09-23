@@ -4,7 +4,7 @@ function indexer(groupsData, indicatorsData, entities){
   const groupsLookup = Object.fromEntries(groupsData.map(g=>[g.id,g]))
   const indicatorEntries = indicatorsData.map(indicator=>([indicator.id, indicator]));
   const indexMax = 100;
-  const indicators = Object.fromEntries(indicatorEntries) // a look up for indicators
+  const indicators = Object.fromEntries(indicatorEntries); // a look up for indicators
 
   let indexedData = {};
 
@@ -18,11 +18,13 @@ function indexer(groupsData, indicatorsData, entities){
     let e = getEntity(name);
     if (!e.user) e.user = {};
     e.user[indicatorID] = value;
-    return indexEntity(Object.assign(clone(e), e.user))
+    return indexEntity(Object.assign(clone(e), e.user));
   }
 
   function adjustWeight(indicatorID, weight){
-        // TODO, allow group weighting adjustment
+    // TODO: allow group (,subgroup etc.) weighting adjustment
+    // TODO: make the index recalculating take into account what 
+    //    has changed in the data rather than doing the whole shebang
     indicators[indicatorID].userWeighting = weight;
     calculateIndex();
   }

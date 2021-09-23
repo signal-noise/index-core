@@ -1,8 +1,8 @@
 {
-  "name": "index-core",
+  "name": "@signal-noise/index-core",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index-core.js",
   "type": "module",
   "engines": {
     "node": ">=14"
