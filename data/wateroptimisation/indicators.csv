@@ -1,25 +1,25 @@
 id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_3,option_4,long description,footnote
-1,reliability,,,,0.35
-1.1,water source,,,,0.3
-1.2,water quality,,,,0.3
-1.3,management and coordination,,,,0.4
-1.3.2,collaboration and coordination,,,,0.25
-2,accessibility,,,,0.35
-2.1,water connectivity,,,,0.25
-2.2,sanitation,,,,0.2
-2.3,equitable water pricing,,,,0.1
-2.4,risk mitigation,,,,0.2
-2.5,management and coordination,,,,0.25
-3,sustainability,,,,0.3
-3.1,waste reduction,,,,0.2
-3.1.1,tech-enabled monitoring,,,,0.6
-3.1.2,nutrient and energy recovery,,,,0.4
-3.2,efficiency,,,,0.25
-3.3,water conservation,,,,0.2
-3.4,tailored for the right use,,,,0.15
-3.4.3,distribution and treatment decentralization,,,,0.25
-3.4.4,reclaimed water distribution systems,,,,0.2
-3.5,management and coordination,,,,0.2
+1,reliability,,,calculated,0.35
+1.1,water source,,,calculated,0.3
+1.2,water quality,,,calculated,0.3
+1.3,management and coordination,,,calculated,0.4
+1.3.2,collaboration and coordination,,,calculated,0.25
+2,accessibility,,,calculated,0.35
+2.1,water connectivity,,,calculated,0.25
+2.2,sanitation,,,calculated,0.2
+2.3,equitable water pricing,,,calculated,0.1
+2.4,risk mitigation,,,calculated,0.2
+2.5,management and coordination,,,calculated,0.25
+3,sustainability,,,calculated,0.3
+3.1,waste reduction,,,calculated,0.2
+3.1.1,tech-enabled monitoring,,,calculated,0.6
+3.1.2,nutrient and energy recovery,,,calculated,0.4
+3.2,efficiency,,,calculated,0.25
+3.3,water conservation,,,calculated,0.2
+3.4,tailored for the right use,,,calculated,0.15
+3.4.3,distribution and treatment decentralization,,,calculated,0.25
+3.4.4,reclaimed water distribution systems,,,calculated,0.2
+3.5,management and coordination,,,calculated,0.2
 1.1.1,Water accounting,Score (0 - 1),,discrete,0.3,1,No,Yes
 1.1.2,Protection of water sources,Score (0 - 3),,discrete,0.25,3,No,"There is a plan to protect water resources, but it is not funded and there is no budget outlined or indication given of potential costs","There is a plan to protect water resources, and a budget has been outlined but the source of funding is unclear","Yes, the city has ongoing water source protection projects or a funded plan is in place"
 1.1.3,Diversification of water sources,Score (0 - 3),,discrete,0.25,3,Not diversified; more than 80% of water comes from a single source,Slightly; 60-80% of water comes from a single source,Moderately; 40-60% of water comes from a single source,Highly; no single source provides more than 40% of the water supply
