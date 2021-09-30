@@ -9,12 +9,18 @@
   },
   "private": true,
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "lint": "eslint src/*.js",
+    "lint:fix": "eslint src/*.js --fix"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": { },
+  "devDependencies": {
     "d3": "^7.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "jest": "^27.2.1"
   }
 }
