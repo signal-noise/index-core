@@ -54,10 +54,9 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
-  function calculateIndex() {
-    // TODO: allow indicators to be excluded fomr the calculation list
+  function calculateIndex(exclude = ()=>false) {
     const calculationList = indicatorsData
-      .filter((i) => i.id.match(/^\d/) && i.type === 'calculated')
+      .filter((i) => i.id.match(/^\d/) && i.type === 'calculated' && !exclude(i))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.length - i1.length));
 
