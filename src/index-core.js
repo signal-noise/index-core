@@ -46,70 +46,32 @@ function indexer(indicatorsData=[], entities=[], indexMax = 100){
       .sort((i1, i2)=>{
         return (i2.length - i1.length);
       });
-
-    toCalculate.forEach(i=>{
+    console.log('---');
+    toCalculate.forEach(i => {
       if(entity[i]){ console.log('overwriting', i) }
       const componentIndicators = indicatorsData
         .filter(j => (j.id.indexOf(i) === 0 && j.id.length === i.length+2))
-      console.log(`${i} -> ${componentIndicators.map(k=>k.id)}`);
-      // console.log(componentIndicators);
-    })
-    //console.log(entity);
-    // put the indicators into groups
-    // indicatorList.forEach(indicator=>{
-    //   let idParts = indicator.split('.');
-    //   let key = idParts.slice(0,-1).join('.');
-    //   if(!groupScores[key]){
-    //     groupScores[key] = [];
-    //   }
-    //   groupScores[key].push({
-    //     id: indicator,
-    //     value: Number(entity[indicator]),
-    //     weight: indicators[indicator].userWeighting ? Number(indicators[indicator].userWeighting) : Number(indicators[indicator].weighting),
-    //     invert: indicators[indicator].invert ? true : false,
-    //     range: [
-    //       indicators[indicator].min ? Number(indicators[indicator].min) : 0 , 
-    //       indicators[indicator].max ? Number(indicators[indicator].max) : 100
-    //     ]
-    //   });
-    // });
-
-    // const groupList = Object.keys(groupScores);
-
-    // // calculate the index value of those groups and
-    // // put them into pillars
-    // groupList.forEach((group)=>{
-    //   let idParts = group.split('.');
-    //   let key = idParts.slice(0,-1).join('.');
-    //   if(!pillarScores[key]){
-    //     pillarScores[key] = [];
-    //   }
-    //   pillarScores[key].push({
-    //     id: group,
-    //     value: calculateWeightedMean(groupScores[group], indexMax),
-    //     weight: Number(groupsLookup[group].weighting),
-    //     components: groupScores[group]
-    //   })
-    // });
-
-    // const pillarList = Object.keys(pillarScores);
-
-    // // calculate the index value of those pillars and put them into the top level index
-    // pillarList.forEach((pillar)=>{
-    //   if(!indexScore.components){
-    //     indexScore.id = 0;
-    //     indexScore.weight=1;
-    //     indexScore.components = [];
-    //   }
-    //   indexScore.components.push({
-    //     id: pillar,
-    //     value: calculateWeightedMean(pillarScores[pillar], indexMax),
-    //     weight: Number(groupsLookup[pillar].weighting),
-    //     components: pillarScores[pillar]
-    //   });
-    // });
-    // indexScore.value = calculateWeightedMean(indexScore.components, indexMax)
-
+        .map(indicator=>{
+          return {
+            id: indicator.id,
+            value: Number(entity[indicator.id]),
+            weight: indicator.userWeighting 
+              ? Number(indicator.userWeighting) 
+              : Number(indicator.weighting),
+            invert: indicator.invert 
+              ? true 
+              : false,
+            range: [
+              indicator.min ? Number(indicator.min) : 0 , 
+              indicator.max ? Number(indicator.max) : indexMax
+            ]
+          }
+        });
+      // calculate the weighted mean of the component indicators on the _entity_
+      // assign that value to the _entity_
+      entity[i] = calculateWeightedMean(componentIndicators, indexMax);
+      console.log(i, entity[i]);
+    });
     return indexScore;
   }
 
