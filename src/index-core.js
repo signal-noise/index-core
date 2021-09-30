@@ -12,37 +12,44 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return entities.find((d) => d.name === name);
   }
 
+  // format an indicator for passing to the weighted mean function
+  function formatIndicator(indicator, entity, max) {
+    return {
+      id: indicator.id,
+      value: entity.user && entity.user[indicator.id]
+        ? Number(entity.user[indicator.id])
+        : Number(entity[indicator.id]),
+      weight: indicator.userWeighting
+        ? Number(indicator.userWeighting)
+        : Number(indicator.weighting),
+      invert: !!indicator.invert,
+      range: [
+        indicator.min ? Number(indicator.min) : 0,
+        indicator.max ? Number(indicator.max) : max,
+      ],
+    };
+  }
+
   function indexEntity(entity, calculationList) {
     const newEntity = clone(entity);
-    // indicators are all the properties that start with a digit
-    // make a lookup for the entities values
-    const indexScore = {};
-    // get a list of the values we need to calculate
-    // in order of deepest in the heirachy to to shallowist
+
     calculationList.forEach((indicatorID) => {
       if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
+      // get the required component indicators tocalculate the parent value
       const componentIndicators = indicatorsData
-        .filter((indicator) =>{
-          return (indicator.id.indexOf(indicatorID) === 0 && indicator.id.length === indicatorID.length + 2)
-        })
-        .map((indicator) => ({
-          id: indicator.id,
-          value: newEntity.user && newEntity.user[indicator.id]
-            ? Number(newEntity.user[indicator.id])
-            : Number(newEntity[indicator.id]),
-          weight: indicator.userWeighting
-            ? Number(indicator.userWeighting)
-            : Number(indicator.weighting),
-          invert: !!indicator.invert,
-          range: [
-            indicator.min ? Number(indicator.min) : 0,
-            indicator.max ? Number(indicator.max) : indexMax,
-          ],
-        }));
+        .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
+          && indicator.id.length === indicatorID.length + 2))
+        .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
       // calculate the weighted mean of the component indicators on the newEntity
       // assign that value to the newEntity
       newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
     });
+
+    const pillarIndicators = indicatorsData
+      .filter((indicator) => indicator.id.match(/^\d/) && indicator.id.split('.').length === 1)
+      .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+
+    newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
     return newEntity;
   }
 
@@ -57,7 +64,9 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
-  function calculateIndex(exclude = ()=>false) {
+  function calculateIndex(exclude = () => false) {
+    // get a list of the values we need to calculate
+    // in order of deepest in the heirachy to to shallowist
     const calculationList = indicatorsData
       .filter((i) => i.id.match(/^\d/) && i.type === 'calculated' && !exclude(i))
       .map((i) => i.id)
