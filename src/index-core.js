@@ -86,18 +86,18 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     calculateIndex();
   }
 
-  calculateIndex();
-
-  function indexHierachy(){
+  function indexHierachy() {
     return {};
   }
+
+  calculateIndex();
 
   return {
     getEntity,
     adjustWeight,
     adjustValue,
     indexedData,
-    indexHeirachy
+    indexHierachy,
   };
 }
 
