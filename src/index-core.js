@@ -19,10 +19,12 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     const indexScore = {};
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
-    calculationList.forEach((i) => {
-      if (newEntity[i]) { console.log('overwriting', i); }
+    calculationList.forEach((indicatorID) => {
+      if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
       const componentIndicators = indicatorsData
-        .filter((j) => (j.id.indexOf(i) === 0 && j.id.length === i.length + 2))
+        .filter((indicator) =>{
+          return (indicator.id.indexOf(indicatorID) === 0 && indicator.id.length === indicatorID.length + 2)
+        })
         .map((indicator) => ({
           id: indicator.id,
           value: newEntity.user && newEntity.user[indicator.id]
@@ -39,10 +41,9 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
         }));
       // calculate the weighted mean of the component indicators on the newEntity
       // assign that value to the newEntity
-      newEntity[i] = calculateWeightedMean(componentIndicators, indexMax);
-      return newEntity;
+      newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
     });
-    return indexScore;
+    return newEntity;
   }
 
   function adjustValue(name, indicatorID, value) {
