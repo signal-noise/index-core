@@ -25,7 +25,9 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
         .filter((j) => (j.id.indexOf(i) === 0 && j.id.length === i.length + 2))
         .map((indicator) => ({
           id: indicator.id,
-          value: Number(newEntity[indicator.id]),
+          value: newEntity.user && newEntity.user[indicator.id]
+            ? Number(newEntity.user[indicator.id])
+            : Number(newEntity[indicator.id]),
           weight: indicator.userWeighting
             ? Number(indicator.userWeighting)
             : Number(indicator.weighting),
@@ -68,7 +70,6 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   }
 
   function adjustWeight(indicatorID, weight) {
-    // TODO: allow group (,subgroup etc.) weighting adjustment
     // TODO: make the index recalculating take into account what
     //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
