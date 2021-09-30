@@ -33,21 +33,14 @@ function indexer(indicatorsData=[], entities=[], indexMax = 100){
     calculateIndex();
   }
 
-  function indexEntity(entity){
+  function indexEntity(entity, calculationList){
     // indicators are all the properties that start with a digit
     // make a lookup for the entities values
     const indexScore = {};
     //get a list of the values we need to calculate 
     // in order of deepest in the heirachy to to shallowist
-    // TODO: extract this so it only happens once
-    const toCalculate = indicatorsData
-      .filter(i=>i.id.match(/^\d/) && i.type=='calculated')
-      .map(i=>i.id)
-      .sort((i1, i2)=>{
-        return (i2.length - i1.length);
-      });
-    console.log('---');
-    toCalculate.forEach(i => {
+    console.log('---', calculationList);
+    calculationList.forEach(i => {
       if(entity[i]){ console.log('overwriting', i) }
       const componentIndicators = indicatorsData
         .filter(j => (j.id.indexOf(i) === 0 && j.id.length === i.length+2))
@@ -76,8 +69,16 @@ function indexer(indicatorsData=[], entities=[], indexMax = 100){
   }
 
   function calculateIndex(){
+    // TODO: allow indicators to be excluded fomr the calculation list
+    const calculationList = indicatorsData
+      .filter(i=>i.id.match(/^\d/) && i.type=='calculated')
+      .map(i=>i.id)
+      .sort((i1, i2)=>{
+        return (i2.length - i1.length);
+      });
+
     entities.forEach(entity => {
-      const indexedEntity = indexEntity(entity);
+      const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;
     });
