@@ -1,12 +1,13 @@
-import { calculateWeightedMean, clone } from './utils.js';
+import { addProps, calculateWeightedMean, clone } from './utils.js';
 
 function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   if (indicatorsData.length === 0 || entities.length === 0) return {};
-  const indicatorLookup = Object.fromEntries( // a look up for indicators
+  const indicatorLookup = Object.fromEntries(
     indicatorsData
       .map((indicator) => ([indicator.id, indicator])),
   );
   const indexedData = {};
+  let indexStructure = {};
 
   function getEntity(name) {
     return entities.find((d) => d.name === name);
@@ -64,14 +65,33 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
+  function createStructure(indicators){
+    const tree = {}
+    indicators.filter(d=>d).forEach(id=>{
+      console.log(id);
+      let parts = id.split('.');
+      let location = tree;
+      while(parts.length>0){
+        const i = parts.shift();
+        console.log(i);
+        if(!location[i]) location[i] = {};
+        location = location[i];
+      }
+      location = location.id=id;
+    })
+    return tree;
+  }
+
   function calculateIndex(exclude = () => false) {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = indicatorsData
       .filter((i) => i.id.match(/^\d/) && i.type === 'calculated' && !exclude(i))
       .map((i) => i.id)
-      .sort((i1, i2) => (i2.length - i1.length));
+      .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
+    indexStructure = createStructure(indicatorsData.map(i=>i.id));
+    
     entities.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
@@ -86,10 +106,6 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     calculateIndex();
   }
 
-  function indexHierachy() {
-    return {};
-  }
-
   calculateIndex();
 
   return {
@@ -97,7 +113,7 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     adjustWeight,
     adjustValue,
     indexedData,
-    indexHierachy,
+    indexStructure,
   };
 }
 
