@@ -1,4 +1,25 @@
 id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_3,option_4,long description,footnote
+1,reliability,,,calculated,0.35
+1.1,water source,,,calculated,0.3
+1.2,water quality,,,calculated,0.3
+1.3,management and coordination,,,calculated,0.4
+1.3.2,collaboration and coordination,,,calculated,0.25
+2,accessibility,,,calculated,0.35
+2.1,water connectivity,,,calculated,0.25
+2.2,sanitation,,,calculated,0.2
+2.3,equitable water pricing,,,calculated,0.1
+2.4,risk mitigation,,,calculated,0.2
+2.5,management and coordination,,,calculated,0.25
+3,sustainability,,,calculated,0.3
+3.1,waste reduction,,,calculated,0.2
+3.1.1,tech-enabled monitoring,,,calculated,0.6
+3.1.2,nutrient and energy recovery,,,calculated,0.4
+3.2,efficiency,,,calculated,0.25
+3.3,water conservation,,,calculated,0.2
+3.4,tailored for the right use,,,calculated,0.15
+3.4.3,distribution and treatment decentralization,,,calculated,0.25
+3.4.4,reclaimed water distribution systems,,,calculated,0.2
+3.5,management and coordination,,,calculated,0.2
 1.1.1,Water accounting,Score (0 - 1),,discrete,0.3,1,No,Yes
 1.1.2,Protection of water sources,Score (0 - 3),,discrete,0.25,3,No,"There is a plan to protect water resources, but it is not funded and there is no budget outlined or indication given of potential costs","There is a plan to protect water resources, and a budget has been outlined but the source of funding is unclear","Yes, the city has ongoing water source protection projects or a funded plan is in place"
 1.1.3,Diversification of water sources,Score (0 - 3),,discrete,0.25,3,Not diversified; more than 80% of water comes from a single source,Slightly; 60-80% of water comes from a single source,Moderately; 40-60% of water comes from a single source,Highly; no single source provides more than 40% of the water supply
@@ -7,8 +28,8 @@ id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_
 1.2.2,Water quality standards,Score (0 - 2),,discrete,0.3,2,"No, water quality standards do not meet or exceed WHO guidelines.","Yes, but the standards are not mandatory","Yes, water quality standards are mandatory and meet or exceed WHO guidelines"
 1.2.3,Water surveillance,Score (0 - 3),,discrete,0.35,3,Irregularly,Monthly,Weekly,Real-time/ Daily
 1.3.1,Long-term plan & strategy,Score (0 - 1),,discrete,0.3,1,No,Yes
-1.3.2a,City agency co-ordination,Score (0 - 2),,discrete,0.125,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
-1.3.2b,Upstream & downstream co-ordination,Score (0 - 2),,discrete,0.125,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
+1.3.2.a,City agency co-ordination,Score (0 - 2),,discrete,0.5,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
+1.3.2.b,Upstream & downstream co-ordination,Score (0 - 2),,discrete,0.5,2,No,Evidence of significant collaboration on a strategic issue e.g. on creation of a strategy or implementation of a plan,Permanent committee or mechanism
 1.3.3,Risk analysis & climate modeling,Score (0 - 3),,discrete,0.25,3,"No, the city has not identified risks or developed an adaptation plan","he city has identified risks and developed an adaption plan, but it is not funded and there is no budget outlined or indication given of potential costs","The city has identified risks and developed an adaption plan, and a budget has been outlined but the source of funding is unclear","Yes, the city has identified risks and developed an adaption plan, which is either funded or being currently implemented"
 1.3.4,Independent oversight,Score (0 - 2),,discrete,0.2,2,No,"Yes, but the oversight body does not have an enforcement mechanism",Yes
 2.1.1,Residential accessibility,%,,continuous,0.65,100
@@ -24,12 +45,12 @@ id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_
 2.5.1,Data & analysis,Score (0 - 3),,discrete,0.3,3,No,The city has access to one of these three projections,The city has access to two of these three projections,"Yes, the city has access to all three of these projections"
 2.5.2,Monitoring & evaluation of water infrastructure,Score (0 - 3),,discrete,0.3,3,No,"Yes, but it is ad hoc, not in real-time/daily","Yes, at regular intervals, but not in real-time/daily","Yes, the city conducts real-time/daily monitoring and evaluation"
 2.5.3,"Infrastructure expansion, maintenance, & upgrades",Score (0 - 2),,discrete,0.4,2,No,"Yes, but only for one of the three elements",Yes for both elements (improvement and maintenance)
-3.1.1a,Smart metering,Score (0 - 4),,discrete,0.2,4,None,Less than 25%,25-49%,50-74%,75% or more
-3.1.1b,Real-time monitoring system,Score (0 - 1),,discrete,0.2,1,No,Yes
-3.1.1c,Use of AI & machine learning,Score (0 - 2),,discrete,0.2,2,No,Evidence of pilot programs,Evidence of widespread use
-3.1.2a,Sewage sludge,%,,continuous,0.1333333333,100
-3.1.2b,Energy recovery,%,,continuous,0.1333333333,100
-3.1.2c,Nutrient recovery,%,,continuous,0.1333333333,100
+3.1.1.a,Smart metering,Score (0 - 4),,discrete,0.2,4,None,Less than 25%,25-49%,50-74%,75% or more
+3.1.1.b,Real-time monitoring system,Score (0 - 1),,discrete,0.2,1,No,Yes
+3.1.1.c,Use of AI & machine learning,Score (0 - 2),,discrete,0.2,2,No,Evidence of pilot programs,Evidence of widespread use
+3.1.2.a,Sewage sludge,%,,continuous,0.1333333333,100
+3.1.2.b,Energy recovery,%,,continuous,0.1333333333,100
+3.1.2.c,Nutrient recovery,%,,continuous,0.1333333333,100
 3.2.1,Continuity of water services,Score (0 - 2),,discrete,0.6,2,Non-continuous,widespread disruptions reported,continuous / virtually 24/7
 3.2.2,Non-revenue water,%,TRUE,continuous,0.4,100
 3.3.1,Building codes,Score (0 - 2),,discrete,0.35,2,No,"Yes, they include provisions to encourage water conservation, but do not enforce","Yes, they include provisions to enforce water conservation"
@@ -37,10 +58,10 @@ id,description,unit,invert,type,weighting,max,option_0,option_1,option_2,option_
 3.3.3,Public conservation education,Score (0 - 1),,discrete,0.3,1,No,Yes
 3.4.1,Legal status of reclaimed water,Score (0 - 2),,discrete,0.2,2,Ban use of reclaimed water,Allows the use of reclaimed water for any purpose,Mandates the use of reclaimed water
 3.4.2,Financial incentives for reclaimed water use,Score (0 - 1),,discrete,0.15,1,No,Yes
-3.4.3a,Distribution decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
-3.4.3b,Treatment decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
-3.4.4a,Reclaimed water mandate,Score (0 - 1),,discrete,0.1,1,No,Yes
-3.4.4b,Reclaimed water piping,Score (0 - 3),,discrete,0.1,3,No evidence of purple piping,Some but less than 25%,Over 25%,Above 50%
+3.4.3.a,Distribution decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
+3.4.3.b,Treatment decentralization,Score (0 - 1),,discrete,0.125,1,No,Yes
+3.4.4.a,Reclaimed water mandate,Score (0 - 1),,discrete,0.1,1,No,Yes
+3.4.4.b,Reclaimed water piping,Score (0 - 3),,discrete,0.1,3,No evidence of purple piping,Some but less than 25%,Over 25%,Above 50%
 3.4.5,Public perception of reclaimed water,%,,continuous,0.2,100
 3.5.1,Waste-to-resource collaboration,Score (0 - 1),,discrete,0.25,1,No,Yes
 3.5.2,Environmental protection,Score (0 - 1),,discrete,0.25,1,No,Yes
