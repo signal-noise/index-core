@@ -1,4 +1,4 @@
-import { addProps, calculateWeightedMean, clone } from './utils.js';
+import { calculateWeightedMean, clone } from './utils.js';
 
 function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   if (indicatorsData.length === 0 || entities.length === 0) return {};
@@ -68,16 +68,15 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   function createStructure(indicators){
     const tree = {}
     indicators.filter(d=>d).forEach(id=>{
-      console.log(id);
       let parts = id.split('.');
       let location = tree;
       while(parts.length>0){
         const i = parts.shift();
-        console.log(i);
+        
         if(!location[i]) location[i] = {};
         location = location[i];
       }
-      location = location.id=id;
+      location.id = id;
     })
     return tree;
   }
