@@ -65,19 +65,19 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
-  function createStructure(indicators){
-    const tree = {}
-    indicators.filter(d=>d).forEach(id=>{
-      let parts = id.split('.');
+  function createStructure(indicators) {
+    const tree = {};
+    indicators.filter((d) => d).forEach((id) => {
+      const parts = id.split('.');
       let location = tree;
-      while(parts.length>0){
+      while (parts.length > 0) {
         const i = parts.shift();
-        
-        if(!location[i]) location[i] = {};
+
+        if (!location[i]) location[i] = {};
         location = location[i];
       }
       location.id = id;
-    })
+    });
     return tree;
   }
 
@@ -89,8 +89,8 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
-    indexStructure = createStructure(indicatorsData.map(i=>i.id));
-    
+    indexStructure = createStructure(indicatorsData.map((i) => i.id));
+
     entities.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
