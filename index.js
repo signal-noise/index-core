@@ -11,3 +11,4 @@ const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
 
 console.log(waterOptimisationIndex.indexedData['Abu Dhabi']['1']);
 console.log(waterOptimisationIndex.indexedData['Abu Dhabi'].value);
+console.log(waterOptimisationIndex.indexStructure);
