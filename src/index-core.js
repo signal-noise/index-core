@@ -108,11 +108,11 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   calculateIndex();
 
   return {
-    getEntity,
-    adjustWeight,
     adjustValue,
+    adjustWeight,
     indexedData,
     indexStructure,
+    getEntity,
   };
 }
 
