@@ -138,7 +138,6 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     adjustWeight,
     indexedData,
     indexStructure,
-    getEntity,
     getIndexMean,
   };
 }

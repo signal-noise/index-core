@@ -65,16 +65,18 @@ Take a look at the data source descriptions for a fuller description of the prop
 
 __indexMax__, optional. is the maximum value for the index score (minimum is always 0) by thefault this is 100, other typical values are 1 and 10.
 
-### indexCore.__indexedData__:Array
-
+### indexCore.__indexedData__:Object
+An object where each property is an _entity_ in the index and that entity has properties for each of the properties in the indicators spreadsheet _and_ any calculated values.
 ### indexCore.__indexStructure__:Object
+An object representing the structure of the index
+### indexCore.__adjustWeight(_indicatorID:String_, _weight:Number_)__
+A function that allows the user adjust the weighting of an indicator to give it a greater or lesser importance in theindex as whole. The index is recalculated after calling this function.
+### indexCore.__adjustValue(_entityName:String_, _indicatorID:String_, _value:Number_)__
+A function that allows the user to adjust an entity's indicator score within the index the index is recalculated using the new value. The index is recalculated after calling this function.
 
-
-### indexCore.__adjustWeight(_indicatorID:String_, _weight:Number_)__,
-
-### indexCore.__adjustValue(_entityName:String_, _indicatorID:String_, _value:Number_)__,
-
-### indexCore.__getEntity(entityName:String)__
+_NOTE: whislt the old value is retained there's currently no way to reset it._
+### indexCore.__getIndexMean([indicatorId:String], _[normalise:Boolean=false]_)__:Number
+Returns the mean value for a given indicator accross all entities in the index which posses that value. Note that if an indicator does not posses that value it's excluded from the calculation and a sane result should be returned. Providing no _indicatorId_ will result in the mean of the top level index scores being returned. The second argument determines whether the result will be expressed as normalised (which is the default) or in the raw quantities of the indicator. i.e. if an indicator represents the number of hours of sunlight it could be better to express it un-normalised as in the mean number of hours rather than normalised to between e.g. 1-100.
 
 
 ## What _is_ an Index?
