@@ -1,4 +1,4 @@
-import { calculateWeightedMean, clone } from './utils.js';
+import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
@@ -11,6 +11,32 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function getEntity(entityName) {
     return entitiesData.find((d) => d.name === entityName);
+  }
+
+  function getIndexMean(indicatorID = 'value', normalised = true) {
+    // get the mean index value for a given indicator id,
+    // if the value of an indicator on an entiry is falsey
+    // dont take it into account
+    const entityValues = Object.values(indexedData);
+    const indicator = indicatorLookup[indicatorID]
+      ? indicatorLookup[indicatorID]
+      : { min: 0, max: indexMax };
+    const indicatorRange = [
+      indicator.min ? Number(indicator.min) : 0,
+      indicator.max ? Number(indicator.max) : indexMax,
+    ];
+    let { length } = entityValues;
+    const sum = entityValues.reduce((acc, v) => {
+      if (Number.isNaN(Number(v[indicatorID]))) {
+        length -= 1;
+        return acc;
+      }
+      if (!normalised) {
+        return acc + Number(v[indicatorID]);
+      }
+      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax);
+    }, 0);
+    return sum / length;
   }
 
   // format an indicator for passing to the weighted mean function
@@ -113,6 +139,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     indexedData,
     indexStructure,
     getEntity,
+    getIndexMean,
   };
 }
 
