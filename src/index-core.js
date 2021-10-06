@@ -1,7 +1,7 @@
 import { calculateWeightedMean, clone } from './utils.js';
 
-function indexer(indicatorsData = [], entities = [], indexMax = 100) {
-  if (indicatorsData.length === 0 || entities.length === 0) return {};
+function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
+  if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
       .map((indicator) => ([indicator.id, indicator])),
@@ -9,8 +9,8 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   const indexedData = {};
   let indexStructure = {};
 
-  function getEntity(name) {
-    return entities.find((d) => d.name === name);
+  function getEntity(entityName) {
+    return entitiesData.find((d) => d.name === entityName);
   }
 
   // format an indicator for passing to the weighted mean function
@@ -54,8 +54,8 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
     return newEntity;
   }
 
-  function adjustValue(name, indicatorID, value) {
-    const e = getEntity(name);
+  function adjustValue(entityName, indicatorID, value) {
+    const e = getEntity(entityName);
     if (indicatorLookup[indicatorID].type === 'calculated') {
       console.warn(`${indicatorID} is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?`);
       return clone(e);
@@ -91,7 +91,7 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
 
     indexStructure = createStructure(indicatorsData.map((i) => i.id));
 
-    entities.forEach((entity) => {
+    entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;
@@ -108,12 +108,12 @@ function indexer(indicatorsData = [], entities = [], indexMax = 100) {
   calculateIndex();
 
   return {
-    getEntity,
-    adjustWeight,
     adjustValue,
+    adjustWeight,
     indexedData,
     indexStructure,
+    getEntity,
   };
 }
 
-export default indexer;
+export default indexCore;
