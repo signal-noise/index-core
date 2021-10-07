@@ -1,4 +1,6 @@
-import { calculateWeightedMean, clone } from './utils.js';
+import { calculateWeightedMean, clone, normalise } from './utils.js';
+const indicatorIdTest = /^([\w]\.)*\w{1}$/;
+
 
 function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
@@ -11,6 +13,32 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function getEntity(entityName) {
     return entitiesData.find((d) => d.name === entityName);
+  }
+
+  function getIndexMean(indicatorID = 'value', normalised = true) {
+    // get the mean index value for a given indicator id,
+    // if the value of an indicator on an entiry is falsey
+    // dont take it into account
+    const entityValues = Object.values(indexedData);
+    const indicator = indicatorLookup[indicatorID]
+      ? indicatorLookup[indicatorID]
+      : { min: 0, max: indexMax };
+    const indicatorRange = [
+      indicator.min ? Number(indicator.min) : 0,
+      indicator.max ? Number(indicator.max) : indexMax,
+    ];
+    let { length } = entityValues;
+    const sum = entityValues.reduce((acc, v) => {
+      if (Number.isNaN(Number(v[indicatorID]))) {
+        length -= 1;
+        return acc;
+      }
+      if (!normalised) {
+        return acc + Number(v[indicatorID]);
+      }
+      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax);
+    }, 0);
+    return sum / length;
   }
 
   // format an indicator for passing to the weighted mean function
@@ -47,7 +75,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     });
 
     const pillarIndicators = indicatorsData
-      .filter((indicator) => indicator.id.match(/^\d/) && indicator.id.split('.').length === 1)
+      .filter((indicator) => indicator.id.match(indicatorIdTest) && indicator.id.split('.').length === 1)
       .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
     newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
@@ -67,17 +95,21 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function createStructure(indicators) {
     const tree = {};
-    indicators.filter((d) => d).forEach((id) => {
-      const parts = id.split('.');
-      let location = tree;
-      while (parts.length > 0) {
-        const i = parts.shift();
+    indicators
+      .filter((d) => {
+        return d.match(indicatorIdTest);
+      })
+      .forEach((id) => {
+        const parts = id.split('.');
+        let location = tree;
+        while (parts.length > 0) {
+          const i = parts.shift();
 
-        if (!location[i]) location[i] = {};
-        location = location[i];
-      }
-      location.id = id;
-    });
+          if (!location[i]) location[i] = {};
+          location = location[i];
+        }
+        location.id = id;
+      });
     return tree;
   }
 
@@ -85,7 +117,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = indicatorsData
-      .filter((i) => i.id.match(/^\d/) && i.type === 'calculated' && !exclude(i))
+      .filter((i) => i.id.match(indicatorIdTest) && i.type === 'calculated' && !exclude(i))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
@@ -112,7 +144,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     adjustWeight,
     indexedData,
     indexStructure,
-    getEntity,
+    getIndexMean,
   };
 }
 
