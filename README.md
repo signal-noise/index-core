@@ -14,7 +14,7 @@ Let's look at the data sources in more depth!
 Good question! 
 Defines the structure and properties of the index
 ### required
-- __id:__ The `id` property of an tells _index-core_ how an indicator fits into the indexes heirachy as well as providing a unique identifier. The `id` takes the form of a string of single dot separated characters. For example if the `id` is `3.2.4` the indicator belongs to group _3_ and subgroup _2_. Similarly `3.2.4.a` belongs to  group _3_, sub-group _2_, sub- sub-group _4_.
+- __id:__ The `id` property of an tells _index-core_ how an indicator fits into the indexes heirachy as well as providing a unique identifier. The `id` takes the form of a string of single dot separated word characters (a single digit or a single letter). For example if the `id` is `3.2.4` the indicator belongs to group _3_ and subgroup _2_. Similarly `3.2.4.a` belongs to  group _3_, sub-group _2_, sub- sub-group _4_. Valid indicator IDs should match the following regular expression `/^([\w]\.)*\w{1}$/`.
 - __weighting:__ The `weighting` property defines how much influence an indicator has on the score of its parent group. It is typically expressed as a proportion between 0 and 1 but can be any number. So typically a group of 3 indicators might have `weighting`s `0.33333`,`0.33333`,`0.33333`. Each indicator's value will contribute one-third towards the parent group score. It might be easier to give them weightings `1`,`1`,`1` which will also mean they all contribute an equal amount but usually a 0-1 or 0-100 scheme is preferable as this is typically what the research team uses. 
 - __type:__ This is required on indicators who derive their value from sub indicators and should be set to `calculated`. _Future versions may alow other behaviors to be specified, for example inclusion/exclusion catefories._
 ### optional
@@ -33,6 +33,7 @@ Everything else.
 
 There will often be ancillary imformation associated with each entity, things like a description of the entity, some background indicators, or categorisation information. These can all live in the _entities_ sheet.
 
+---
 ## API
 
 ### indexCore(_indicators:Array_, _entities:Array_, [_indexMax:Number_])
@@ -78,7 +79,7 @@ _NOTE: whislt the old value is retained there's currently no way to reset it._
 ### indexCore.__getIndexMean([indicatorId:String], _[normalise:Boolean=false]_)__:Number
 Returns the mean value for a given indicator accross all entities in the index which posses that value. Note that if an indicator does not posses that value it's excluded from the calculation and a sane result should be returned. Providing no _indicatorId_ will result in the mean of the top level index scores being returned. The second argument determines whether the result will be expressed as normalised (which is the default) or in the raw quantities of the indicator. i.e. if an indicator represents the number of hours of sunlight it could be better to express it un-normalised as in the mean number of hours rather than normalised to between e.g. 1-100.
 
-
+---
 ## What _is_ an Index?
 [what is an index?]:#what-is-an-index
 Good question! 
