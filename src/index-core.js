@@ -1,6 +1,6 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
-const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
+const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
@@ -13,6 +13,14 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function getEntity(entityName) {
     return entitiesData.find((d) => d.name === entityName);
+  }
+
+  function getEntities() {
+    return entitiesData.map((d) => d.name);
+  }
+
+  function getIndicator(entityName, id) {
+    return getEntity(entityName)[id];
   }
 
   function getIndexMean(indicatorID = 'value', normalised = true) {
@@ -93,35 +101,43 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
-  function createStructure(indicators) {
-    const tree = {};
-    indicators
-      .filter((d) => {
-        return d.match(indicatorIdTest);
-      })
-      .forEach((id) => {
-        const parts = id.split('.');
-        let location = tree;
-        while (parts.length > 0) {
-          const i = parts.shift();
+  function createStructure(indicatorIds) {
+    const tree = { id: 'root', children: [] };
 
-          if (!location[i]) location[i] = {};
-          location = location[i];
+    indicatorIds.forEach((id) => {
+      const bits = id.split('.');
+      let current = tree;
+      let builtId = '';
+      bits.forEach((bit, i) => {
+        builtId = (i === 0)
+          ? `${bit}`
+          : `${builtId}.${bit}`;
+
+        let next = current.children.find((c) => c.id === builtId);
+        if (next === undefined) {
+          next = {
+            id: builtId,
+            children: [],
+          };
+          current.children.push(next);
         }
-        location.id = id;
+
+        current = next;
       });
+    });
     return tree;
   }
 
   function calculateIndex(exclude = () => false) {
+    const onlyIdIndicators = indicatorsData.filter((i) => i.id.match(indicatorIdTest));
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
-    const calculationList = indicatorsData
-      .filter((i) => i.id.match(indicatorIdTest) && i.type === 'calculated' && !exclude(i))
+    const calculationList = onlyIdIndicators
+      .filter((i) => i.type === 'calculated' && !exclude(i))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
-    indexStructure = createStructure(indicatorsData.map((i) => i.id));
+    indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
 
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
@@ -145,6 +161,9 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     indexedData,
     indexStructure,
     getIndexMean,
+    getEntity,
+    getIndicator,
+    getEntities,
   };
 }
 
