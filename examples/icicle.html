@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <script src="../dist/bundle.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <h1>Icicle</h1>
+    <svg class="chart"></svg>
+    <pre class="output">
+
+    </pre>
+  </body>
+  <script>
+  function drawSunburst(core, entityName = 'London'){
+    let root = d3.hierarchy(core.indexStructure)
+    let width = 500; 
+    let height = width;
+    let margin = {top:10, bottom:10, left:10, right:10};
+    let radius = width/2 - margin.left;
+
+    let layedOut = d3.partition()
+      .size([width, height])
+      .round(true)
+      .padding(0)
+      (root.sum(d=>{
+        if(d.id === 'root'){
+          return 1
+        }
+        return core.getIndicator(d.id).weighting
+      }));
+
+    console.log('L', layedOut)
+
+    let segmentContainer = d3.select('.chart')
+      .attr("viewBox", [0, 0, width, height])
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+
+    segmentContainer.selectAll('rect')
+      .data(layedOut.descendants())
+      .join('rect')
+        .attr('fill',d=>`rgba(255,0,255,${1/(d.depth+1)})`)
+        .attr('stroke','black')
+        .attr('x', d=>{
+          console.log(d);
+          return d.x0
+        })
+        .attr('y', d=>d.y0)
+        .attr('width', d=>d.x1 - d.x0)
+        .attr('height', d=>d.y1 - d.y0)
+        .on('mouseover',(ev, d)=>{
+          console.log(d.data.id, core.getEntity(entityName));
+          d3.select('.output')
+            .text(`
+${JSON.stringify(d.data.id == 'root'? core.getEntity(entityName).value : core.getEntity(entityName)[d.data.id])}
+${JSON.stringify(core.getIndicator(d.data.id),null,' ')}
+            `)
+        });
+
+  }
+
+  Promise
+    .all([
+      d3.csv('../data/wateroptimisation/entities.csv'),
+      d3.csv('../data/wateroptimisation/indicators.csv'),
+    ])
+    .then(([entities, indicators])=>{
+      const waterOptimisationIndex = indexCore(indicators, entities);
+      drawSunburst(waterOptimisationIndex)
+    })
+    // .catch(()=>{
+    //   d3.select('#error')
+    //     .text('nope');
+    // })
+    
+  </script>
+</html>

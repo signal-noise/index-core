@@ -12,15 +12,16 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   let indexStructure = {};
 
   function getEntity(entityName) {
-    return entitiesData.find((d) => d.name === entityName);
+    return indexedData[entityName];
+ //   return entitiesData.find((d) => d.name === entityName);
   }
 
   function getEntities() {
     return entitiesData.map((d) => d.name);
   }
 
-  function getIndicator(entityName, id) {
-    return getEntity(entityName)[id];
+  function getIndicator(id) {
+    return indicatorLookup[id];
   }
 
   function getIndexMean(indicatorID = 'value', normalised = true) {
@@ -142,6 +143,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
+      console.log('III',indexedEntity);
       indexedData[entity.name] = indexedEntity;
     });
   }
