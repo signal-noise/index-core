@@ -1,4 +1,28 @@
-`,name,unit,invert,weighting,type,min,max,description,detail,source,year
+id,name,unit,invert,weighting,type,min,max,description,detail,source,year
+1,Infrastructure,,,0.2,calculated
+1.1,"Internet connectivity, usage and cost",,,0.25,calculated
+1.2,ICT devices/hardware,,,0.25,calculated
+1.3,Power/electricity,,,0.25,calculated
+1.4,Television Broadcasting,,,0.25,calculated
+2,Government/Policy,,,0.2,calculated
+2.1,Policy/funding,,,0.333,calculated
+2.2,Curriculum/content delivery,,,0.333,calculated
+2.3,Training,,,0.333,calculated
+3,Schools/Teachers,,,0.2,calculated
+3.1,Teacher capacity in EdTech,,,0.25,calculated
+3.2,Equipment/software,,,0.25,calculated
+3.3,Governance,,,0.25,calculated
+3.4,Community support,,,0.25,calculated
+4,Students/parents,,,0.2,calculated
+4.1,Digital capability of students,,,0.25,calculated
+4.2,Connectivity and devices at home,,,0.25,calculated
+4.3,Online access to curriculum content,,,0.25,calculated
+4.4,Communication,,,0.25,calculated
+5,Providers,,,0.2,calculated
+5.1,e-Learning systems,,,0.25,calculated
+5.2,Online content,,,0.25,calculated
+5.3,"Integrators, emerging tech",,,0.25,calculated
+5.4,Partners/Sponsors,,,0.25,calculated
 1.1.1,Internet users,%,,0.125,continuous,0,100,"This indicator measures the percentage of households with Internet. This can include both estimates and survey data corresponding to the proportion of households with Internet. The proportion of households with Internet access at home is calculated by dividing the number of in-scope households with Internet access by the total number of in-scope households. Internet users are individuals who have used the Internet (from any location) in the last 12 months. Internet can be used via a computer, mobile phone, personal digital assistant, games machine, digital TV etc.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
 1.1.2,Average fixed broadband internet upload speed,Mbps,,0.125,continuous,0,100,This measures average fixed broadband upload speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
 1.1.3,Average fixed broadband internet download speed,Mbps,,0.125,continuous,0,100,This measures average fixed broadband download speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
