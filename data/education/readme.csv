@@ -1,0 +1,140 @@
+This spreadsheet is an example of how we conventionally represent index data in a way which makes it easy to work with programatically
+"It's for illustrative purposes only, the data itself is probably wrong in many places due to copy/paste errors etc."
+It consists of 3 sheets with deliberately named columns
+
+"The first two sheets define the structure of the index, the nature of the indicators that are taken into account and their weightings in calculating the final index"
+index,"this is a list of all the factors that the index take into account, theay are typically give a three number identifier with the number separated bu ""."" e.g. ""1.1.4"" and ""3.2.2"" etc."
+groups,"this is a list of the groupings into which the factors defined in ""index"" fall"
+
+The third sheet contains the actual data
+entities,"""entities"" can be countries, cities, schools, or any thing else. They are the subjects of the index"
+
+General principals
+Some guidelines for making 
+,No merged cells
+,Minimal formatting
+,Single header row per sheet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,,,,0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,,,,1
