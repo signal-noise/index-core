@@ -1,0 +1,1379 @@
+id,name,unit,invert,weighting,type,min,max,description,detail,source,year
+1,Infrastructure,,,0.2,calculated
+1.1,"Internet connectivity, usage and cost",,,0.25,calculated
+1.2,ICT devices/hardware,,,0.25,calculated
+1.3,Power/electricity,,,0.25,calculated
+1.4,Television Broadcasting,,,0.25,calculated
+2,Government/Policy,,,0.2,calculated
+2.1,Policy/funding,,,0.333,calculated
+2.2,Curriculum/content delivery,,,0.333,calculated
+2.3,Training,,,0.333,calculated
+3,Schools/Teachers,,,0.2,calculated
+3.1,Teacher capacity in EdTech,,,0.25,calculated
+3.2,Equipment/software,,,0.25,calculated
+3.3,Governance,,,0.25,calculated
+3.4,Community support,,,0.25,calculated
+4,Students/parents,,,0.2,calculated
+4.1,Digital capability of students,,,0.25,calculated
+4.2,Connectivity and devices at home,,,0.25,calculated
+4.3,Online access to curriculum content,,,0.25,calculated
+4.4,Communication,,,0.25,calculated
+5,Providers,,,0.2,calculated
+5.1,e-Learning systems,,,0.25,calculated
+5.2,Online content,,,0.25,calculated
+5.3,"Integrators, emerging tech",,,0.25,calculated
+5.4,Partners/Sponsors,,,0.25,calculated
+1.1.1,Internet users,%,,0.125,continuous,0,100,"This indicator measures the percentage of households with Internet. This can include both estimates and survey data corresponding to the proportion of households with Internet. The proportion of households with Internet access at home is calculated by dividing the number of in-scope households with Internet access by the total number of in-scope households. Internet users are individuals who have used the Internet (from any location) in the last 12 months. Internet can be used via a computer, mobile phone, personal digital assistant, games machine, digital TV etc.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+1.1.2,Average fixed broadband internet upload speed,Mbps,,0.125,continuous,0,100,This measures average fixed broadband upload speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
+1.1.3,Average fixed broadband internet download speed,Mbps,,0.125,continuous,0,100,This measures average fixed broadband download speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
+1.1.4,Average mobile internet upload speed,Mbps,,0.125,continuous,0,100,This measures average mobile broadband upload speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
+1.1.5,Average mobile internet download speed,Mbps,,0.125,continuous,0,100,This measures average mobile broadband download speed. The average is taken based on Ookla’s analysis of Speedtest data collected between July 1st 2020 – June 30 2021 of the calendar year. A faster speed is a positive indicator of better performance.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Ookla Speedtest,2021
+1.1.6,Is home internet connectivity for students stable and fast for online classes? (Overall),score,,0.125,calculated,1,3,"The survey question corresponding to this is: If you are conducting classes online, do students have a stable and fast internet connection to enable them to attend classes without interruption?
+
+a. Internet quality is an issue for most students, causing disruption to their learning experience
+b. Internet quality is an issue for some students, causing disruption to their learning experience
+c. Internet quality is not an issue for most students","1 = No
+2 = No, but only for some students
+3 = Yes
+
+Linear transformation of score to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+1.1.6.a,Is home internet connectivity for students stable and fast for online classes? (School),score,,0.333,discrete,1,3,"The survey question corresponding to this is: If you are conducting classes online, do students have a stable and fast internet connection to enable them to attend classes without interruption?
+
+a. Internet quality is an issue for most students, causing disruption to their learning experience
+b. Internet quality is an issue for some students, causing disruption to their learning experience
+c. Internet quality is not an issue for most students","1 = No
+2 = No, but only for some students
+3 = Yes
+
+Linear transformation of score to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+1.1.6.b,Is home internet connectivity for students stable and fast for online classes? (Universities),score,,0.333,discrete,1,3,"The survey question corresponding to this is: If you are conducting classes online, do students have a stable and fast internet connection to enable them to attend classes without interruption?
+
+a. Internet quality is an issue for most students, causing disruption to their learning experience
+b. Internet quality is an issue for some students, causing disruption to their learning experience
+c. Internet quality is not an issue for most students","1 = No
+2 = No, but only for some students
+3 = Yes
+
+Linear transformation of score to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+1.1.6.c,Is home internet connectivity for students stable and fast for online classes? (TVET),score,,0.333,discrete,1,3,"The survey question corresponding to this is: If you are conducting classes online, do students have a stable and fast internet connection to enable them to attend classes without interruption?
+
+a. Internet quality is an issue for most students, causing disruption to their learning experience
+b. Internet quality is an issue for some students, causing disruption to their learning experience
+c. Internet quality is not an issue for most students","1 = No
+2 = No, but only for some students
+3 = Yes
+
+Linear transformation of score to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+1.1.7,Mobile broadband cost (% of monthly GNI per capita),%,TRUE,0.125,continuous,0,100,"The data-only mobile-broadband basket refers to the price of a monthly subscription to an entry level mobile-broadband plan. It is calculated as a percentage of a country’s average monthly GNI p.c. The data-only mobile-broadband basket is based on a monthly data usage of (a minimum of) 1.5 GB (irrespective of the device used). For plans that limit the monthly amount of data transferred by including data volume caps below 1.5 GB, the cost for the additional bytes is added to the basket. The minimum speed of a broadband connection is 256 kbit/s. The data only mobile-broadband basket is based on the most common contract modality (prepaid/postpaid) in the country. If more than 50 per cent of mobile-cellular subscriptions are postpaid, then a postpaid plan is chosen. Otherwise a prepaid plan is selected
+
+Gross National Income (GNI) per capita data is from the World Bank World Development Indicators, 2019 (or last available year). GNI per capita current LCU is used for all cases, unless when prices are registered in USD. In those cases the Atlas method (current US$) is used instead.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+1.1.8,Fixed line broadband cost (% of monthly GNI per capita),%,TRUE,0.125,continuous,0,100,"The fixed-broadband basket refers to the price of a monthly subscription to an entry level fixed broadband plan. It is calculated as a percentage of a country’s average monthly GNI p.c. The fixed-broadband basket is based on a monthly data usage of (a minimum of) 5 GB. For plans that limit the monthly amount of data transferred by including data volume caps below 5 GB, the cost for the additional bytes is added to the basket. The minimum speed of a broadband connection is 256 kbit/s.
+
+Gross National Income (GNI) per capita data is from the World Bank World Development Indicators, 2019 (or last available year). GNI per capita current LCU is used for all cases, unless when prices are registered in USD. In those cases the Atlas method (current US$) is used instead.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+1.2.1,"Cost of entry-level handset that is internet enabled, expressed as a percentage of monthly GNI per capita",%,TRUE,0.500,continuous,0,100,"This indicator measures the indexed score of the price of an entry-level handset to the consumer, as a percentage of GNI per capita. This indicator is based on the Mobile Connectivity Index, developed by GSMA.
+
+Gross National Income (GNI) per capita data is from the World Bank World Development Indicators, 2019 (or last available year). GNI per capita current LCU is used for all cases, unless when prices are registered in USD. In those cases the Atlas method (current US$) is used instead.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",GSMA,Latest as available for country
+1.2.2,Computer users,%,,0.500,continuous,0,100,This indicator measures the percentage of households that have a computer,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+1.3.1,Urban electricity access,%,,0.500,continuous,0,100,"This captures the urban electrification rate, i.e. the percentage of urban population with access to electricity. Electrification data are collected from industry, national surveys and international sources.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",World Bank,Latest as available for country
+1.3.2,Rural electricity access,%,,0.500,continuous,0,100,"This captures the rural electrification rate, i.e. the percentage of rural population with access to electricity. Electrification data are collected from industry, national surveys and international sources.","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",World Bank,Latest as available for country
+1.4.1,Households with television,%,,0.500,continuous,0,100,Television can serve as a mass disseminator of education in countries that are at the lower end of the maturity spectrum when it comes to digital education. This indicator measures the availability of TV infrastructure in a country.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+1.4.2,Television subscriptions,%,,0.500,continuous,0,100,This indicator covers cable TV subscriptions. Cable-TV subscriptions refer to multichannel TV programming delivered over coaxial cable networks. It includes both analogue and digital cable-TV subscriptions. If the breakdown of analogue/digital cable-TV subscriptions is available; data for each type of cable-TV subscriptions should be specified in a note. It excludes IPTV delivered over cable-TV networks.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",ITU,Latest as available for country
+2.1.1,Is there a national plan/strategy for EdTech adoption as part of the education policy?,Numerical score,,0.333,discrete,0,3,This question examines whether the introduction and continuation of digital education is a part of the formal policy formulation of the national government. It also measures how comprehensive the policy/plan/strategy is in terms of the number and types of goals it covers.,"0 = No
+1 = Yes, and it covers one of the below objectives
+2 = Yes, and it covers two of the below objectives
+3 = Yes, and it covers all three objectives
+
+Objectives: digitising national curriculum, increasing device access for schools, and rolling out a national EdTech Learning Management System (LMS) and/or Information Management System (IMS) platform (either developed by the government independently, or in partnership with a private player)
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+2.1.2,Is the government providing funding for the use of technology in education?,Numerical score,,0.333,discrete,0,1,"This indicator examines the government's commitment to digital education via funding. For this question, evidence of funding for expanding digital education could include the government's financing of initiatives around digital education (e.g. providing EdTech access to schools, training of teachers in EdTech, and expansion of internet infrastructure (the latter would count only if the stated purpose of the expansion is to increase digital education readiness). Alternatively, evidence of a documented commitment of funding within the last three years would count. This would likely be available via policy/strategy documents of the country's education ministry or other relevant agency.","0 = No
+1 = Yes
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+2.1.3,Does the country have a data privacy/security law applicable to private EdTech companies?,Numerical score,,0.333,discrete,0,1,"As the EdTech space is increasingly becoming dotted with private players setting up digital platforms for learning that collect personal data of students, teachers and parents who use these platforms, a strong legal framework that protects this data from any form of misuse is critical. This indicator measures a country's ability to do so. If the country has a data protection law that covers all private companies, without specifying private EdTech providers, this would count as evidence.","0 = No, it does not have a privacy law OR it has a privacy law that does not cover private companies
+1 = Yes, it has a privacy law and it applies to private EdTech players or covers all private entities in its scope, leading to interpretation of inclusion of private EdTech players
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+2.2.1,Does the government provide digital content for education?,Numerical score,,0.500,discrete,0,1,"As part of promoting digital learning readiness, this indicator measures the government's own role in digitizing the curriculum. Evidence for this question may take either of a few different forms, for example:
+
+-The government has a prescribed curriculum, and it has digitized this curriculum (or a part of it)
+-The government has a digital learning platform which also houses content created by itself
+-The government has dedicated online resources for students and/or teachers (educational websites, online assessment websites, training websites, digital library etc.)","0 = No
+1 = Yes
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+2.2.2,Does the government's learning/information management platform have the capability for education performance measurement?,Numerical score,,0.500,discrete,0,2,"This indicator assesses the extent to which the country's official learning platform, if it exists, has matured to the point of being able to collect and analyse students' performance data.","0 = No OR the government does not have a learning or information management platform
+1 = The government's learning or information management platform is equipped to digitally collect and analyse educational performance data, but does not have a functionality to deliver assessment and testing online.
+2 = The government's learning or information management platform is equipped to digitally collect and analyse educational performance data, but and also has a functionality to deliver assessment and testing online.
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+2.3.1,Is the government facilitating/conducting training of teachers in digital skills?,Numerical score,,1.000,discrete,0,3,"This metric assesses institutional progress in equipping teachers with the necessary know-how and skills to integrate technology in teaching functions, from conducting classes to performance assessment.","0 = The government has not taken any steps
+1 = The government has developed a digital skills/education curriculum for the training of teachers
+2 = The government has developed programmes/initiatives to train teachers in digital skills/education but it is not included in their formal training as teachers
+3 = Digital skills/education is included in the formal training of teachers
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0. ",EI research,2021
+3.1.1,Have teachers received adequate training in digital skills that covers skills required for EdTech? (Overall),Numerical score,,0.111,calculated,0,1,"The survey question corresponding to this is: Have you received digital/ICT skills training or any training on how to use technology to deliver education online? 
+a. No, I have not received any digital/ ICT skills training
+b. Yes, I have received basic training that did not cover the skills required for EdTech
+c. Yes, I have received training that covered skills required for EdTech","0 = No OR they have received digital skills training, but it did not cover skills required for EdTech
+1 = Yes, they have received digital skills training including skills required for EdTech
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.1.a,Have teachers received digital skills training covering skills required for EdTech? (Schools),Numerical score,,0.333,discrete,0,1,"The survey question corresponding to this is: Have you received digital/ICT skills training or any training on how to use technology to deliver education online? 
+a. No, I have not received any digital/ ICT skills training
+b. Yes, I have received basic training that did not cover the skills required for EdTech
+c. Yes, I have received training that covered skills required for EdTech","0 = No OR they have received digital skills training, but it did not cover skills required for EdTech
+1 = Yes, they have received digital skills training including skills required for EdTech
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.1.b,Have teachers received digital skills training covering skills required for EdTech? (Universities),Numerical score,,0.333,discrete,0,1,"The survey question corresponding to this is: Have you received digital/ICT skills training or any training on how to use technology to deliver education online? 
+a. No, I have not received any digital/ ICT skills training
+b. Yes, I have received basic training that did not cover the skills required for EdTech
+c. Yes, I have received training that covered skills required for EdTech","0 = No OR they have received digital skills training, but it did not cover skills required for EdTech
+1 = Yes, they have received digital skills training including skills required for EdTech
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.1.c,Have teachers received adequate training in digital skills that covers skills required for EdTech? (TVET),Numerical score,,0.333,discrete,0,1,"The survey question corresponding to this is: Have you received digital/ICT skills training or any training on how to use technology to deliver education online? 
+a. No, I have not received any digital/ ICT skills training
+b. Yes, I have received basic training that did not cover the skills required for EdTech
+c. Yes, I have received training that covered skills required for EdTech","0 = No OR they have received digital skills training, but it did not cover skills required for EdTech
+1 = Yes, they have received digital skills training including skills required for EdTech
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.2,Do teachers use digital platforms to conduct classes? (Overall),Numerical score,,0.111,calculated,0,2,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don't use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Video calling platforms (ex: Zoom, Google Meet)","0 = No
+ 1 = Teachers predominantly use social media and/or video calling platforms
+ 2 = Teachers predominantly use digital learning platforms (government or private)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.2.a,Do teachers use digital platforms to conduct classes? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don't use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Video calling platforms (ex: Zoom, Google Meet)","0 = No
+ 1 = Teachers predominantly use social media and/or video calling platforms
+ 2 = Teachers predominantly use digital learning platforms (government or private)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.2.b,Do teachers use digital platforms to conduct classes? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don't use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Video calling platforms (ex: Zoom, Google Meet)","0 = No
+ 1 = Teachers predominantly use social media and/or video calling platforms
+ 2 = Teachers predominantly use digital learning platforms (government or private)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.2.c,Use of digital platforms in teaching: Do teachers use digital platforms to conduct classes? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don't use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Video calling platforms (ex: Zoom, Google Meet)","0 = No
+ 1 = Teachers predominantly use social media and/or video calling platforms
+ 2 = Teachers predominantly use digital learning platforms (government or private)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.3,"Do teachers use digital platforms to communicate with students? (e.g. providing information, updates, class scheduling) (Overall)",Numerical score,,0.111,calculated,0,2,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email","0 = No
+1 = Teachers predominantly use social media, social messaging and/or email
+2 = Teachers predominantly use digital learning platforms (government or private) and or file sharing media
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.3.a,Do teachers use digital platforms to communicate with students? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email","0 = No
+1 = Teachers predominantly use social media, social messaging and/or email
+2 = Teachers predominantly use digital learning platforms (government or private) and or file sharing media
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.3.b,Do teachers use digital platforms to communicate with students? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email","0 = No
+1 = Teachers predominantly use social media, social messaging and/or email
+2 = Teachers predominantly use digital learning platforms (government or private) and or file sharing media
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.3.c,Do teachers use digital platforms to communicate with students? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email","0 = No
+1 = Teachers predominantly use social media, social messaging and/or email
+2 = Teachers predominantly use digital learning platforms (government or private) and or file sharing media
+ 
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.4,Do teachers use digital platforms for online assessment? (Overall),Numerical score,,0.111,calculated,0,4,"The survey question corresponding to this is: I use technology to complete these tasks related to student assessment [Please select all that apply]
+a. Create an assessment 
+b. Have students complete the assessment 
+c. Grade the assessment
+d. Evaluate students' mastery of course content based upon the assessment
+e. None of the above","0 = No
+ 1 = Teachers use digital platforms but only for creating assignments
+ 2 = Teachers use digital platforms for creating assignments as well as having students complete those assignments.
+ 3 = Teachers use digital platforms for creating assignments, having students complete those assignments, and grading them.
+ 4 = Teachers use digital platforms for creating assignments, having students complete those assignments, grading them, and evaluating students' mastery of course based on the assessment.
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.4.a,Do teachers use digital platforms for online assessment? (Schools),Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: I use technology to complete these tasks related to student assessment [Please select all that apply]
+a. Create an assessment 
+b. Have students complete the assessment 
+c. Grade the assessment
+d. Evaluate students' mastery of course content based upon the assessment
+e. None of the above","0 = No
+ 1 = Teachers use digital platforms but only for creating assignments
+ 2 = Teachers use digital platforms for creating assignments as well as having students complete those assignments.
+ 3 = Teachers use digital platforms for creating assignments, having students complete those assignments, and grading them.
+ 4 = Teachers use digital platforms for creating assignments, having students complete those assignments, grading them, and evaluating students' mastery of course based on the assessment.
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.4.b,Do teachers use digital platforms for online assessment? (Universities),Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: I use technology to complete these tasks related to student assessment [Please select all that apply]
+a. Create an assessment 
+b. Have students complete the assessment 
+c. Grade the assessment
+d. Evaluate students' mastery of course content based upon the assessment
+e. None of the above","0 = No
+ 1 = Teachers use digital platforms but only for creating assignments
+ 2 = Teachers use digital platforms for creating assignments as well as having students complete those assignments.
+ 3 = Teachers use digital platforms for creating assignments, having students complete those assignments, and grading them.
+ 4 = Teachers use digital platforms for creating assignments, having students complete those assignments, grading them, and evaluating students' mastery of course based on the assessment.
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.4.c,Do teachers use digital platforms for online assessment? (TVET),Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: I use technology to complete these tasks related to student assessment [Please select all that apply]
+a. Create an assessment 
+b. Have students complete the assessment 
+c. Grade the assessment
+d. Evaluate students' mastery of course content based upon the assessment
+e. None of the above","0 = No
+ 1 = Teachers use digital platforms but only for creating assignments
+ 2 = Teachers use digital platforms for creating assignments as well as having students complete those assignments.
+ 3 = Teachers use digital platforms for creating assignments, having students complete those assignments, and grading them.
+ 4 = Teachers use digital platforms for creating assignments, having students complete those assignments, grading them, and evaluating students' mastery of course based on the assessment.
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.5,Do teachers engage in creating learning content themselves? (Overall),Numerical score,,0.111,calculated,0,2,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","0 = Teachers do not use digital content
+ 1 = Teachers use digital content, but the content is provided by the government, private EdTech providers or other sources (e.g. online resources)
+ 2 = Teachers create digital content themselves
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.5.a,Do teachers create learning content themselves? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","0 = Teachers do not use digital content
+ 1 = Teachers use digital content, but the content is provided by the government, private EdTech providers or other sources (e.g. online resources)
+ 2 = Teachers create digital content themselves
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.5.b,Do teachers create learning content themselves? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","0 = Teachers do not use digital content
+ 1 = Teachers use digital content, but the content is provided by the government, private EdTech providers or other sources (e.g. online resources)
+ 2 = Teachers create digital content themselves
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.5.c,Do teachers create learning content themselves? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","0 = Teachers do not use digital content
+ 1 = Teachers use digital content, but the content is provided by the government, private EdTech providers or other sources (e.g. online resources)
+ 2 = Teachers create digital content themselves
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.6,What type of digital content is created by teachers? (Overall),Numerical score,,0.111,calculated,1,2,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","1 = Basic content (e.g. PowerPoint slides / slideshow presentation, Word documents)
+ 2 = Advanced content (e.g. interactive content, graphs/charts, videos)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.6.a,What type of digital content is created by teachers? (Schools),Numerical score,,0.333,discrete,1,2,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","1 = Basic content (e.g. PowerPoint slides / slideshow presentation, Word documents)
+ 2 = Advanced content (e.g. interactive content, graphs/charts, videos)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.6.b,What type of digital content is created by teachers? (Universities),Numerical score,,0.333,discrete,1,2,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","1 = Basic content (e.g. PowerPoint slides / slideshow presentation, Word documents)
+ 2 = Advanced content (e.g. interactive content, graphs/charts, videos)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.6.c,What type of digital content is created by teachers? (TVET),Numerical score,,0.333,discrete,1,2,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","1 = Basic content (e.g. PowerPoint slides / slideshow presentation, Word documents)
+ 2 = Advanced content (e.g. interactive content, graphs/charts, videos)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.7,% teachers creating online assessments (Overall),%,,0.111,calculated,0,100,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.7.a,% teachers creating online assessments (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.7.b,% teachers creating online assessments (Univeristies,%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.7.c,% teachers creating online assessments (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following types of digital content are you able to create for teaching? (Please select all that apply)
+a. PowerPoint slides / slideshow presentation      
+b. Interactive content      
+c. Graphs or charts      
+d. Videos      
+e. Online assessments","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.8,Do teachers engage their students in creative activities via digital media? (Overall),Numerical score,,0.111,calculated,0,3,"The survey question corresponding to this is: I engage my students in the following creative activities: [Please select all that apply]
+a. Creating something using digital tools (programming, design content, etc...)
+b. Solving problems using digital tools and resources
+c. Experimenting with collaborative digital tools individually and/or in groups
+d. Collaborative group projects that involve planning and evaluation 
+e. None of the above","0 = No
+ 1 = Teachers engage students in creating something using digital tools (programming, design content, etc...)
+ 2 = Teachers engage students in solving problems using digital tools and resources
+ 3 = Teachers engage students in experimenting with collaborative digital tools individually and/or in groups
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.8.a,Do teachers engage students in creative activities via digital media? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I engage my students in the following creative activities: [Please select all that apply]
+a. Creating something using digital tools (programming, design content, etc...)
+b. Solving problems using digital tools and resources
+c. Experimenting with collaborative digital tools individually and/or in groups
+d. Collaborative group projects that involve planning and evaluation 
+e. None of the above","0 = No
+ 1 = Teachers engage students in creating something using digital tools (programming, design content, etc...)
+ 2 = Teachers engage students in solving problems using digital tools and resources
+ 3 = Teachers engage students in experimenting with collaborative digital tools individually and/or in groups
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.8.b,Do teachers engage students in creative activities via digital media? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I engage my students in the following creative activities: [Please select all that apply]
+a. Creating something using digital tools (programming, design content, etc...)
+b. Solving problems using digital tools and resources
+c. Experimenting with collaborative digital tools individually and/or in groups
+d. Collaborative group projects that involve planning and evaluation 
+e. None of the above","0 = No
+ 1 = Teachers engage students in creating something using digital tools (programming, design content, etc...)
+ 2 = Teachers engage students in solving problems using digital tools and resources
+ 3 = Teachers engage students in experimenting with collaborative digital tools individually and/or in groups
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.8.c,Do teachers engage students in creative activities via digital media? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I engage my students in the following creative activities: [Please select all that apply]
+a. Creating something using digital tools (programming, design content, etc...)
+b. Solving problems using digital tools and resources
+c. Experimenting with collaborative digital tools individually and/or in groups
+d. Collaborative group projects that involve planning and evaluation 
+e. None of the above","0 = No
+ 1 = Teachers engage students in creating something using digital tools (programming, design content, etc...)
+ 2 = Teachers engage students in solving problems using digital tools and resources
+ 3 = Teachers engage students in experimenting with collaborative digital tools individually and/or in groups
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.9,Do teachers engage their students in research activities via digital media? (Overall),Numerical score,,0.111,calculated,0,3,"The survey question corresponding to this is: I demonstrate how to conduct online research in the following ways: [Please select all that apply]
+a. Finding information related to a task or assignment on the internet
+b. Determining whether an online source is reliable
+c. Producing a report by synthesizing (combining) information from various online sources 
+d. None of the above","0 = No 
+ 1 = Teachers engage students in finding information related to a task or assignment on the internet
+ 2 = Teachers engage students in determining whether an online source is reliable
+ 3 = Teachers engage students in producing a report by synthesizing (combining) information from various online sources
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.9.a,Do teachers engage students in research via digital media? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I demonstrate how to conduct online research in the following ways: [Please select all that apply]
+a. Finding information related to a task or assignment on the internet
+b. Determining whether an online source is reliable
+c. Producing a report by synthesizing (combining) information from various online sources 
+d. None of the above","0 = No 
+ 1 = Teachers engage students in finding information related to a task or assignment on the internet
+ 2 = Teachers engage students in determining whether an online source is reliable
+ 3 = Teachers engage students in producing a report by synthesizing (combining) information from various online sources
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.9.b,Do teachers engage students in research via digital media? (Universities,Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I demonstrate how to conduct online research in the following ways: [Please select all that apply]
+a. Finding information related to a task or assignment on the internet
+b. Determining whether an online source is reliable
+c. Producing a report by synthesizing (combining) information from various online sources 
+d. None of the above","0 = No 
+ 1 = Teachers engage students in finding information related to a task or assignment on the internet
+ 2 = Teachers engage students in determining whether an online source is reliable
+ 3 = Teachers engage students in producing a report by synthesizing (combining) information from various online sources
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.1.9.c,Do teachers engage students in research via digital media? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: I demonstrate how to conduct online research in the following ways: [Please select all that apply]
+a. Finding information related to a task or assignment on the internet
+b. Determining whether an online source is reliable
+c. Producing a report by synthesizing (combining) information from various online sources 
+d. None of the above","0 = No 
+ 1 = Teachers engage students in finding information related to a task or assignment on the internet
+ 2 = Teachers engage students in determining whether an online source is reliable
+ 3 = Teachers engage students in producing a report by synthesizing (combining) information from various online sources
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.1,% teachers with access to a computer or laptop at home (Overall),%,,0.125,calculated,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.1.a,% teachers with access to a computer or laptop at home (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.1.b,% teachers with access to a computer or laptop at home (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.1.c,% teachers with access to a computer or laptop at home (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.2,% teachers with access to a smartphone at home (Overall),%,,0.125,calculated,0,100,"The survey questions corresponding to this are: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+
+4. Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.2.a,% teachers with access to a smartphone at home (Schools),%,,0.333,continuous,0,100,"The survey questions corresponding to this are: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+
+4. Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.2.b,% teachers with access to a smartphone at home (Universities),%,,0.333,continuous,0,100,"The survey questions corresponding to this are: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+
+4. Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.2.c,% teachers with access to a smartphone at home (TVET),%,,0.333,continuous,0,100,"The survey questions corresponding to this are: Which of the following devices do you have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+
+4. Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.3,"% teachers with access to a computer, laptop or tablet at school (Overall)",%,,0.125,calculated,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.3.a,% teachers with access to a computer or laptop at school (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.3.b,% teachers with access to a computer or laptop at school (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.3.c,% teachers with access to a computer or laptop at school (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do you have access to at school/university/TVET institution? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. Smartboard (digital whiteboard) 
+g. Projector
+h. None","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.4,Is mobile internet highly accessible to teachers? (Overall),Numerical score,,0.125,calculated,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.4.a,Is mobile internet highly accessible to teachers? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.4.b,Is mobile internet highly accessible to teachers? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.4.c,Is mobile internet highly accessible to teachers? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.5,Is broadband internet at home highly accessible to teachers? (Overall),Numerical score,,0.125,calculated,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.5.a,Is broadband internet at home highly accessible to teachers? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.5.b,Is broadband internet at home highly accessible to teachers? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.5.c,Is broadband internet at home highly accessible to teachers? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.6,Is broadband internet at school/university/TVET institution highly accessible to teachers? (Overall),Numerical score,,0.125,calculated,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.6.a,Is broadband internet at school/university/TVET institution highly accessible to teachers? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.6.b,Is broadband internet at school/university/TVET institution highly accessible to teachers? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.6.c,Is broadband internet at school/university/TVET institution highly accessible to teachers? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.7,Are community internet access points highly accessible to teachers? (Overall),Numerical score,,0.125,calculated,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.7.a,Are community internet access points highly accessible to teachers? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.7.b,Are community internet access points highly accessible to teachers? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.7.c,Are community internet access points highly accessible to teachers? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: How often do you have access to each of the following internet sources? (Please answer all that apply)
+a. Mobile (3G / 4G) [Never Rarely Occasionally Often Always]
+b. Home (broadband speeds) [Never Rarely Occasionally Often Always]
+c. School/university/TVET institution(broadband speeds) [Never Rarely Occasionally Often Always]
+d. Community access point [Never Rarely Occasionally Often Always]","0 = Never/Rarely
+ 1 = Occassionaly 
+ 2 = Often
+ 3 = Always
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.8,What is the quality of internet accessible to teachers? (Overall),Numerical score,,0.125,calculated,0,5,"The survey question corresponding to this is: The internet in my school/university/TVET institution is appropriate for the following actions (Please select all that apply)
+a. Browsing websites      
+b. Watching videos online      
+c. Listening to audio online      
+d. Downloading video / audio content      
+e. Downloading documents (ex: PDF, Word)      
+f. None of the above","0 = Low quality
+ 1 = Suitable for browsing websites
+ 2 = Suitable for listening to audio online
+ 3 = Suitable for watching videos online
+ 4 = Suitable for downloading documents
+ 5 = Suitable for downloading video / audio content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.8.a,What is the quality of internet accessible to teachers? (Schools),Numerical score,,0.333,discrete,0,5,"The survey question corresponding to this is: The internet in my school/university/TVET institution is appropriate for the following actions (Please select all that apply)
+a. Browsing websites      
+b. Watching videos online      
+c. Listening to audio online      
+d. Downloading video / audio content      
+e. Downloading documents (ex: PDF, Word)      
+f. None of the above","0 = Low quality
+ 1 = Suitable for browsing websites
+ 2 = Suitable for listening to audio online
+ 3 = Suitable for watching videos online
+ 4 = Suitable for downloading documents
+ 5 = Suitable for downloading video / audio content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.8.b,What is the quality of internet accessible to teachers? (Universities),Numerical score,,0.333,discrete,0,5,"The survey question corresponding to this is: The internet in my school/university/TVET institution is appropriate for the following actions (Please select all that apply)
+a. Browsing websites      
+b. Watching videos online      
+c. Listening to audio online      
+d. Downloading video / audio content      
+e. Downloading documents (ex: PDF, Word)      
+f. None of the above","0 = Low quality
+ 1 = Suitable for browsing websites
+ 2 = Suitable for listening to audio online
+ 3 = Suitable for watching videos online
+ 4 = Suitable for downloading documents
+ 5 = Suitable for downloading video / audio content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.2.8.c,What is the quality of internet accessible to teachers? (TVET),Numerical score,,0.333,discrete,0,5,"The survey question corresponding to this is: The internet in my school/university/TVET institution is appropriate for the following actions (Please select all that apply)
+a. Browsing websites      
+b. Watching videos online      
+c. Listening to audio online      
+d. Downloading video / audio content      
+e. Downloading documents (ex: PDF, Word)      
+f. None of the above","0 = Low quality
+ 1 = Suitable for browsing websites
+ 2 = Suitable for listening to audio online
+ 3 = Suitable for watching videos online
+ 4 = Suitable for downloading documents
+ 5 = Suitable for downloading video / audio content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.1,What system is used to collect and analyse data on students and teachers? (Overall),Numerical score,,0.500,calculated,0,3,"The survey question corresponding to this is: What is the system being used (by the school and government) to collect and analyse data on students and teachers (performance data, attendance records, etc.)?
+a. No such data collection system
+b. Data needs to be input physically (for e.g., by filling forms)
+c. Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+d. Data automatically collected through integration with learning platform","0 = No such data collection system
+ 1 = Data needs to be input physically (for e.g., by filling forms)
+ 2 = Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+ 3 = Data automatically collected through integration with learning platform
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.1.a,What system is used to collect and analyse data on students and teachers? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: What is the system being used (by the school and government) to collect and analyse data on students and teachers (performance data, attendance records, etc.)?
+a. No such data collection system
+b. Data needs to be input physically (for e.g., by filling forms)
+c. Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+d. Data automatically collected through integration with learning platform","0 = No such data collection system
+ 1 = Data needs to be input physically (for e.g., by filling forms)
+ 2 = Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+ 3 = Data automatically collected through integration with learning platform
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.1.b,What system is used to collect and analyse data on students and teachers? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: What is the system being used (by the school and government) to collect and analyse data on students and teachers (performance data, attendance records, etc.)?
+a. No such data collection system
+b. Data needs to be input physically (for e.g., by filling forms)
+c. Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+d. Data automatically collected through integration with learning platform","0 = No such data collection system
+ 1 = Data needs to be input physically (for e.g., by filling forms)
+ 2 = Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+ 3 = Data automatically collected through integration with learning platform
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.1.c,What system is used to collect and analyse data on students and teachers? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: What is the system being used (by the school and government) to collect and analyse data on students and teachers (performance data, attendance records, etc.)?
+a. No such data collection system
+b. Data needs to be input physically (for e.g., by filling forms)
+c. Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+d. Data automatically collected through integration with learning platform","0 = No such data collection system
+ 1 = Data needs to be input physically (for e.g., by filling forms)
+ 2 = Data needs to be input into the system on a computer/device by someone (teacher or other staff)
+ 3 = Data automatically collected through integration with learning platform
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.2,% teachers that receive IT support (Overall),%,,0.500,calculated,0,100,"The survey question corresponding to this is: Do teachers have IT support at your institution? (IT support is required to troubleshoot issues related to IT equipment and software)
+a. No, IT tasks are undertaken by teachers themselves
+b. Yes, there is IT staff that supports teachers","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.2a,% teachers that receive IT support (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do teachers have IT support at your institution? (IT support is required to troubleshoot issues related to IT equipment and software)
+a. No, IT tasks are undertaken by teachers themselves
+b. Yes, there is IT staff that supports teachers","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.2b,% teachers that receive IT support (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do teachers have IT support at your institution? (IT support is required to troubleshoot issues related to IT equipment and software)
+a. No, IT tasks are undertaken by teachers themselves
+b. Yes, there is IT staff that supports teachers","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.3.2c,% teachers that receive IT support (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do teachers have IT support at your institution? (IT support is required to troubleshoot issues related to IT equipment and software)
+a. No, IT tasks are undertaken by teachers themselves
+b. Yes, there is IT staff that supports teachers","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.4.1,% teachers that are part of online communities of practice (Overall),%,,0.500,calculated,0,100,"The survey question corresponding to this is: Are you part of online communities of teachers aimed at sharing and exchanging ideas, experiences and best practices in teaching or EdTech delivery?
+a. No
+b. Yes","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.4.1.a,% teachers that are part of online communities of practice (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Are you part of online communities of teachers aimed at sharing and exchanging ideas, experiences and best practices in teaching or EdTech delivery?
+a. No
+b. Yes","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.4.1.b,% teachers that are part of online communities of practice (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Are you part of online communities of teachers aimed at sharing and exchanging ideas, experiences and best practices in teaching or EdTech delivery?
+a. No
+b. Yes","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.4.1.c,% teachers that are part of online communities of practice (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Are you part of online communities of teachers aimed at sharing and exchanging ideas, experiences and best practices in teaching or EdTech delivery?
+a. No
+b. Yes","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+3.4.2,Is there a formal platform to facilitate knowledge sharing among teachers?,Numerical score,,0.500,discrete,0,1,"This indicator assesses the maturity of the digital learning ecosystem for teachers by asking if there exist formal platforms for them to exchange knowledge and best practices that go beyond informal, ad hoc communities (e.g. temporary social media groups)","0=No
+1=Yes
+
+Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",EI research,2021
+4.1.1,Level of digital literacy among students (Overall),Numerical score,,0.333,calculated,0,7,"The survey question corresponding to this is: What is the level of digital literacy among students? [Please select all that apply]
+a. Students can use communication tools (email, messaging, video calling)     
+b. Students can store and organise files on a computer
+c. Students can complete and submit online assessments
+d. Students can browse the internet to find relevant educational content
+e. Students can operate productivity applications (ex: MS Office suite)          
+f. Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+g. Students do not have any of the above digital skills","0 = No digital skills
+ 1 = Students can use communication tools (email, messaging, video calling)
+ 2 = Students can store and organise files on a computer
+ 3 = Students can complete and submit online assessments
+ 4 = Students can browse the internet to find relevant educational content
+ 5 = Students can operate productivity applications (ex: MS Office suite)
+ 6 = Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+ 7 = Students are familiar with programming languages (ex: C++, Java, Python)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.1.a,Level of digital literacy among students (Schools),Numerical score,,0.333,discrete,0,7,"The survey question corresponding to this is: What is the level of digital literacy among students? [Please select all that apply]
+a. Students can use communication tools (email, messaging, video calling)     
+b. Students can store and organise files on a computer
+c. Students can complete and submit online assessments
+d. Students can browse the internet to find relevant educational content
+e. Students can operate productivity applications (ex: MS Office suite)          
+f. Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+g. Students do not have any of the above digital skills","0 = No digital skills
+ 1 = Students can use communication tools (email, messaging, video calling)
+ 2 = Students can store and organise files on a computer
+ 3 = Students can complete and submit online assessments
+ 4 = Students can browse the internet to find relevant educational content
+ 5 = Students can operate productivity applications (ex: MS Office suite)
+ 6 = Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+ 7 = Students are familiar with programming languages (ex: C++, Java, Python)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.1.b,Level of digital literacy among students (Universities),Numerical score,,0.333,discrete,0,7,"The survey question corresponding to this is: What is the level of digital literacy among students? [Please select all that apply]
+a. Students can use communication tools (email, messaging, video calling)     
+b. Students can store and organise files on a computer
+c. Students can complete and submit online assessments
+d. Students can browse the internet to find relevant educational content
+e. Students can operate productivity applications (ex: MS Office suite)          
+f. Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+g. Students do not have any of the above digital skills","0 = No digital skills
+ 1 = Students can use communication tools (email, messaging, video calling)
+ 2 = Students can store and organise files on a computer
+ 3 = Students can complete and submit online assessments
+ 4 = Students can browse the internet to find relevant educational content
+ 5 = Students can operate productivity applications (ex: MS Office suite)
+ 6 = Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+ 7 = Students are familiar with programming languages (ex: C++, Java, Python)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.1.c,Level of digital literacy among students (TVET),Numerical score,,0.333,discrete,0,7,"The survey question corresponding to this is: What is the level of digital literacy among students? [Please select all that apply]
+a. Students can use communication tools (email, messaging, video calling)     
+b. Students can store and organise files on a computer
+c. Students can complete and submit online assessments
+d. Students can browse the internet to find relevant educational content
+e. Students can operate productivity applications (ex: MS Office suite)          
+f. Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+g. Students do not have any of the above digital skills","0 = No digital skills
+ 1 = Students can use communication tools (email, messaging, video calling)
+ 2 = Students can store and organise files on a computer
+ 3 = Students can complete and submit online assessments
+ 4 = Students can browse the internet to find relevant educational content
+ 5 = Students can operate productivity applications (ex: MS Office suite)
+ 6 = Students can use collaborative online applications and shared folders (such as Google Drive, Dropbox)
+ 7 = Students are familiar with programming languages (ex: C++, Java, Python)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.2,Have students been trained to use digital tools required for online education? (Overall),Numerical score,,0.333,calculated,0,2,"The survey question corresponding to this is: Have students been taught or trained to use the digital tools required for online education? (includes online learning platforms, communication tools or other digital tools used by the school for online education)
+a. No, most students are unable to use these tools
+b. No, but most students are self-taught
+c. Yes, students have been taught/trained to use these tools by the school/university/TVET institution","0 = No, most students are unable to use these tools
+ 1 = No, but most students are self-taught
+ 2 = Yes, students have been taught/trained to use these tools by the school/university/TVET institution
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.2.a,Have students been trained to use digital tools required for online education? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Have students been taught or trained to use the digital tools required for online education? (includes online learning platforms, communication tools or other digital tools used by the school for online education)
+a. No, most students are unable to use these tools
+b. No, but most students are self-taught
+c. Yes, students have been taught/trained to use these tools by the school/university/TVET institution","0 = No, most students are unable to use these tools
+ 1 = No, but most students are self-taught
+ 2 = Yes, students have been taught/trained to use these tools by the school/university/TVET institution
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.2.b,Have students been trained to use digital tools required for online education? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Have students been taught or trained to use the digital tools required for online education? (includes online learning platforms, communication tools or other digital tools used by the school for online education)
+a. No, most students are unable to use these tools
+b. No, but most students are self-taught
+c. Yes, students have been taught/trained to use these tools by the school/university/TVET institution","0 = No, most students are unable to use these tools
+ 1 = No, but most students are self-taught
+ 2 = Yes, students have been taught/trained to use these tools by the school/university/TVET institution
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.2.c,Have students been trained to use digital tools required for online education? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Have students been taught or trained to use the digital tools required for online education? (includes online learning platforms, communication tools or other digital tools used by the school for online education)
+a. No, most students are unable to use these tools
+b. No, but most students are self-taught
+c. Yes, students have been taught/trained to use these tools by the school/university/TVET institution","0 = No, most students are unable to use these tools
+ 1 = No, but most students are self-taught
+ 2 = Yes, students have been taught/trained to use these tools by the school/university/TVET institution
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.3,"Do students receive data privacy, ethics and safety training? (Overall)",Numerical score,,0.333,calculated,0,4,"The survey question corresponding to this is: What do you teach your students regarding digital safety, privacy and ethics while using EdTech? [Please select all that apply]
+a. Using antivirus / malware programs 
+b. Managing privacy settings
+c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information)     
+d. Protecting sensitive personal data
+e. Protection against cyber bullying and cyber crimes 
+f. None of the above","0 = No, students don't receive any of the below trainings
+ 1 = Students receive at least one training
+ 2 = Students receive at least two trainings
+ 3 = Students receive at least three trainings
+ 4 = Students receive more than three trainings
+ 
+ Trainings include:
+ a. Using antivirus / malware programs 
+ b. Managing privacy settings
+ c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information) 
+ d. Protecting sensitive personal data
+ e. Protection against cyber bullying and cyber crimes 
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.3.a,"Do students receive data privacy, ethics and safety training? (Schools)",Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: What do you teach your students regarding digital safety, privacy and ethics while using EdTech? [Please select all that apply]
+a. Using antivirus / malware programs 
+b. Managing privacy settings
+c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information)     
+d. Protecting sensitive personal data
+e. Protection against cyber bullying and cyber crimes 
+f. None of the above","0 = No, students don't receive any of the below trainings
+ 1 = Students receive at least one training
+ 2 = Students receive at least two trainings
+ 3 = Students receive at least three trainings
+ 4 = Students receive more than three trainings
+ 
+ Trainings include:
+ a. Using antivirus / malware programs 
+ b. Managing privacy settings
+ c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information) 
+ d. Protecting sensitive personal data
+ e. Protection against cyber bullying and cyber crimes 
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.3.b,"Do students receive data privacy, ethics and safety training? (Universities)",Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: What do you teach your students regarding digital safety, privacy and ethics while using EdTech? [Please select all that apply]
+a. Using antivirus / malware programs 
+b. Managing privacy settings
+c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information)     
+d. Protecting sensitive personal data
+e. Protection against cyber bullying and cyber crimes 
+f. None of the above","0 = No, students don't receive any of the below trainings
+ 1 = Students receive at least one training
+ 2 = Students receive at least two trainings
+ 3 = Students receive at least three trainings
+ 4 = Students receive more than three trainings
+ 
+ Trainings include:
+ a. Using antivirus / malware programs 
+ b. Managing privacy settings
+ c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information) 
+ d. Protecting sensitive personal data
+ e. Protection against cyber bullying and cyber crimes 
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.1.3.c,"Do students receive data privacy, ethics and safety training? (TVET)",Numerical score,,0.333,discrete,0,4,"The survey question corresponding to this is: What do you teach your students regarding digital safety, privacy and ethics while using EdTech? [Please select all that apply]
+a. Using antivirus / malware programs 
+b. Managing privacy settings
+c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information)     
+d. Protecting sensitive personal data
+e. Protection against cyber bullying and cyber crimes 
+f. None of the above","0 = No, students don't receive any of the below trainings
+ 1 = Students receive at least one training
+ 2 = Students receive at least two trainings
+ 3 = Students receive at least three trainings
+ 4 = Students receive more than three trainings
+ 
+ Trainings include:
+ a. Using antivirus / malware programs 
+ b. Managing privacy settings
+ c. Ethical and socially responsible online behaviour (examples of unethical behaviour include plagiarism or cheating, impersonation, stealing, unauthorised access to devices or information) 
+ d. Protecting sensitive personal data
+ e. Protection against cyber bullying and cyber crimes 
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.1,% students that have access to a computer or laptop at home (Overall),%,,0.250,calculated,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.1.a,% students that have access to a computer or laptop at home (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.1.b,% students that have access to a computer or laptop at home (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.1.c,% students that have access to a computer or laptop at home (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.2,% students that have access to a smartphone at home (Overall),%,,0.250,calculated,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.2.a,% students that have access to a smartphone at home (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.2.b,% students that have access to a smartphone at home (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.2.c,% students that have access to a smartphone at home (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.3,% students that have access to TV or radio at home (Overall),%,,0.250,calculated,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.3.a,% students that have access to TV at home (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.3.b,% students that have access to TV at home (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.3.c,% students that have access to TV at home (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Which of the following devices do most students have access to at home? [Please select all that apply]
+a. Smartphone 
+b. Tablet 
+c. Computer/laptop 
+d. TV 
+e. Radio 
+f. None
+g. Not sure","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.4,Do students own digital devices? (Overall),Numerical score,,0.250,calculated,0,2,"The survey question corresponding to this is: Do students own devices or borrow them from family members, and does this interfere with their online education?
+a. Most students do not own devices and this interferes with delivering online education
+b. Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+c. Most students own devices","0 = Most students do not own devices and this interferes with delivering online education
+ 1 = Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+ 2 = Most students own devices
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.4.a,Do students own digital devices? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do students own devices or borrow them from family members, and does this interfere with their online education?
+a. Most students do not own devices and this interferes with delivering online education
+b. Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+c. Most students own devices","0 = Most students do not own devices and this interferes with delivering online education
+ 1 = Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+ 2 = Most students own devices
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.4.b,Do students own digital devices? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do students own devices or borrow them from family members, and does this interfere with their online education?
+a. Most students do not own devices and this interferes with delivering online education
+b. Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+c. Most students own devices","0 = Most students do not own devices and this interferes with delivering online education
+ 1 = Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+ 2 = Most students own devices
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.2.4.c,Do students own digital devices? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: Do students own devices or borrow them from family members, and does this interfere with their online education?
+a. Most students do not own devices and this interferes with delivering online education
+b. Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+c. Most students own devices","0 = Most students do not own devices and this interferes with delivering online education
+ 1 = Most students do not own devices but there is always a device available to ensure smooth delivery of online education
+ 2 = Most students own devices
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.3.1,Is curriculum content accessible and suitable for use? (Overall),Numerical score,,1.000,calculated,0,2,"The survey question corresponding to this is: What are the issues faced by students in accessing learning content online? (includes digitised textbooks, videos, presentations, audio files, reading material, images and graphics, etc. provided by the government or other providers) [Please select all that apply]
+a. Relevant curriculum content is unavailable online
+b. Content is not easy to download/inaccessible due to technical issues (large file size etc.)
+c. Content is not suited for digital use (for e.g., scanned textbook pages)
+d. Quality of the content is an issue: students find it difficult to understand due to the way it is presented
+e. Students do not face any issues in accessing learning content","0 = Relevant curriculum content is unavailable online
+ 1 = Content is inaccessible (e.g. technical issues, lack of suitability for digital use, lack of quality)
+ 2 = Students do not face any issues in accessing learning content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.3.1.a,Is curriculum content accessible and suitable for use? (Schools),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What are the issues faced by students in accessing learning content online? (includes digitised textbooks, videos, presentations, audio files, reading material, images and graphics, etc. provided by the government or other providers) [Please select all that apply]
+a. Relevant curriculum content is unavailable online
+b. Content is not easy to download/inaccessible due to technical issues (large file size etc.)
+c. Content is not suited for digital use (for e.g., scanned textbook pages)
+d. Quality of the content is an issue: students find it difficult to understand due to the way it is presented
+e. Students do not face any issues in accessing learning content","0 = Relevant curriculum content is unavailable online
+ 1 = Content is inaccessible (e.g. technical issues, lack of suitability for digital use, lack of quality)
+ 2 = Students do not face any issues in accessing learning content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.3.1.b,Is curriculum content accessible and suitable for use? (Universities),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What are the issues faced by students in accessing learning content online? (includes digitised textbooks, videos, presentations, audio files, reading material, images and graphics, etc. provided by the government or other providers) [Please select all that apply]
+a. Relevant curriculum content is unavailable online
+b. Content is not easy to download/inaccessible due to technical issues (large file size etc.)
+c. Content is not suited for digital use (for e.g., scanned textbook pages)
+d. Quality of the content is an issue: students find it difficult to understand due to the way it is presented
+e. Students do not face any issues in accessing learning content","0 = Relevant curriculum content is unavailable online
+ 1 = Content is inaccessible (e.g. technical issues, lack of suitability for digital use, lack of quality)
+ 2 = Students do not face any issues in accessing learning content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.3.1.c,Is curriculum content accessible and suitable for use? (TVET),Numerical score,,0.333,discrete,0,2,"The survey question corresponding to this is: What are the issues faced by students in accessing learning content online? (includes digitised textbooks, videos, presentations, audio files, reading material, images and graphics, etc. provided by the government or other providers) [Please select all that apply]
+a. Relevant curriculum content is unavailable online
+b. Content is not easy to download/inaccessible due to technical issues (large file size etc.)
+c. Content is not suited for digital use (for e.g., scanned textbook pages)
+d. Quality of the content is an issue: students find it difficult to understand due to the way it is presented
+e. Students do not face any issues in accessing learning content","0 = Relevant curriculum content is unavailable online
+ 1 = Content is inaccessible (e.g. technical issues, lack of suitability for digital use, lack of quality)
+ 2 = Students do not face any issues in accessing learning content
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.4.1,Do teachers have online communication channels with parents? (Overall),Numerical score,,1.000,calculated,0,3,"The survey question corresponding to this is: Are there communication channels between teachers and students/parents (social media messaging groups etc.)? If yes, what are these used for? [Please select all that apply]
+a. No, there are no such groups
+b. Yes, groups are used for information and updates
+c. Yes, groups are used to administer homework assignments
+d. Yes, groups are used to receive feedback from parents on teaching and the overall online education experience
+e. Yes, groups are used to communicate with parents regarding student performance and other concerns
+","0 = No
+ 1 = Yes, but they are used for basic purposes such as conveying information and updates
+ 2 = Yes, and they are used to administer homework assignments
+ 3 = Yes, and they are used to receive feedback from parents as well as communication with them regarding student performance and other concerns
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.4.1.a,Do teachers have online communication channels with parents? (Schools),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: Are there communication channels between teachers and students/parents (social media messaging groups etc.)? If yes, what are these used for? [Please select all that apply]
+a. No, there are no such groups
+b. Yes, groups are used for information and updates
+c. Yes, groups are used to administer homework assignments
+d. Yes, groups are used to receive feedback from parents on teaching and the overall online education experience
+e. Yes, groups are used to communicate with parents regarding student performance and other concerns
+","0 = No
+ 1 = Yes, but they are used for basic purposes such as conveying information and updates
+ 2 = Yes, and they are used to administer homework assignments
+ 3 = Yes, and they are used to receive feedback from parents as well as communication with them regarding student performance and other concerns
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.4.1.b,Do teachers have online communication channels with parents? (Universities),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: Are there communication channels between teachers and students/parents (social media messaging groups etc.)? If yes, what are these used for? [Please select all that apply]
+a. No, there are no such groups
+b. Yes, groups are used for information and updates
+c. Yes, groups are used to administer homework assignments
+d. Yes, groups are used to receive feedback from parents on teaching and the overall online education experience
+e. Yes, groups are used to communicate with parents regarding student performance and other concerns
+","0 = No
+ 1 = Yes, but they are used for basic purposes such as conveying information and updates
+ 2 = Yes, and they are used to administer homework assignments
+ 3 = Yes, and they are used to receive feedback from parents as well as communication with them regarding student performance and other concerns
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+4.4.1.c,Do teachers have online communication channels with parents? (TVET),Numerical score,,0.333,discrete,0,3,"The survey question corresponding to this is: Are there communication channels between teachers and students/parents (social media messaging groups etc.)? If yes, what are these used for? [Please select all that apply]
+a. No, there are no such groups
+b. Yes, groups are used for information and updates
+c. Yes, groups are used to administer homework assignments
+d. Yes, groups are used to receive feedback from parents on teaching and the overall online education experience
+e. Yes, groups are used to communicate with parents regarding student performance and other concerns
+","0 = No
+ 1 = Yes, but they are used for basic purposes such as conveying information and updates
+ 2 = Yes, and they are used to administer homework assignments
+ 3 = Yes, and they are used to receive feedback from parents as well as communication with them regarding student performance and other concerns
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.1,% teachers using private EdTech platforms to conduct classes (Overall),%,,0.500,calculated,0,100,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don’t use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Television
+f. Video calling platforms (ex: Zoom, Google Meet)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.1.a,% teachers using private EdTech platforms to conduct classes (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don’t use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Television
+f. Video calling platforms (ex: Zoom, Google Meet)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.1.b,% teachers using private EdTech platforms to conduct classes (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don’t use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Television
+f. Video calling platforms (ex: Zoom, Google Meet)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.1.c,% teachers using private EdTech platforms to conduct classes (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to conduct classes? (Please select all that apply)
+a. I don’t use any platform
+b. Government online education platform
+c. Other online learning platforms (Google Classroom, Edmodo, Edubuntu, Khan Academy, etc.)
+d. Social media (ex: YouTube, Facebook, Telegram, WhatsApp)
+e. Television
+f. Video calling platforms (ex: Zoom, Google Meet)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.2,% teachers using private EdTech platforms to communicate/share with students (Overall),%,,0.500,calculated,0,100,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email
+","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.2.a,% teachers using private EdTech platforms to communicate/share with students (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email
+","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.2.b,% teachers using private EdTech platforms to communicate/share with students (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email
+","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.1.2.c,% teachers using private EdTech platforms to communicate/share with students (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: What platform do you use to communicate and/or share digital content with students? (Please select all that apply. If the answer is (c), please write the name of the platform)
+a. I don’t use any digital platform
+b. Government online education platform
+c. Other online learning platforms (ex: Google Classroom, Edmodo, Edubuntu, Khan Academy) (Please write the name of the platform)
+d. Social media (ex: YouTube, Facebook)
+e. Social messaging application (ex: Telegram, WhatsApp) 
+f. Online file sharing (ex: Dropbox, Google Drive, Xender)
+g. Email
+","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.2.1,% teachers using content designed by private EdTech providers (Overall),%,,1.000,calculated,0,100,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+5.2.1.a,% teachers using content designed by private EdTech providers (Schools),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021
+5.2.1.b,% teachers using content designed by private EdTech providers (Universities),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021
+5.2.1.c,% teachers using content designed by private EdTech providers (TVET),%,,0.333,continuous,0,100,"The survey question corresponding to this is: Do you teach using digital content? Who provides/creates this content? (Includes digitised textbooks and other multimedia content) [Please select all that apply]
+a. I don’t use digital content
+b. Content is created by me
+c. Content is provided by the government
+d. Content is from private EdTech providers
+e. Content is from other sources (for e.g., online resources)","Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021
+5.3.1,ICT graduates as a share of total tertiary education graduates,%,,1.000,continuous,0,100,This indicator measures the digital learning preparedness of the country from a labour force perspective. A workforce educated in ICT fields provides a strong foundation for the technical skills and know-how needed for successfully developing digital learning initiatives including learning platforms.,"Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",UNESCO,Latest as available for country
+5.4.1,Has the government partnered with agencies to promote EdTech? (Overall),Numerical score,,1.000,discrete,0,2,"This question aims at understanding the synergies between the government and other stakeholders, particularly with private providers, in the digital learning ecosystem. A country can receive a positive score if there is evidence of MOUs or other agreements towards shared goal(s) (e.g. EdTech platform, curriculum design, teacher training, device access, etc.). The question also explores the consistency of efforts to promote digital education by assigning a higher score to the country if it has seen more than one-off instances of collaboration.","0 = No
+ 1 = At least one MOU/collaboration/partnership
+ 2 = More than one MOU/collaboration/partnership
+ 
+The government may sign an MoU or partner via other collaborative means with multilaterals/private sector/other agencies to promote EdTech (in the form of curriculum design, EdTech platform roll-out, capacity building of educators, any other)
+(Note: a MoU for education sector with a focus on/mention of EdTech should also qualify. One could most likely find these in news articles/ MoE website)
+ 
+ Linear transformation of data values to scale 0-100, where 100 = most digital education readiness. Minimum and maximum thresholds are calculated from the minimum and maximum data values recorded across all countries in the index. The country with the highest data value scores 100 and the country with the lowest data value scores 0.",Economist Impact Digital Education Readiness Survey 2021,2021
+BG 01,GDP per head,,,N/A,continuous,N/A since using actual data,N/A since using actual data,N/A,N/A,EIU,2020
+BG 02,Urban population,,,N/A,continuous,0,100,N/A,N/A,World Bank,Latest as available for country
+BG 03,Poverty headcount ratio,,,N/A,continuous,0,100,N/A,N/A,World Bank,Latest as available for country
+BG 04,"Gross enrolment ratio, primary education",,,N/A,continuous,0,N/A since using actual data,N/A,N/A,UNESCO,Latest as available for country
+BG 05,"Gross enrolment ratio, secondary education",,,N/A,continuous,0,N/A since using actual data,N/A,N/A,UNESCO,Latest as available for country
+BG 06,Adult literacy rate,,,N/A,continuous,0,100,N/A,N/A,World Bank,Latest as available for country
+BG 07,Total public spending on education,,,N/A,continuous,0,100,N/A,N/A,World Bank,Latest as available for country
