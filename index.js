@@ -13,6 +13,7 @@ const educationEntities = csvParse(fs.readFileSync(`${educationRootDir}/entities
 
 const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
 
+
 const educationIndex = indexCore(educationIndicators, educationEntities);
 
 // console.log(waterOptimisationIndex.indexedData['Abu Dhabi']['1']);
