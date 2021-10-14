@@ -13,7 +13,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function getEntity(entityName) {
     return indexedData[entityName];
- //   return entitiesData.find((d) => d.name === entityName);
+    //   return entitiesData.find((d) => d.name === entityName);
   }
 
   function getEntities() {

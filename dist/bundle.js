@@ -42,7 +42,7 @@
 
     function getEntity(entityName) {
       return indexedData[entityName];
-   //   return entitiesData.find((d) => d.name === entityName);
+      //   return entitiesData.find((d) => d.name === entityName);
     }
 
     function getEntities() {
@@ -172,7 +172,6 @@
       entitiesData.forEach((entity) => {
         const indexedEntity = indexEntity(entity, calculationList);
         indexedEntity.data = entity;
-        console.log('III',indexedEntity);
         indexedData[entity.name] = indexedEntity;
       });
     }
