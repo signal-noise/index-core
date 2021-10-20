@@ -2,18 +2,16 @@
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <script src="../dist/bundle.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-
-    </style>
+    <script src="../dist/bundle.js"></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <h1>Icicle</h1>
     <svg class="chart"></svg>
-    <pre class="output">
+    <div class="tooltip">
 
-    </pre>
+    </div>
   </body>
   <script>
   function drawIcicle(core, entityName = 'London'){
@@ -39,7 +37,7 @@
     segmentContainer.selectAll('rect')
       .data(layedOut.descendants())
       .join('rect')
-        .attr('fill',d=>`rgba(255,0,255,${1/(d.depth+1)})`)
+        .attr('fill',d=>`rgba(50,50,50,${1/(d.depth+1)})`)
         .attr('stroke','black')
         .attr('x', d=>{
           return d.x0
@@ -48,16 +46,36 @@
         .attr('width', d=>d.x1 - d.x0)
         .attr('height', d=>d.y1 - d.y0)
         .on('mouseover',(ev, d)=>{
-          d3.select('.output')
-            .text(`
-${[d.x0, d.y0]}
-${[d.x1, d.y1]}
----
-${d.value}
-${JSON.stringify(core.getEntityIndicator(entityName, d.data.id).indicator.weighting,null, ' ')}
-            `)
+          d3.select('.tooltip')
+            .html(tootltipHTML(core.getEntityIndicator(entityName, d.data.id)))
+            .style('opacity', 1)
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
+        })
+        .on('mousemove',ev=>{
+          d3.select('.tooltip')
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
+        })
+        .on('mouseout',ev=>{
+          d3.select('.tooltip')
+            .style('opacity',0)
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
         });
+  }
 
+  function tootltipHTML(indicatorData){
+    console.log(indicatorData)
+    if(!indicatorData.root){
+      return `
+      ${indicatorData.entityName} ${indicatorData.indicator.id}
+      <br>Value ${Number(indicatorData.value).toFixed(2)} / ${indicatorData.indicator.max ? indicatorData.indicator.max : 100}`;
+    }else{
+      return `
+        ${indicatorData.entityName} index root
+        <br>Value ${Number(indicatorData.value).toFixed(2)}`;
+    }
   }
 
   Promise

@@ -59,7 +59,7 @@
         root,
         entityName,
         value,
-        indicator: indicatorLookup[indicatorID]
+        indicator: root ? {} : indicatorLookup[indicatorID]
       }
     }
 

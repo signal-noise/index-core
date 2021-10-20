@@ -30,7 +30,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
       root,
       entityName,
       value,
-      indicator: indicatorLookup[indicatorID]
+      indicator: root ? {} : indicatorLookup[indicatorID]
     }
   }
 

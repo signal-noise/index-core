@@ -13,7 +13,7 @@
     "lint": "eslint src/*.js",
     "lint:fix": "eslint src/*.js --fix",
     "build": "rollup --config",
-    "examples": "sirv"
+    "examples": "sirv --dev"
   },
   "author": "",
   "license": "ISC",

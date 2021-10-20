@@ -1,0 +1,16 @@
+body{
+  font-family: sans-serif;
+}
+
+.tooltip{
+  background-color: white;
+  box-shadow: 15px 15px 0px 0px #000000;
+  width:200px;
+  padding:5px;
+  position: absolute;
+  top:0;
+  left:0;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-duration: 0.1s;
+}
