@@ -1,5 +1,7 @@
 <html>
   <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
     <script src="../dist/bundle.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
@@ -16,7 +18,7 @@
   <script>
   function drawIcicle(core, entityName = 'London'){
     let root = d3.hierarchy(core.indexStructure);
-    let summed = root.copy().sum(d => d.absoluteWeightings);
+    let summed = root.copy().sum(d => d.absoluteWeighting);
     let width = 500; 
     let height = width;
     let margin = {top:10, bottom:10, left:10, right:10};
