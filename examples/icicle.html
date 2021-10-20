@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <main>
     <h1>Icicle</h1>
-    <svg class="chart"></svg>
-    <div class="tooltip">
-
-    </div>
+    <svg class="chart" width="500" height="500">
+    </svg>
+    <p>This examples illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a>
+      can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
+      <p>Note that only the structure of the index is visible here, not the values of the selected entity 
+        (London) except for in the tooltip</p>
+        <footer><a href="index.html">Examples index</a></footer>
+    </main>
+    <div class="tooltip"></div>
   </body>
   <script>
   function drawIcicle(core, entityName = 'London'){
@@ -29,7 +35,7 @@
       (summed);
 
     let segmentContainer = d3.select('.chart')
-      .attr("viewBox", [0, 0, width+50, height+50])
+      .attr("viewBox", [0, 0, width, height])
       .attr('width', width)
       .attr('height', height)
       .append('g')
@@ -38,6 +44,7 @@
       .data(layedOut.descendants())
       .join('rect')
         .attr('fill',d=>`rgba(50,50,50,${1/(d.depth+1)})`)
+        // .attr('fill',d=>`url(#fill${d.depth+1})`)
         .attr('stroke','black')
         .attr('x', d=>{
           return d.x0
@@ -69,11 +76,11 @@
     console.log(indicatorData)
     if(!indicatorData.root){
       return `
-      ${indicatorData.entityName} ${indicatorData.indicator.id}
+      ${indicatorData.entityName}, indicator ${indicatorData.indicator.id}
       <br>Value ${Number(indicatorData.value).toFixed(2)} / ${indicatorData.indicator.max ? indicatorData.indicator.max : 100}`;
     }else{
       return `
-        ${indicatorData.entityName} index root
+        ${indicatorData.entityName}, index root
         <br>Value ${Number(indicatorData.value).toFixed(2)}`;
     }
   }

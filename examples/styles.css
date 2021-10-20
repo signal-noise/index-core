@@ -1,5 +1,38 @@
 body{
   font-family: sans-serif;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges;          /* Firefox                        */
+  image-rendering: -o-crisp-edges;            /* Opera                          */
+  image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+  image-rendering: pixelated; /* Chrome */
+  image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+
+}
+svg {
+  shape-rendering:crispEdges;
+}
+main{
+  display: inline-block;
+  padding:10px;
+  background-color: rgba(255,255,255,1);
+  background: linear-gradient(90deg, rgb(219, 219, 219) 0%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%);
+  border-radius: 2px;
+}
+p{
+  max-width:500px;
+  margin-top:30px;
+  line-height: 1.5rem;
+}
+a{
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  border-bottom: 1px solid black;
 }
 
 .tooltip{
@@ -13,4 +46,8 @@ body{
   pointer-events: none;
   transition-property: opacity;
   transition-duration: 0.1s;
+  opacity:0;
+}
+footer{
+  text-align: right;
 }
