@@ -141,7 +141,7 @@
       return indexEntity(Object.assign(clone(e), e.user));
     }
 
-    function createStructure(indicatorIds) {
+    function createStructure(indicatorIds, max=indexMax) {
       const tree = { id: 'root', children: [] };
 
       indicatorIds.forEach((id) => {
@@ -161,13 +161,26 @@
             };
             current.children.push(next);
           }
-
           current = next;
         });
       });
+
+      // add absolute weights to the leaf nodes of the hierarchy structure
+      function assignAbsoluteWeightings(node, parentWeight){
+        if(node.children.length===0){
+          node.absoluteWeighting = parentWeight;
+        }else {
+          node.children.forEach(child=>
+            assignAbsoluteWeightings(child, parentWeight * getIndicator(child.id).weighting)
+          );
+        }
+        return node;
+      }
+      assignAbsoluteWeightings(tree, max);
       return tree;
     }
 
+    
     function calculateIndex(exclude = () => false) {
       const onlyIdIndicators = indicatorsData.filter((i) => i.id.match(indicatorIdTest));
       // get a list of the values we need to calculate
@@ -178,7 +191,6 @@
         .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
       indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
-
       entitiesData.forEach((entity) => {
         const indexedEntity = indexEntity(entity, calculationList);
         indexedEntity.data = entity;

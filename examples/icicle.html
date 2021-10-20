@@ -14,8 +14,9 @@
     </pre>
   </body>
   <script>
-  function drawSunburst(core, entityName = 'London'){
-    let root = d3.hierarchy(core.indexStructure)
+  function drawIcicle(core, entityName = 'London'){
+    let root = d3.hierarchy(core.indexStructure);
+    let summed = root.copy().sum(d => d.absoluteWeightings);
     let width = 500; 
     let height = width;
     let margin = {top:10, bottom:10, left:10, right:10};
@@ -25,17 +26,10 @@
       .size([width, height])
       .round(true)
       .padding(0)
-      (root.sum(d=>{
-        if(d.id === 'root'){
-          return 1
-        }
-        return core.getIndicator(d.id).weighting
-      }));
-
-    console.log('L', layedOut)
+      (summed);
 
     let segmentContainer = d3.select('.chart')
-      .attr("viewBox", [0, 0, width, height])
+      .attr("viewBox", [0, 0, width+50, height+50])
       .attr('width', width)
       .attr('height', height)
       .append('g')
@@ -46,17 +40,19 @@
         .attr('fill',d=>`rgba(255,0,255,${1/(d.depth+1)})`)
         .attr('stroke','black')
         .attr('x', d=>{
-          console.log(d);
           return d.x0
         })
         .attr('y', d=>d.y0)
         .attr('width', d=>d.x1 - d.x0)
         .attr('height', d=>d.y1 - d.y0)
         .on('mouseover',(ev, d)=>{
-          console.log(d.data.id, core.getEntity(entityName));
           d3.select('.output')
             .text(`
-${JSON.stringify(core.getEntityIndicator(entityName, d.data.id),null, ' ')}
+${[d.x0, d.y0]}
+${[d.x1, d.y1]}
+---
+${d.value}
+${JSON.stringify(core.getEntityIndicator(entityName, d.data.id).indicator.weighting,null, ' ')}
             `)
         });
 
@@ -69,12 +65,8 @@ ${JSON.stringify(core.getEntityIndicator(entityName, d.data.id),null, ' ')}
     ])
     .then(([entities, indicators])=>{
       const waterOptimisationIndex = indexCore(indicators, entities);
-      drawSunburst(waterOptimisationIndex)
-    })
-    // .catch(()=>{
-    //   d3.select('#error')
-    //     .text('nope');
-    // })
+      drawIcicle(waterOptimisationIndex)
+    });
     
   </script>
 </html>
