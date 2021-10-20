@@ -42,15 +42,25 @@
 
     function getEntity(entityName) {
       return indexedData[entityName];
-      //   return entitiesData.find((d) => d.name === entityName);
     }
 
     function getEntities() {
       return entitiesData.map((d) => d.name);
     }
 
-    function getIndicator(id) {
-      return indicatorLookup[id];
+    function getIndicator(indicatorID) {
+      return indicatorLookup[indicatorID];
+    }
+
+    function getEntityIndicator(entityName, indicatorID){
+      const root = indexedData[entityName][indicatorID] ? false : true;
+      const value = root ?  indexedData[entityName].value : indexedData[entityName][indicatorID];
+      return {
+        root,
+        entityName,
+        value,
+        indicator: indicatorLookup[indicatorID]
+      }
     }
 
     function getIndexMean(indicatorID = 'value', normalised = true) {
@@ -194,6 +204,7 @@
       getEntity,
       getIndicator,
       getEntities,
+      getEntityIndicator,
     };
   }
 

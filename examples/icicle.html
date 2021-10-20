@@ -56,8 +56,7 @@
           console.log(d.data.id, core.getEntity(entityName));
           d3.select('.output')
             .text(`
-${JSON.stringify(d.data.id == 'root'? core.getEntity(entityName).value : core.getEntity(entityName)[d.data.id])}
-${JSON.stringify(core.getIndicator(d.data.id),null,' ')}
+${JSON.stringify(core.getEntityIndicator(entityName, d.data.id),null, ' ')}
             `)
         });
 
