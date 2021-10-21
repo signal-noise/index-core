@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../dist/bundle.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main>
+    <h1>Icicle 2</h1>
+    <svg class="chart" width="500" height="500">
+    </svg>
+    <p>This examples illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a>
+      can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
+      <p>Both the structure and the values of the selected entity 
+        (London) are visualised</p>
+        <footer><a href="index.html">Examples index</a></footer>
+    </main>
+    <div class="tooltip"></div>
+  </body>
+  <script>
+  function drawIcicle(core, entityName = 'London'){
+    let root = d3.hierarchy(core.indexStructure);
+    let summed = root.copy().sum(d => d.absoluteWeighting);
+    let entityData = core.indexedData[entityName];
+    console.log(entityData);
+    let width = 500; 
+    let height = width;
+    let margin = {top:10, bottom:10, left:10, right:10};
+    let radius = width/2 - margin.left;
+
+    let layedOut = d3.partition()
+      .size([width, height])
+      .round(true)
+      .padding(0)
+      (summed);
+
+    let segmentContainer = d3.select('.chart')
+      .attr("viewBox", [0, 0, width, height])
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+
+    segmentContainer.selectAll('rect')
+      .data(layedOut.descendants())
+      .join('g')
+        .call(selection=>{
+          selection
+            .append('rect')
+            .attr('fill',d=>`rgba(0,0,0,0.2)`)
+            .attr('stroke','white')
+            .attr('x', d=>{
+              return d.x0
+            })
+            .attr('y', d=>d.y0)
+            .attr('width', d=>d.x1 - d.x0)
+            .attr('height', d=>d.y1 - d.y0)
+          
+          selection
+            .append('rect')
+            .attr('fill',d=>`rgba(0,0,0,1)`)
+            .attr('stroke','none')
+            .attr('x', d=>{
+              return d.x0
+            })
+            .attr('y', d=>d.y0)
+            .attr('width', d=>d.x1 - d.x0)
+            .attr('height', d=>{
+              const indicatorData = core.getEntityIndicator(entityName, d.data.id);
+              const maxValue = indicatorData.indicator.max ? Number(indicatorData.indicator.max) : 100;
+              const scaleFactor = Number(indicatorData.value)/maxValue;
+              return (d.y1 - d.y0)*scaleFactor;
+            })
+
+        })
+        .on('mouseover',(ev, d)=>{
+          d3.select('.tooltip')
+            .html(tootltipHTML(core.getEntityIndicator(entityName, d.data.id)))
+            .style('opacity', 1)
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
+        })
+        .on('mousemove',ev=>{
+          d3.select('.tooltip')
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
+        })
+        .on('mouseout',ev=>{
+          d3.select('.tooltip')
+            .style('opacity',0)
+            .style('top', ev.pageY)
+            .style('left', ev.pageX)
+        });
+  }
+
+  function tootltipHTML(indicatorData){
+    console.log(indicatorData)
+    if(!indicatorData.root){
+      return `
+      ${indicatorData.entityName}, indicator ${indicatorData.indicator.id}
+      <br>Value ${Number(indicatorData.value).toFixed(2)} / ${indicatorData.indicator.max ? indicatorData.indicator.max : 100}`;
+    }else{
+      return `
+        ${indicatorData.entityName}, index root
+        <br>Value ${Number(indicatorData.value).toFixed(2)}`;
+    }
+  }
+
+  Promise
+    .all([
+      d3.csv('../data/wateroptimisation/entities.csv'),
+      d3.csv('../data/wateroptimisation/indicators.csv'),
+    ])
+    .then(([entities, indicators])=>{
+      const waterOptimisationIndex = indexCore(indicators, entities);
+      drawIcicle(waterOptimisationIndex)
+    });
+    
+  </script>
+</html>
