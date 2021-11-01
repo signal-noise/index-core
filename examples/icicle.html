@@ -8,14 +8,13 @@
   </head>
   <body>
     <main>
-    <h1>Icicle</h1>
-    <svg class="chart" width="500" height="500">
-    </svg>
-    <p>This examples illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a>
-      can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
-      <p>Note that only the structure of the index is visible here, not the values of the selected entity 
-        (London) except for in the tooltip</p>
-        <footer><a href="index.html">Examples index</a></footer>
+      <h1>Icicle</h1>
+      <svg class="chart" width="500" height="500">
+      </svg>
+      <p>This example illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a> can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
+      <p>Note that only the structure of the index is visible here, not the values of the selected entity (London) except for in the tooltip</p>
+      <p>Data from the <a href="https://github.com/signal-noise/dupont_wateroptimisation_7754">water optimisation index</a></p>
+      <footer><a href="index.html">Examples index</a></footer>
     </main>
     <div class="tooltip"></div>
   </body>
@@ -73,7 +72,6 @@
   }
 
   function tootltipHTML(indicatorData){
-    console.log(indicatorData)
     if(!indicatorData.root){
       return `
       ${indicatorData.entityName}, indicator ${indicatorData.indicator.id}

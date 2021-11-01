@@ -8,14 +8,13 @@
   </head>
   <body>
     <main>
-    <h1>Icicle 2</h1>
-    <svg class="chart" width="500" height="500">
-    </svg>
-    <p>This examples illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a>
-      can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
-      <p>Both the structure and the values of the selected entity 
-        (London) are visualised</p>
-        <footer><a href="index.html">Examples index</a></footer>
+      <h1>Icicle 2</h1>
+      <svg class="chart" width="500" height="500">
+      </svg>
+      <p>This example illustrates how <a href="https://github.com/signal-noise/index-core/">indexCore</a> can be used in conjunction with <a href="https://d3js.org/">D3</a> to draw an Icicle diagram </p>
+      <p>Both the structure and the values of the selected entity (defaults to London) are visualised</p>
+      <p>Data from the <a href="https://github.com/signal-noise/dupont_wateroptimisation_7754">water optimisation index</a></p>
+      <footer><a href="index.html">Examples index</a></footer>
     </main>
     <div class="tooltip"></div>
   </body>
@@ -24,7 +23,6 @@
     let root = d3.hierarchy(core.indexStructure);
     let summed = root.copy().sum(d => d.absoluteWeighting);
     let entityData = core.indexedData[entityName];
-    console.log(entityData);
     let width = 500; 
     let height = width;
     let margin = {top:10, bottom:10, left:10, right:10};
@@ -42,7 +40,7 @@
       .attr('height', height)
       .append('g')
 
-    segmentContainer.selectAll('rect')
+    segmentContainer.selectAll('g')
       .data(layedOut.descendants())
       .join('g')
         .call(selection=>{
@@ -60,7 +58,7 @@
           selection
             .append('rect')
             .attr('fill',d=>`rgba(0,0,0,1)`)
-            .attr('stroke','none')
+            .attr('stroke','white')
             .attr('x', d=>{
               return d.x0
             })
@@ -95,7 +93,6 @@
   }
 
   function tootltipHTML(indicatorData){
-    console.log(indicatorData)
     if(!indicatorData.root){
       return `
       ${indicatorData.entityName}, indicator ${indicatorData.indicator.id}
