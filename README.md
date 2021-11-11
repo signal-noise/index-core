@@ -1,6 +1,6 @@
 # index-core
 
-This ES module provides a way to calculate an EIU style index [what is an index](#what-is-an-index) from a couple of data sources.
+This ES module provides a way to calculate an EIU style index ([what is an index?](#what-is-an-index)) from a couple of data sources.
 
 - The first data source defines the index's structure, what indicators are taken into account, the nature of those indicators (min & max value, weighting etc). 
 - The second provides data on the entities which are being indexed (cities, countries, schools, companies or whatever) primarily what the entities score on each of the indicators but also may include background detail e.g. a region into which a country is grouped, the address of a hospital, the size of corporation and so on.
