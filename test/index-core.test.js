@@ -3,10 +3,13 @@ import { expect } from '@jest/globals';
 import fs from 'fs';
 import indexCore from '../src/index-core.js';
 
-const rootDir = 'data/wateroptimisation';
+const waterRootDir = 'data/wateroptimisation';
+const waterIndicators = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8'));
+const waterEntities = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8'));
 
-const waterIndicators = csvParse(fs.readFileSync(`${rootDir}/indicators.csv`, 'utf-8'));
-const waterEntities = csvParse(fs.readFileSync(`${rootDir}/entities.csv`, 'utf-8'));
+const internetRootDir = 'data/inclusiveinternet';
+const internetIndicators = csvParse(fs.readFileSync(`${internetRootDir}/indicators.csv`, 'utf-8'));
+const internetEntities = csvParse(fs.readFileSync(`${internetRootDir}/entities.csv`, 'utf-8'));
 
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
@@ -22,5 +25,8 @@ test('getIndicatorMean index-core', ()=>{
   expect(waterOptimisationIndex.getIndexMean('2.1.1').toFixed(1)).toBe('89.8');
   expect(waterOptimisationIndex.getIndexMean('2').toFixed(1)).toBe('74.7');
   expect(waterOptimisationIndex.getIndexMean().toFixed(1)).toBe('69.5');
-  
+});
+
+test('inclusive internet index-core',()=>{
+  const inclusiveInternetIndex = indexCore(internetIndicators, internetEntities);
 });
