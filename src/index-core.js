@@ -24,6 +24,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return indicatorLookup[id];
   }
 
+  function getIndicatorLookup(){
+    return indicatorLookup;
+  }
+
   function getIndexMean(indicatorID = 'value', normalised = true) {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
@@ -164,6 +168,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     getIndexMean,
     getEntity,
     getIndicator,
+    getIndicatorLookup,
     getEntities,
   };
 }
