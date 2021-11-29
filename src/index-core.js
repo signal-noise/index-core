@@ -13,15 +13,25 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function getEntity(entityName) {
     return indexedData[entityName];
-    //   return entitiesData.find((d) => d.name === entityName);
   }
 
   function getEntities() {
     return entitiesData.map((d) => d.name);
   }
 
-  function getIndicator(id) {
-    return indicatorLookup[id];
+  function getIndicator(indicatorID) {
+    return indicatorLookup[indicatorID];
+  }
+
+  function getEntityIndicator(entityName, indicatorID){
+    const root = indexedData[entityName][indicatorID] ? false : true;
+    const value = root ?  indexedData[entityName].value : indexedData[entityName][indicatorID];
+    return {
+      root,
+      entityName,
+      value,
+      indicator: root ? {} : indicatorLookup[indicatorID]
+    }
   }
 
   function getIndicatorLookup(){
@@ -106,7 +116,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
-  function createStructure(indicatorIds) {
+  function createStructure(indicatorIds, max=indexMax) {
     const tree = { id: 'root', children: [] };
 
     indicatorIds.forEach((id) => {
@@ -126,13 +136,26 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
           };
           current.children.push(next);
         }
-
         current = next;
       });
     });
+
+    // add absolute weights to the leaf nodes of the hierarchy structure
+    function assignAbsoluteWeightings(node, parentWeight){
+      if(node.children.length===0){
+        node.absoluteWeighting = parentWeight;
+      }else{
+        node.children.forEach(child=>
+          assignAbsoluteWeightings(child, parentWeight * getIndicator(child.id).weighting)
+        );
+      }
+      return node;
+    }
+    assignAbsoluteWeightings(tree, max);
     return tree;
   }
 
+  
   function calculateIndex(exclude = () => false) {
     const onlyIdIndicators = indicatorsData.filter((i) => i.id.match(indicatorIdTest));
     // get a list of the values we need to calculate
@@ -143,7 +166,6 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
-
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
@@ -170,6 +192,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     getIndicator,
     getIndicatorLookup,
     getEntities,
+    getEntityIndicator,
   };
 }
 
