@@ -134,7 +134,12 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   }
 
   function calculateIndex(exclude = () => false) {
-    const onlyIdIndicators = indicatorsData.filter((i) => i.id.match(indicatorIdTest));
+    const onlyIdIndicators = indicatorsData
+      .filter((i) =>{
+        const isIndicator = i.id.match(indicatorIdTest)
+        const isExcluded = exclude(i);
+        return isIndicator && !isExcluded;
+      });
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = onlyIdIndicators
@@ -158,6 +163,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     calculateIndex();
   }
 
+  function filterIndicators(exclude = ()=>false){
+    calculateIndex(exclude)  
+  }
+
   calculateIndex();
 
   return {
@@ -165,6 +174,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     adjustWeight,
     indexedData,
     indexStructure,
+    filterIndicators,
     getIndexMean,
     getEntity,
     getIndicator,
