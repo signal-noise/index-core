@@ -10,7 +10,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   );
   const indexedData = {};
   let indexStructure = {};
-  let excludeIndicator = ()=>false; // by default no valid indicators are excluded
+  let excludeIndicator = () => false; // by default no valid indicators are excluded
 
   function getEntity(entityName) {
     return indexedData[entityName];
@@ -74,11 +74,11 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function indexEntity(entity, calculationList) {
     const newEntity = clone(entity);
-
     calculationList.forEach((indicatorID) => {
       if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
       // get the required component indicators tocalculate the parent value
       const componentIndicators = indicatorsData
+        .filter((indicator) => !excludeIndicator(indicator))
         .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
           && indicator.id.length === indicatorID.length + 2))
         .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
@@ -140,9 +140,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
       .filter((i) =>{
         const isIndicator = i.id.match(indicatorIdTest)
         const isExcluded = excludeIndicator(i);
-        if(isExcluded){ console.log(`skipping ${i.id}`); }
+        if(isExcluded){ console.log(`skipping ${i.id} (excluded)`); }
         return isIndicator && !isExcluded;
       });
+      console.log(onlyIdIndicators.map(i=>i.id));
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = onlyIdIndicators
@@ -155,6 +156,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
+      indexedEntity.ts = new Date();
       indexedData[entity.name] = indexedEntity;
     });
   }
