@@ -16,10 +16,12 @@ const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
 // console.log(waterOptimisationIndex.getIndexMean('1.1'))
 // console.log(waterOptimisationIndex.getIndexMean('2.1.1'))
 // console.log(waterOptimisationIndex.getIndexMean())
-console.log(waterOptimisationIndex.indexedData);
+// indicator 3.4.4 in the water index has .a and .b sub indicators 
+// for this indicator abu dhabi has different values for a and b
+console.log(JSON.stringify(waterOptimisationIndex.getEntity('Abu Dhabi'),null, ' '));
 
 waterOptimisationIndex.filterIndicators(indicator=>{
-  return String(indicator.id).indexOf('b')>0;
+  return String(indicator.id).indexOf('b')>0; // if the indicator includes "b" in it's id ignore it
 })
 //console.log(waterOptimisationIndex.indexStructure);
-console.log(waterOptimisationIndex.indexedData);
+console.log(JSON.stringify(waterOptimisationIndex.getEntity('Buenos Aires'),null, ' '));

@@ -10,10 +10,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   );
   const indexedData = {};
   let indexStructure = {};
+  let excludeIndicator = ()=>false; // by default no valid indicators are excluded
 
   function getEntity(entityName) {
     return indexedData[entityName];
-    //   return entitiesData.find((d) => d.name === entityName);
   }
 
   function getEntities() {
@@ -103,6 +103,8 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     }
     if (!e.user) e.user = {};
     e.user[indicatorID] = value;
+    //note the re-indexed value for the entity is not stored
+    //only the adjustment the re-indexed value is returned to the caller
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
@@ -133,17 +135,18 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return tree;
   }
 
-  function calculateIndex(exclude = () => false) {
+  function calculateIndex() {
     const onlyIdIndicators = indicatorsData
       .filter((i) =>{
         const isIndicator = i.id.match(indicatorIdTest)
-        const isExcluded = exclude(i);
+        const isExcluded = excludeIndicator(i);
+        if(isExcluded){ console.log(`skipping ${i.id}`); }
         return isIndicator && !isExcluded;
       });
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = onlyIdIndicators
-      .filter((i) => i.type === 'calculated' && !exclude(i))
+      .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
@@ -164,7 +167,8 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   }
 
   function filterIndicators(exclude = ()=>false){
-    calculateIndex(exclude)  
+    excludeIndicator = exclude;
+    calculateIndex();  
   }
 
   calculateIndex();
