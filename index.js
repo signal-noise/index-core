@@ -22,15 +22,11 @@ const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
 // for this indicator abu dhabi has different values for a and b
 const before = JSON.stringify(waterOptimisationIndex.getEntity('Abu Dhabi'), null, ' ')
 delete before.data;
-
-
-
 waterOptimisationIndex.filterIndicators(indicator=>{
   return String(indicator.id).indexOf('b')>0; // if the indicator includes "b" in it's id ignore it
 })
-
 const after = JSON.stringify(waterOptimisationIndex.getEntity('Abu Dhabi'), null, ' ')
-delete after.data;
+delete after.data; // just for neater output (note data is the original data for an entity used to calculate the index)
 
 console.log('BEFORE', before);
 console.log('AFTER', after);
