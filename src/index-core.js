@@ -10,10 +10,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   );
   const indexedData = {};
   let indexStructure = {};
+  let excludeIndicator = () => false; // by default no valid indicators are excluded
 
   function getEntity(entityName) {
     return indexedData[entityName];
-    //   return entitiesData.find((d) => d.name === entityName);
   }
 
   function getEntities() {
@@ -74,13 +74,14 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   function indexEntity(entity, calculationList) {
     const newEntity = clone(entity);
-
     calculationList.forEach((indicatorID) => {
       if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
-      // get the required component indicators tocalculate the parent value
+      // get the required component indicators to calculate the parent value
+      // this is a bit brittle maybe?
       const componentIndicators = indicatorsData
         .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
           && indicator.id.length === indicatorID.length + 2))
+        .filter((indicator) => !excludeIndicator(indicator))
         .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
       // calculate the weighted mean of the component indicators on the newEntity
       // assign that value to the newEntity
@@ -103,6 +104,8 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     }
     if (!e.user) e.user = {};
     e.user[indicatorID] = value;
+    //note the re-indexed value for the entity is not stored
+    //only the adjustment the re-indexed value is returned to the caller
     return indexEntity(Object.assign(clone(e), e.user));
   }
 
@@ -133,12 +136,17 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return tree;
   }
 
-  function calculateIndex(exclude = () => false) {
-    const onlyIdIndicators = indicatorsData.filter((i) => i.id.match(indicatorIdTest));
+  function calculateIndex() {
+    const onlyIdIndicators = indicatorsData
+      .filter((i) =>{
+        const isIndicator = i.id.match(indicatorIdTest)
+        const isExcluded = excludeIndicator(i);
+        return isIndicator && !isExcluded;
+      });
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to to shallowist
     const calculationList = onlyIdIndicators
-      .filter((i) => i.type === 'calculated' && !exclude(i))
+      .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
 
@@ -147,6 +155,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
+      indexedEntity.ts = new Date();
       indexedData[entity.name] = indexedEntity;
     });
   }
@@ -158,18 +167,24 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     calculateIndex();
   }
 
+  function filterIndicators(exclude = ()=>false){
+    excludeIndicator = exclude;
+    calculateIndex();  
+  }
+
   calculateIndex();
 
   return {
     adjustValue,
     adjustWeight,
-    indexedData,
-    indexStructure,
-    getIndexMean,
+    filterIndicators,
     getEntity,
+    getEntities,
+    getIndexMean,
     getIndicator,
     getIndicatorLookup,
-    getEntities,
+    indexedData,
+    indexStructure,
   };
 }
 
