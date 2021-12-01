@@ -141,7 +141,6 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
       .filter((i) =>{
         const isIndicator = i.id.match(indicatorIdTest)
         const isExcluded = excludeIndicator(i);
-        if(isExcluded){ console.log(`skipping ${i.id} (excluded)`); }
         return isIndicator && !isExcluded;
       });
     // get a list of the values we need to calculate
