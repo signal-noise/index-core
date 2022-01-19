@@ -56,19 +56,39 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
 
   // format an indicator for passing to the weighted mean function
   function formatIndicator(indicator, entity, max) {
+    const diverging = !!indicator.diverging;
+    let value = entity.user && entity.user[indicator.id]
+      ? Number(entity.user[indicator.id])
+      : Number(entity[indicator.id]);
+
+    let range = [
+      indicator.min ? Number(indicator.min) : 0,
+      indicator.max ? Number(indicator.max) : max,
+    ];
+
+    if(diverging){
+      let centerpoint = 0; // currently no way to set this diffeently included here as a signpost for the future
+
+      if (indicator.max){
+        range = [0, indicator.max];
+        if(indicator.min){
+          range = [0, Math.max(Math.abs(indicator.min),indicator.max)];
+        }
+      }else{
+        range = [0, max];
+      }
+      value = Math.abs(value - centerpoint);
+    }
+
+
     return {
       id: indicator.id,
-      value: entity.user && entity.user[indicator.id]
-        ? Number(entity.user[indicator.id])
-        : Number(entity[indicator.id]),
+      value,
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
       invert: !!indicator.invert,
-      range: [
-        indicator.min ? Number(indicator.min) : 0,
-        indicator.max ? Number(indicator.max) : max,
-      ],
+      range
     };
   }
 
