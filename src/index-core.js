@@ -149,7 +149,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
       .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
-    console.log(calculationList)
+    
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
 
     entitiesData.forEach((entity) => {
