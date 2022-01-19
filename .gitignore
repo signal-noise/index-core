@@ -76,3 +76,5 @@ typings/
 .fusebox/
 out.txt
 favicon.ico
+data/education/index.csv
+data/education/entities.csv
