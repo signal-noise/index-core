@@ -18,6 +18,14 @@ const inclusiveInternetEntities = csvParse(fs.readFileSync(`${inclusiveIternetRo
 const inclusiveInternetIndex = indexCore(inclusiveInternetIndicators, inclusiveInternetEntities);
 
 
+const simpleRootDir = 'data/simple-index-set';
+
+const simpleIndicators = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8'));
+const simpleEntities = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8'));
+
+const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+
+console.log(simpleIndex.indexedData)
 
 // console.log(waterOptimisationIndex.indexedData['Abu Dhabi']['1']);
 // console.log(waterOptimisationIndex.indexedData['Abu Dhabi'].value);
