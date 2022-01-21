@@ -3,10 +3,15 @@ import { expect } from '@jest/globals';
 import fs from 'fs';
 import indexCore from '../src/index-core.js';
 
-const rootDir = 'data/wateroptimisation';
+const waterRootDir = 'data/wateroptimisation';
 
-const waterIndicators = csvParse(fs.readFileSync(`${rootDir}/indicators.csv`, 'utf-8'));
-const waterEntities = csvParse(fs.readFileSync(`${rootDir}/entities.csv`, 'utf-8'));
+const waterIndicators = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8'));
+const waterEntities = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8'));
+
+const simpleRootDir = 'data/simple-index-set';
+
+const simpleIndicators = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8'));
+const simpleEntities = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8'));
 
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
@@ -37,3 +42,9 @@ test('filterIndicators index-core', ()=>{
   expect(waterOptimisationIndex.getIndexMean('2').toFixed(1)).toBe('74.7');
   expect(waterOptimisationIndex.getIndexMean().toFixed(1)).toBe('68.7');
 });
+
+test('diverging indicator index-core', ()=>{
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+  expect(simpleIndex.indexedData['Tigris and Eurphrates']['2.3']).toBe(70);
+  expect(simpleIndex.indexedData['Twilight Imperium']['2.3']).toBe(70);
+})
