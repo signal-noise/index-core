@@ -175,7 +175,6 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList);
       indexedEntity.data = entity;
-      indexedEntity.ts = new Date();
       indexedData[entity.name] = indexedEntity;
     });
   }
