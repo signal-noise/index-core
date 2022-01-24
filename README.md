@@ -49,7 +49,8 @@ __indicators__ is an array of indicator objects.
   type:["calculated"|"discrete"|"continuous"]
   max:Number,
   min:Number,
-  invert:Bool
+  invert:Bool,
+  diverging:Bool
 }
 ```
 
