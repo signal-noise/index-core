@@ -1,5 +1,7 @@
 # index-core
 
+__[Install via npm](https://www.npmjs.com/package/@economist/index-core)__ `npm install @economist/index-core` 
+
 This ES module provides a way to calculate an EIU style index ([what is an index?](#what-is-an-index)) from a couple of data sources.
 
 - The first data source defines the index's structure, what indicators are taken into account, the nature of those indicators (min & max value, weighting etc). 
