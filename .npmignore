@@ -1,2 +1,4 @@
-./data
-./examples
+data
+examples
+docs
+index.js
