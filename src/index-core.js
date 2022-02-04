@@ -115,7 +115,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     });
 
     const pillarIndicators = indicatorsData
-      .filter((indicator) => indicator.id.match(indicatorIdTest) && indicator.id.split('.').length === 1)
+      .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
       .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
     newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
@@ -165,7 +165,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
   function calculateIndex(overwrite = allowOverwrite) {
     const onlyIdIndicators = indicatorsData
       .filter((i) =>{
-        const isIndicator = i.id.match(indicatorIdTest)
+        const isIndicator = String(i.id).match(indicatorIdTest)
         const isExcluded = excludeIndicator(i);
         return isIndicator && !isExcluded;
       });
