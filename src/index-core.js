@@ -2,7 +2,7 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
+function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overwrite = true) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
@@ -95,17 +95,22 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
   function indexEntity(entity, calculationList) {
     const newEntity = clone(entity);
     calculationList.forEach((indicatorID) => {
-      if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
-      // get the required component indicators to calculate the parent value
-      // this is a bit brittle maybe?
-      const componentIndicators = indicatorsData
-        .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
-          && indicator.id.length === indicatorID.length + 2))
-        .filter((indicator) => !excludeIndicator(indicator))
-        .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
-      // calculate the weighted mean of the component indicators on the newEntity
-      // assign that value to the newEntity
-      newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
+      if (newEntity[indicatorID] && overwrite === true) { 
+        console.log('overwriting', indicatorID);
+        // get the required component indicators to calculate the parent value
+        // this is a bit brittle maybe?
+        const componentIndicators = indicatorsData
+          .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
+            && indicator.id.length === indicatorID.length + 2))
+          .filter((indicator) => !excludeIndicator(indicator))
+          .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+        // calculate the weighted mean of the component indicators on the newEntity
+        // assign that value to the newEntity
+        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
+      }else{
+        console.log(`retaining value for ${entityName} ${indicatorID}`)
+        newEntity[indicatorID] = entity[indicatorID];
+      }
     });
 
     const pillarIndicators = indicatorsData
