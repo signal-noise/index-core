@@ -2,7 +2,7 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
+function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
@@ -92,24 +92,30 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     };
   }
 
-  function indexEntity(entity, calculationList) {
+  function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((indicatorID) => {
-      if (newEntity[indicatorID]) { console.log('overwriting', indicatorID); }
-      // get the required component indicators to calculate the parent value
-      // this is a bit brittle maybe?
-      const componentIndicators = indicatorsData
-        .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
-          && indicator.id.length === indicatorID.length + 2))
-        .filter((indicator) => !excludeIndicator(indicator))
-        .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
-      // calculate the weighted mean of the component indicators on the newEntity
-      // assign that value to the newEntity
-      newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
+      if (newEntity[indicatorID] && overwrite === true 
+        || !newEntity[indicatorID]) 
+      { 
+        // get the required component indicators to calculate the parent value
+        // this is a bit brittle maybe?
+        const componentIndicators = indicatorsData
+          .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
+            && indicator.id.length === indicatorID.length + 2))
+          .filter((indicator) => !excludeIndicator(indicator))
+          .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+        // calculate the weighted mean of the component indicators on the newEntity
+        // assign that value to the newEntity
+        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
+      }else{
+        console.log(`retaining existing value for ${newEntity.name} - ${indicatorID} : ${Number(entity[indicatorID])}`)
+        newEntity[indicatorID] = Number(entity[indicatorID]);
+      }
     });
 
     const pillarIndicators = indicatorsData
-      .filter((indicator) => indicator.id.match(indicatorIdTest) && indicator.id.split('.').length === 1)
+      .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
       .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
     newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
@@ -156,10 +162,10 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     return tree;
   }
 
-  function calculateIndex() {
+  function calculateIndex(overwrite = allowOverwrite) {
     const onlyIdIndicators = indicatorsData
       .filter((i) =>{
-        const isIndicator = i.id.match(indicatorIdTest)
+        const isIndicator = String(i.id).match(indicatorIdTest)
         const isExcluded = excludeIndicator(i);
         return isIndicator && !isExcluded;
       });
@@ -173,7 +179,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
 
     entitiesData.forEach((entity) => {
-      const indexedEntity = indexEntity(entity, calculationList);
+      const indexedEntity = indexEntity(entity, calculationList, overwrite);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;
     });
@@ -186,12 +192,12 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100) {
     calculateIndex();
   }
 
-  function filterIndicators(exclude = ()=>false){
+  function filterIndicators(exclude = ()=>false, overwrite=allowOverwrite){
     excludeIndicator = exclude;
-    calculateIndex();  
+    calculateIndex(overwrite);  
   }
 
-  calculateIndex();
+  calculateIndex(allowOverwrite);
 
   return {
     adjustValue,
