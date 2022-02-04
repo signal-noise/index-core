@@ -39,7 +39,7 @@ There will often be ancillary imformation associated with each entity, things li
 ---
 ## API
 
-### indexCore(_indicators:Array_, _entities:Array_, [_indexMax:Number_])
+### indexCore(_indicators:Array_, _entities:Array_, [_indexMax:Number=100_],[_allowOverwrite:Boolean=true_])
 
 indexCore constructs and calculates an index it returns an `index` object allowing access to results of the calculation for all the entities at a give indicator level, the structure of the index as a whole and methods for adjusting indicator values and weightings. 
 
@@ -68,7 +68,10 @@ __entities__ is an array of enetity objects
 
 Take a look at the data source descriptions for a fuller description of the properties these objects might take: [indicators](#data-indicators) [entities](#data-entities)
 
-__indexMax__, optional. is the maximum value for the index score (minimum is always 0) by thefault this is 100, other typical values are 1 and 10.
+__indexMax__, optional. is the maximum value for the index score (minimum is always 0) by default this is 100, other typical values are 1 and 10.
+
+__allowOverwrite__, optional. By default this is set to true ensuring that all calculated values _will_ be calculated by the module. If set to false, calculated values that are supplied in the `entities` sheet will take precedence. Most of the time you don't want to do this but it might be a handy escape hatch.
+
 
 ### indexCore.__adjustValue(_entityName:String_, _indicatorID:String_, _value:Number_)__
 A function that allows the user to adjust an entity's indicator score within the index the index is recalculated using the new value. The index is recalculated after calling this function.
