@@ -48,3 +48,13 @@ test('diverging indicator index-core', ()=>{
   expect(simpleIndex.indexedData['Tigris and Eurphrates']['2.3']).toBe(70);
   expect(simpleIndex.indexedData['Twilight Imperium']['2.3']).toBe(70);
 })
+
+test('indicator overide index-core', ()=>{
+  const simpleIndexOverwrite = indexCore(simpleIndicators, simpleEntities, undefined, true);
+  expect(simpleIndexOverwrite.indexedData['Tigris and Eurphrates']['2.3']).toBe(70);
+  expect(simpleIndexOverwrite.indexedData['Twilight Imperium']['2.3']).toBe(70);
+
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities, undefined, false);
+  expect(simpleIndex.indexedData['Catan']['1']).toBe(10);
+  expect(simpleIndex.indexedData['Twilight Imperium']['2.3']).toBe(70);
+})

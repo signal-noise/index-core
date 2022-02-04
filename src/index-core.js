@@ -2,7 +2,7 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overwrite = true) {
+function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
@@ -92,11 +92,12 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overw
     };
   }
 
-  function indexEntity(entity, calculationList) {
+  function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((indicatorID) => {
-      if (newEntity[indicatorID] && overwrite === true) { 
-        console.log('overwriting', indicatorID);
+      if (newEntity[indicatorID] && overwrite === true 
+        || !newEntity[indicatorID]) 
+      { 
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
         const componentIndicators = indicatorsData
@@ -108,8 +109,8 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overw
         // assign that value to the newEntity
         newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
       }else{
-        console.log(`retaining value for ${entityName} ${indicatorID}`)
-        newEntity[indicatorID] = entity[indicatorID];
+        console.log(`retaining existing value for ${newEntity.name} - ${indicatorID} : ${Number(entity[indicatorID])}`)
+        newEntity[indicatorID] = Number(entity[indicatorID]);
       }
     });
 
@@ -161,7 +162,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overw
     return tree;
   }
 
-  function calculateIndex() {
+  function calculateIndex(overwrite = allowOverwrite) {
     const onlyIdIndicators = indicatorsData
       .filter((i) =>{
         const isIndicator = i.id.match(indicatorIdTest)
@@ -178,7 +179,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overw
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
 
     entitiesData.forEach((entity) => {
-      const indexedEntity = indexEntity(entity, calculationList);
+      const indexedEntity = indexEntity(entity, calculationList, overwrite);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;
     });
@@ -191,12 +192,12 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, overw
     calculateIndex();
   }
 
-  function filterIndicators(exclude = ()=>false){
+  function filterIndicators(exclude = ()=>false, overwrite=allowOverwrite){
     excludeIndicator = exclude;
-    calculateIndex();  
+    calculateIndex(overwrite);  
   }
 
-  calculateIndex();
+  calculateIndex(allowOverwrite);
 
   return {
     adjustValue,
