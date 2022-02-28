@@ -74,7 +74,7 @@ __allowOverwrite__, optional. By default this is set to true ensuring that all c
 
 
 ### indexCore.__adjustValue(_entityName:String_, _indicatorID:String_, _value:Number_)__
-A function that allows the user to adjust an entity's indicator score within the index the index is recalculated using the new value. The index is recalculated after calling this function.
+A function that allows the user to adjust an entity's (_entityName_) indicator (_indicatorID_) score to a specified _value_. Calculated values for that entity are re-calculated using the new value. If the function is called without _value_ the indicator is reset to it's inital value. If the function is called without _indicatorId_ or _value_ all indicators on the entity are reset to their initial values.
 
 _NOTE: whislt the old value is retained there's currently no way to reset it._
 
