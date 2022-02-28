@@ -132,7 +132,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     e.user[indicatorID] = value;
     //note the re-indexed value for the entity is not stored
     //only the adjustment the re-indexed value is returned to the caller
-    return indexEntity(Object.assign(clone(e), e.user));
+    return indexEntity(Object.assign(clone(e), e.user), );
   }
 
   function createStructure(indicatorIds) {
@@ -162,19 +162,27 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     return tree;
   }
 
-  function calculateIndex(overwrite = allowOverwrite) {
-    const onlyIdIndicators = indicatorsData
+  function getCalculationList(indicators){
+    return indicators
+      .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
+      .map((i) => i.id)
+      .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
+  }
+
+  function getIndexableIndicators(indicators){
+    return indicatorsData
       .filter((i) =>{
         const isIndicator = String(i.id).match(indicatorIdTest)
         const isExcluded = excludeIndicator(i);
         return isIndicator && !isExcluded;
       });
+  }
+
+  function calculateIndex(overwrite = allowOverwrite) {
+    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     // get a list of the values we need to calculate
-    // in order of deepest in the heirachy to to shallowist
-    const calculationList = onlyIdIndicators
-      .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
-      .map((i) => i.id)
-      .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
+    // in order of deepest in the heirachy to the shallowist
+    const calculationList = getCalculationList(onlyIdIndicators);
 
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
 
