@@ -143,7 +143,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
     
-    indexedData[e.name] = indexEntity(clone(e), calculationList, true);
+    indexedData[e.name] = indexEntity(e, calculationList, true);
     return indexedData[e.name];
   }
 
