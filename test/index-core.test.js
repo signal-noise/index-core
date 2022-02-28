@@ -31,6 +31,15 @@ test('adjust indicator', ()=>{
   expect(originalValue).toBe(resetValue);
 })
 
+test('reset individual indicator', ()=>{
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+  simpleIndex.adjustValue('Monopoly','1.1',10);
+  simpleIndex.adjustValue('Monopoly','1.2',1);
+  simpleIndex.adjustValue('Monopoly','1.2');
+  const resetValue = simpleIndex.indexedData['Monopoly'].value;
+  expect(resetValue.toFixed(3)).toBe('53.118')
+})
+
 test('getIndicatorMean index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
   expect(waterOptimisationIndex.getIndexMean('1').toFixed(1)).toBe('72.2');

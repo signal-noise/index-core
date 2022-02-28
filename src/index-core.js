@@ -126,8 +126,11 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     const e = getEntity(entityName);
 
     if(!indicatorID && !value || !e.user){
-        e.user = {};
+        e.user = {};  // no value or indicator specified, reset
+    }else if(!value && e.user){
+      delete e.user[indicatorID]; // no value specified, reset the indicator
     }
+    
 
     if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === 'calculated') {
       console.warn(`${indicatorID} is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?`);
