@@ -130,9 +130,13 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     }
     if (!e.user) e.user = {};
     e.user[indicatorID] = value;
+
+    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
+    const calculationList = getCalculationList(onlyIdIndicators);
+    
     //note the re-indexed value for the entity is not stored
     //only the adjustment the re-indexed value is returned to the caller
-    return indexEntity(Object.assign(clone(e), e.user), );
+    return indexEntity(Object.assign(clone(e), e.user), calculationList, true);
   }
 
   function createStructure(indicatorIds) {
@@ -179,9 +183,9 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
   }
 
   function calculateIndex(overwrite = allowOverwrite) {
-    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to the shallowist
+    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
 
     indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
@@ -197,7 +201,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     // TODO: make the index recalculating take into account what
     //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
-    calculateIndex();
+    calculateIndex(true);
   }
 
   function filterIndicators(exclude = ()=>false, overwrite=allowOverwrite){
