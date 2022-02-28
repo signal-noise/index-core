@@ -19,6 +19,18 @@ test('create index-core', ()=>{
   expect(waterOptimisationIndex.indexedData['Naples'].value.toFixed(1)).toBe('76.2');
 });
 
+test('adjust indicator', ()=>{
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+  const originalValue = simpleIndex.indexedData['Monopoly'].value;
+  simpleIndex.adjustValue('Monopoly','1.1',10);
+  const adjustedValue = simpleIndex.indexedData['Monopoly'].value;
+  simpleIndex.adjustValue('Monopoly');
+  const resetValue = simpleIndex.indexedData['Monopoly'].value;
+  expect(originalValue.toFixed(3)).toBe('49.118')
+  expect(adjustedValue.toFixed(3)).toBe('53.118')
+  expect(originalValue).toBe(resetValue);
+})
+
 test('getIndicatorMean index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
   expect(waterOptimisationIndex.getIndexMean('1').toFixed(1)).toBe('72.2');

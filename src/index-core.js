@@ -124,19 +124,24 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
 
   function adjustValue(entityName, indicatorID, value) {
     const e = getEntity(entityName);
-    if (indicatorLookup[indicatorID].type === 'calculated') {
+
+    if(!indicatorID && !value || !e.user){
+        e.user = {};
+    }
+
+    if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === 'calculated') {
       console.warn(`${indicatorID} is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?`);
       return clone(e);
     }
-    if (!e.user) e.user = {};
-    e.user[indicatorID] = value;
+    if(indicatorID !== undefined && value !== undefined){
+      e.user[indicatorID] = value;
+    }
 
     const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
     
-    //note the re-indexed value for the entity is not stored
-    //only the adjustment the re-indexed value is returned to the caller
-    return indexEntity(Object.assign(clone(e), e.user), calculationList, true);
+    indexedData[e.name] = indexEntity(clone(e), calculationList, true);
+    return indexedData[e.name];
   }
 
   function createStructure(indicatorIds) {
