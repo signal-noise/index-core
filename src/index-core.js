@@ -101,7 +101,6 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
 
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
-    console.log(entity.name,calculationList);
     calculationList.forEach((indicatorID) => {
       if (newEntity[indicatorID] && overwrite === true 
         || !newEntity[indicatorID]) 
