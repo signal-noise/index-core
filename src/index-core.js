@@ -16,6 +16,13 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     return indexedData[entityName];
   }
 
+  function getEntityIndicator(entityName, indicatorID){
+    if(indexedData[entityName].user && indexedData[entityName].user[indicatorID]){
+      return indexedData[entityName].user[indicatorID];
+    }
+    return indexedData[entityName][indicatorID];
+  }
+
   function getEntities() {
     return entitiesData.map((d) => d.name);
   }
@@ -94,6 +101,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
 
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
+    console.log(entity.name,calculationList);
     calculationList.forEach((indicatorID) => {
       if (newEntity[indicatorID] && overwrite === true 
         || !newEntity[indicatorID]) 
@@ -119,8 +127,12 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
       .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
     newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
+    if(!newEntity.user){
+      newEntity.user = {};
+    }
     return newEntity;
   }
+
 
   function adjustValue(entityName, indicatorID, value) {
     const e = getEntity(entityName);
@@ -223,8 +235,9 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     adjustValue,
     adjustWeight,
     filterIndicators,
-    getEntity,
     getEntities,
+    getEntity,
+    getEntityIndicator,
     getIndexMean,
     getIndicator,
     getIndicatorLookup,

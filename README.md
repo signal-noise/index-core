@@ -94,8 +94,10 @@ You can clear the exclusion by calling the same function with no arguments
 indexCore.filterIndicators()
 ```
 
-### indexCore.__getEntity([indicatorId:String])__:Object
+### indexCore.__getEntity([entityName:String])__:Object
 
+### indexCore.__getEntityIndicator([entityName:String], [indicatorId])__:Object
+This function returns the value of a given indicator (__indicatorId__) for a given entity (__entityName__) if a user set version of the indicator exists, it is that which will be returned.
 ### indexCore.__getEntities()__:Array
 
 ### indexCore.__getIndexMean([indicatorId:String], _[normalise:Boolean=false]_)__:Number
