@@ -79,3 +79,9 @@ test('indicator overide index-core', ()=>{
   expect(simpleIndex.indexedData['Catan']['1']).toBe(10);
   expect(simpleIndex.indexedData['Twilight Imperium']['2.3']).toBe(70);
 })
+
+test('get the user set value for an indicator', ()=>{
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+  simpleIndex.adjustValue('Monopoly', '1.2', 3.142);
+  expect(simpleIndex.getEntityIndicator('Monopoly','1.2')).toBe(3.142);
+})
