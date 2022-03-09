@@ -155,7 +155,11 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
     const calculationList = getCalculationList(onlyIdIndicators);
     
     indexedData[e.name] = indexEntity(e, calculationList, true);
-    return indexedData[e.name];
+    // console.log(indexedData[e.name])
+    const adjustedEntity = Object.assign(clone(indexedData[e.name]),indexedData[e.name].user)
+    delete adjustedEntity.user;  
+    delete adjustedEntity.data;  
+    return adjustedEntity;
   }
 
   function createStructure(indicatorIds) {

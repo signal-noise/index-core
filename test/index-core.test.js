@@ -85,3 +85,11 @@ test('get the user set value for an indicator', ()=>{
   simpleIndex.adjustValue('Monopoly', '1.2', 3.142);
   expect(simpleIndex.getEntityIndicator('Monopoly','1.2')).toBe(3.142);
 })
+
+test('check the return value from adjustValue', ()=>{
+  const simpleIndex = indexCore(simpleIndicators, simpleEntities);
+  const adjustedObject = simpleIndex.adjustValue('Monopoly', '1.2', 3.142);
+  expect(adjustedObject['1.2']).toBe(3.142);
+  expect(adjustedObject['user']).toBe(undefined);
+  expect(adjustedObject['data']).toBe(undefined);
+})
