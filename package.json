@@ -1,6 +1,6 @@
 {
   "name": "@economist/index-core",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "",
   "main": "src/index-core.js",
   "type": "module",
