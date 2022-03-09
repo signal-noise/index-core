@@ -17,18 +17,18 @@ const inclusiveInternetEntities = csvParse(fs.readFileSync(`${inclusiveIternetRo
 const inclusiveInternetIndex = indexCore(inclusiveInternetIndicators, inclusiveInternetEntities);
 
 
-console.log('value', inclusiveInternetIndex.indexedData['Singapore']['value'])
-console.log('1', inclusiveInternetIndex.indexedData['Singapore']['1'])
-console.log('1.2', inclusiveInternetIndex.indexedData['Singapore']['1.2'])
-console.log('1.2.1', inclusiveInternetIndex.getEntityIndicator('Singapore','1.2.1'))
+// console.log('value', inclusiveInternetIndex.indexedData['Singapore']['value'])
+// console.log('1', inclusiveInternetIndex.indexedData['Singapore']['1'])
+// console.log('1.2', inclusiveInternetIndex.indexedData['Singapore']['1.2'])
+// console.log('1.2.1', inclusiveInternetIndex.getEntityIndicator('Singapore','1.2.1'))
 
-inclusiveInternetIndex.adjustValue('Singapore','1.2.1',50);
+console.log(inclusiveInternetIndex.adjustValue('Singapore','1.2.1',50));
 
-console.log('adjusted')
-console.log('value', inclusiveInternetIndex.indexedData['Singapore']['value'])
-console.log('1', inclusiveInternetIndex.indexedData['Singapore']['1'])
-console.log('1.2', inclusiveInternetIndex.indexedData['Singapore']['1.2'])
-console.log('1.2.1', inclusiveInternetIndex.getEntityIndicator('Singapore','1.2.1'))
+// console.log('adjusted')
+// console.log('value', inclusiveInternetIndex.indexedData['Singapore']['value'])
+// console.log('1', inclusiveInternetIndex.indexedData['Singapore']['1'])
+// console.log('1.2', inclusiveInternetIndex.indexedData['Singapore']['1.2'])
+// console.log('1.2.1', inclusiveInternetIndex.getEntityIndicator('Singapore','1.2.1'))
 
 // const simpleRootDir = 'data/simple-index-set';
 
