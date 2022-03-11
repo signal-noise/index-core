@@ -94,7 +94,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
-      invert: !!indicator.invert,
+      invert: indicator.invert === true || indicator.invert.toLowerCase() === "true",
       range
     };
   }
