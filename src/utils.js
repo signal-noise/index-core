@@ -2,13 +2,13 @@ export function clone(o) {
   return JSON.parse(JSON.stringify(o));
 }
 
-export function clamper(range, value){ // restrict a value to between the vales of a tuple
-  return Math.min(Math.max(value,range[0]), range[1]);
+export function clamper(range, value) { // restrict a value to between the vales of a tuple
+  return Math.min(Math.max(value, range[0]), range[1]);
 }
 
 export function normalise(value, range = [0, 100], normaliseTo = 100, clamp = false) {
   let x = value;
-  if(clamp){
+  if (clamp) {
     x = clamper(range, value);
   }
   return ((x - range[0]) / (range[1] - range[0])) * normaliseTo;

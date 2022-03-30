@@ -2,8 +2,14 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-//TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true, clamp = false) {
+// TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
+function indexCore(
+  indicatorsData = [],
+  entitiesData = [],
+  indexMax = 100,
+  allowOverwrite = true,
+  clamp = false,
+) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
@@ -103,9 +109,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((indicatorID) => {
-      
-      if ((newEntity[indicatorID] && overwrite === true)
-        || !newEntity[indicatorID]) {
+      if ((newEntity[indicatorID] && overwrite === true) || !newEntity[indicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
