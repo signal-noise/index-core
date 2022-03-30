@@ -58,7 +58,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
       if (!normalised) {
         return acc + Number(v[indicatorID]);
       }
-      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax);
+      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax, clamp);
     }, 0);
     return sum / length;
   }
