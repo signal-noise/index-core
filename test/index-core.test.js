@@ -26,8 +26,8 @@ test('adjust indicator', ()=>{
   const adjustedValue = simpleIndex.indexedData['Monopoly'].value;
   simpleIndex.adjustValue('Monopoly');
   const resetValue = simpleIndex.indexedData['Monopoly'].value;
-  expect(originalValue.toFixed(3)).toBe('49.118')
-  expect(adjustedValue.toFixed(3)).toBe('53.118')
+  expect(originalValue.toFixed(3)).toBe('50.118')
+  expect(adjustedValue.toFixed(3)).toBe('53.451')
   expect(originalValue).toBe(resetValue);
 })
 
@@ -37,7 +37,7 @@ test('reset individual indicator', ()=>{
   simpleIndex.adjustValue('Monopoly','1.2',1);
   simpleIndex.adjustValue('Monopoly','1.2');
   const resetValue = simpleIndex.indexedData['Monopoly'].value;
-  expect(resetValue.toFixed(3)).toBe('53.118')
+  expect(resetValue.toFixed(3)).toBe('53.451')
 })
 
 test('getIndicatorMean index-core', ()=>{
@@ -72,7 +72,7 @@ test('diverging indicator index-core', ()=>{
 
 test('indicator overide index-core', ()=>{
   const simpleIndexOverwrite = indexCore(simpleIndicators, simpleEntities, undefined, true);
-  expect(simpleIndexOverwrite.indexedData['Catan']['1']).toBe(46.66666666666667);
+  expect(simpleIndexOverwrite.indexedData['Catan']['1'].toFixed(3)).toBe('52.222');
   expect(simpleIndexOverwrite.indexedData['Twilight Imperium']['2.3']).toBe(70);
 
   const simpleIndex = indexCore(simpleIndicators, simpleEntities, undefined, false);
@@ -92,4 +92,12 @@ test('check the return value from adjustValue', ()=>{
   expect(adjustedObject['1.2']).toBe(3.142);
   expect(adjustedObject['user']).toBe(undefined);
   expect(adjustedObject['data']).toBe(undefined);
+})
+
+test('test for clamped values', ()=>{
+  const clampedIndex = indexCore(simpleIndicators, simpleEntities, 100, true, true);
+  const unrestrictedIndex = indexCore(simpleIndicators, simpleEntities);
+  expect(clampedIndex.getEntity('Chinatown')['1'].toFixed(3)).toBe('62.778');
+  expect(unrestrictedIndex.getEntity('Chinatown')['1'].toFixed(3)).toBe('79.444');
+  
 })
