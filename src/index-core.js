@@ -2,7 +2,9 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true) {
+//TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
+function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true, clamp = false) {
+  
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
