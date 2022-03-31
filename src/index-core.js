@@ -108,22 +108,29 @@ function indexCore(
 
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
-    calculationList.forEach((indicatorID) => {
-      if ((newEntity[indicatorID] && overwrite === true) || !newEntity[indicatorID]) {
+    calculationList.forEach((parentIndicatorID) => {
+      if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
         const componentIndicators = indicatorsData
-          .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
-            && indicator.id.length === indicatorID.length + 2))
+          .filter((indicator) => (
+            indicator.id.indexOf(parentIndicatorID) === 0 // the
+            && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
           .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
-        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
+        newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
+        if(parentIndicatorID.indexOf('3.2')>=0 && newEntity.name == 'Algeria'){
+          console.log('value', newEntity[parentIndicatorID]);
+          console.log('components\n\n', componentIndicators.map(i=>{
+            return `${i.id}: ${normalise(i.value, i.range)}`;
+          }).join('\n'));
+        }
       } else {
-        console.warn(`retaining existing value for ${newEntity.name} - ${indicatorID} : ${Number(entity[indicatorID])}`);
-        newEntity[indicatorID] = Number(entity[indicatorID]);
+        console.warn(`retaining existing value for ${newEntity.name} - ${parentIndicatorID} : ${Number(entity[parentIndicatorID])}`);
+        newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
       }
     });
 
