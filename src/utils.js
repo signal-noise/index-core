@@ -23,7 +23,6 @@ export function calculateWeightedMean(weightedValues, normaliseTo = 100, clamp =
     const weightedValue = indicator.invert
       ? ((normaliseTo - normalisedValue) * indicator.weight)
       : (normalisedValue * indicator.weight);
-
     weightedSum += weightedValue;
     cumulativeWeight += indicator.weight;
   }

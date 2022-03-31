@@ -70,7 +70,7 @@ function indexCore(
 
   // format an indicator for passing to the weighted mean function
   function formatIndicator(indicator, entity, max) {
-    const diverging = !!indicator.diverging;
+    const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
     let value = entity.user && entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
       : Number(entity[indicator.id]);
@@ -87,7 +87,7 @@ function indexCore(
       if (indicator.max) {
         range = [0, indicator.max];
         if (indicator.min) {
-          range = [0, Math.max(Math.abs(indicator.min), indicator.max)];
+          range = [0, Math.max(Math.abs(indicator.min), Math.abs(indicator.max))];
         }
       } else {
         range = [0, max];
@@ -108,22 +108,23 @@ function indexCore(
 
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
-    calculationList.forEach((indicatorID) => {
-      if ((newEntity[indicatorID] && overwrite === true) || !newEntity[indicatorID]) {
+    calculationList.forEach((parentIndicatorID) => {
+      if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
         const componentIndicators = indicatorsData
-          .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
-            && indicator.id.length === indicatorID.length + 2))
+          .filter((indicator) => (
+            indicator.id.indexOf(parentIndicatorID) === 0 // the
+            && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
           .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
-        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
+        newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
       } else {
-        console.warn(`retaining existing value for ${newEntity.name} - ${indicatorID} : ${Number(entity[indicatorID])}`);
-        newEntity[indicatorID] = Number(entity[indicatorID]);
+        console.warn(`retaining existing value for ${newEntity.name} - ${parentIndicatorID} : ${Number(entity[parentIndicatorID])}`);
+        newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
       }
     });
 
