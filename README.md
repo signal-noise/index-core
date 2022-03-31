@@ -39,7 +39,7 @@ There will often be ancillary imformation associated with each entity, things li
 ---
 ## API
 
-### indexCore(_indicators:Array_, _entities:Array_, [_indexMax:Number=100_],[_allowOverwrite:Boolean=true_])
+### indexCore(_indicators:Array_, _entities:Array_, [_indexMax:Number=100_],[_allowOverwrite:Boolean=true_],[_clamp=false_])
 
 indexCore constructs and calculates an index it returns an `index` object allowing access to results of the calculation for all the entities at a give indicator level, the structure of the index as a whole and methods for adjusting indicator values and weightings. 
 
@@ -72,6 +72,7 @@ __indexMax__, optional. is the maximum value for the index score (minimum is alw
 
 __allowOverwrite__, optional. By default this is set to true ensuring that all calculated values _will_ be calculated by the module. If set to false, calculated values that are supplied in the `entities` sheet will take precedence. Most of the time you don't want to do this but it might be a handy escape hatch.
 
+__clamp__, optional. By default this is set to false. Indicator values above the max or below the min values for that indicator will not be constrained therefor normalised values may lie outside the expected range. Set to true if you want you values constrained.
 
 ### indexCore.__adjustValue(_entityName:String_, _indicatorID:String_, _value:Number_)__
 A function that allows the user to adjust an entity's (_entityName_) indicator (_indicatorID_) score to a specified _value_. Calculated values for that entity are re-calculated using the new value. If the function is called without _value_ the indicator is reset to it's inital value. If the function is called without _indicatorId_ or _value_ all indicators on the entity are reset to their initial values. As a convenience the function returns an object with all the recalculated values.

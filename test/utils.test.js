@@ -1,5 +1,6 @@
 import {
   calculateWeightedMean,
+  clamper,
   normalise
 } from '../src/utils';
 
@@ -59,6 +60,16 @@ test('simple weighted mean', ()=>{
 
 test('normalise', ()=>{
   const normA = normalise(32,[0,64],100);
+  const normB = normalise(100,[0,64],100, true);
+  const normC = normalise(96,[0,64],100);
   expect(normA).toBe(50);
+  expect(normB).toBe(100);
+  expect(normC).toBe(150);
 });
+
+test('clamper',()=>{
+  expect(clamper([0,100],300)).toBe(100);
+  expect(clamper([0,100],-50)).toBe(0);
+  expect(clamper([0,100],50)).toBe(50);
+})
 

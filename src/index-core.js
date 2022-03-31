@@ -2,7 +2,14 @@ import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true) {
+// TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
+function indexCore(
+  indicatorsData = [],
+  entitiesData = [],
+  indexMax = 100,
+  allowOverwrite = true,
+  clamp = false,
+) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup = Object.fromEntries(
     indicatorsData
@@ -56,7 +63,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
       if (!normalised) {
         return acc + Number(v[indicatorID]);
       }
-      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax);
+      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax, clamp);
     }, 0);
     return sum / length;
   }
@@ -102,18 +109,18 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
   function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((indicatorID) => {
-      if ((newEntity[indicatorID] && overwrite === true)
-        || !newEntity[indicatorID]) {
+      if ((newEntity[indicatorID] && overwrite === true) || !newEntity[indicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
+
         const componentIndicators = indicatorsData
           .filter((indicator) => (indicator.id.indexOf(indicatorID) === 0
             && indicator.id.length === indicatorID.length + 2))
-          .filter((indicator) => !excludeIndicator(indicator))
+          .filter((indicator) => excludeIndicator(indicator) === false)
           .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
-        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax);
+        newEntity[indicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
       } else {
         console.warn(`retaining existing value for ${newEntity.name} - ${indicatorID} : ${Number(entity[indicatorID])}`);
         newEntity[indicatorID] = Number(entity[indicatorID]);
@@ -124,7 +131,7 @@ function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allow
       .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
       .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
-    newEntity.value = calculateWeightedMean(pillarIndicators, indexMax);
+    newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
     if (!newEntity.user) {
       newEntity.user = {};
     }
