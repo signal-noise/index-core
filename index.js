@@ -15,5 +15,5 @@ const iii = indexCore(iiiIndicators, iiiEntities, 100 ,true, true);
 // console.log( simpleIndex.getEntity('Chinatown')['1'], 'vs', simpleIndexUnrestricted.getEntity('Chinatown')['1'] )
 // console.log( simpleIndex.getEntity('Chinatown')['1.4'], 'vs', simpleIndexUnrestricted.getEntity('Chinatown')['1.4'] )
 
-console.log(iii.getEntityIndicator('Algeria', '3.2'));
-console.log(iii.getEntityIndicator('Algeria', '3.2.1', true));
+console.log('i', iii.getEntityIndicator('Algeria', '1.1'));
+console.log('i', iii.getEntityIndicator('Algeria', '1'));

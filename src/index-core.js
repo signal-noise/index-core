@@ -70,7 +70,7 @@ function indexCore(
 
   // format an indicator for passing to the weighted mean function
   function formatIndicator(indicator, entity, max) {
-    const diverging = !!indicator.diverging;
+    const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
     let value = entity.user && entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
       : Number(entity[indicator.id]);
@@ -87,7 +87,7 @@ function indexCore(
       if (indicator.max) {
         range = [0, indicator.max];
         if (indicator.min) {
-          range = [0, Math.max(Math.abs(indicator.min), indicator.max)];
+          range = [0, Math.max(Math.abs(indicator.min), Math.abs(indicator.max))];
         }
       } else {
         range = [0, max];
@@ -122,12 +122,6 @@ function indexCore(
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
         newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
-        if(parentIndicatorID.indexOf('3.2')>=0 && newEntity.name == 'Algeria'){
-          console.log('value', newEntity[parentIndicatorID]);
-          console.log('components\n\n', componentIndicators.map(i=>{
-            return `${i.id}: ${normalise(i.value, i.range)}`;
-          }).join('\n'));
-        }
       } else {
         console.warn(`retaining existing value for ${newEntity.name} - ${parentIndicatorID} : ${Number(entity[parentIndicatorID])}`);
         newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
