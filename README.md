@@ -9,6 +9,8 @@ This ES module provides a way to calculate an EIU style index ([what is an index
 
 These data sources are typically derived from CSV spreadsheets and take the form of two arrays of objects with each object representing the data from one row of the CSV -- this is the default form of Javascript object produced by D3's CSV parser. Example sheets can be found in this repos [data](data) directory.
 
+Example data format: https://docs.google.com/spreadsheets/d/1JMdQwTRFPwCd7MI9QrnOAVbue5HqzXvGdAxIH4Kk62I/edit#gid=351331176
+
 Let's look at the data sources in more depth!
 
 ## Data source: Indicators
