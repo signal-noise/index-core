@@ -1,19 +1,30 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
 
+type Indicator = {
+  id: string
+  min: string
+  max: string
+}
+
+type Entity = {
+  name: string
+}
+
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
 function indexCore(
-  indicatorsData = [],
-  entitiesData = [],
+  indicatorsData: Indicator[] = [],
+  entitiesData: Entity[] = [],
   indexMax = 100,
   allowOverwrite = true,
   clamp = false,
 ) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
+  console.log(indicatorsData);
   const indicatorLookup = Object.fromEntries(
     indicatorsData
-      .map((indicator) => ([indicator.id, indicator])),
+      .map((indicator: Indicator) => ([indicator.id, indicator])),
   );
   const indexedData = {};
   let indexStructure = {};
@@ -31,7 +42,7 @@ function indexCore(
   }
 
   function getEntities() {
-    return entitiesData.map((d) => d.name);
+    return entitiesData.map((d: { name: string }) => d.name);
   }
 
   function getIndicator(id) {
