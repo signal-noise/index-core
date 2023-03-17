@@ -32,7 +32,7 @@
         return core.getIndicator(d.id).weighting
       }));
 
-    console.log('L', layedOut)
+    // console.log('L', layedOut)
 
     let segmentContainer = d3.select('.chart')
       .attr("viewBox", [0, 0, width, height])
@@ -46,7 +46,7 @@
         .attr('fill',d=>`rgba(255,0,255,${1/(d.depth+1)})`)
         .attr('stroke','black')
         .attr('x', d=>{
-          console.log(d);
+          // console.log(d);
           return d.x0
         })
         .attr('y', d=>d.y0)
@@ -70,12 +70,13 @@ ${JSON.stringify(core.getIndicator(d.data.id),null,' ')}
     ])
     .then(([entities, indicators])=>{
       const waterOptimisationIndex = indexCore(indicators, entities);
-      drawSunburst(waterOptimisationIndex)
+      drawSunburst(waterOptimisationIndex);
+      console.log('debug: ', waterOptimisationIndex.debug);
     })
-    // .catch(()=>{
-    //   d3.select('#error')
-    //     .text('nope');
-    // })
+    .catch(()=>{
+      d3.select('#error')
+        .text('nope');
+    })
     
   </script>
 </html>

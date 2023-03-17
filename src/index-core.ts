@@ -1,13 +1,47 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
 
 type Indicator = {
-  id: string
-  min: string
-  max: string
+  id: IndicatorId
+  min: number
+  max: number
+  type: "calculated" | "discrete"
+  diverging: boolean
+  userWeighting: number
+  weighting: number
+  invert: boolean
+}
+
+// ???
+type FormattedIndicator = {
+  id: IndicatorId
+  value: IndicatorScore
+  weight: number
+  range: number[]
+  invert: boolean
 }
 
 type Entity = {
   name: string
+  user: Record<string, any> // User-generated scores
+
+}
+
+type IndicatorLookup = {
+
+}
+
+type IndexedData = {
+  [key: string]: Entity
+}
+
+type IndicatorScore = number | string
+
+// how can we be strict about the n.n.n format? perhaps using indicatorIdTest?
+type IndicatorId = string
+
+type IndexStructure = {
+  id: IndicatorId
+  children: IndexStructure[]
 }
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
@@ -16,25 +50,28 @@ const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 function indexCore(
   indicatorsData: Indicator[] = [],
   entitiesData: Entity[] = [],
-  indexMax = 100,
-  allowOverwrite = true,
-  clamp = false,
+  indexMax: number = 100,
+  allowOverwrite: boolean = true,
+  clamp: boolean = false,
 ) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
-  console.log(indicatorsData);
-  const indicatorLookup = Object.fromEntries(
+  const indicatorLookup: IndicatorLookup = Object.fromEntries(
     indicatorsData
       .map((indicator: Indicator) => ([indicator.id, indicator])),
   );
-  const indexedData = {};
-  let indexStructure = {};
-  let excludeIndicator = () => false; // by default no valid indicators are excluded
 
-  function getEntity(entityName) {
+  const indexedData: IndexedData = {};
+  let indexStructure: IndexStructure = {
+    id: '',
+    children: []
+  };
+  let excludeIndicator = (indicator: Indicator) => false; // by default no valid indicators are excluded
+
+  function getEntity(entityName): Entity {
     return indexedData[entityName];
   }
 
-  function getEntityIndicator(entityName, indicatorID) {
+  function getEntityIndicator(entityName: string, indicatorID: string) {
     if (indexedData[entityName].user && indexedData[entityName].user[indicatorID]) {
       return indexedData[entityName].user[indicatorID];
     }
@@ -45,15 +82,15 @@ function indexCore(
     return entitiesData.map((d: { name: string }) => d.name);
   }
 
-  function getIndicator(id) {
+  function getIndicator(id): Indicator {
     return indicatorLookup[id];
   }
 
-  function getIndicatorLookup() {
+  function getIndicatorLookup(): IndicatorLookup {
     return indicatorLookup;
   }
 
-  function getIndexMean(indicatorID = 'value', normalised = true) {
+  function getIndexMean(indicatorID: IndicatorId = 'value', normalised: boolean = true) {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
@@ -80,7 +117,7 @@ function indexCore(
   }
 
   // format an indicator for passing to the weighted mean function
-  function formatIndicator(indicator, entity, max) {
+  function formatIndicator(indicator: Indicator, entity: Entity, max: number): FormattedIndicator {
     const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
     let value = entity.user && entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
@@ -112,20 +149,21 @@ function indexCore(
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
-      invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+      // invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+      invert: indicator.invert === true,
       range,
     };
   }
 
-  function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
+  function indexEntity(entity: Entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((parentIndicatorID) => {
       if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
-        const componentIndicators = indicatorsData
-          .filter((indicator) => (
+        const componentIndicators: FormattedIndicator[] = indicatorsData
+          .filter((indicator: Indicator) => (
             indicator.id.indexOf(parentIndicatorID) === 0 // the
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
@@ -150,7 +188,7 @@ function indexCore(
     return newEntity;
   }
 
-  function getIndexableIndicators() {
+  function getIndexableIndicators(): Indicator[] {
     return indicatorsData
       .filter((i) => {
         const isIndicator = String(i.id).match(indicatorIdTest);
@@ -159,7 +197,7 @@ function indexCore(
       });
   }
 
-  function getCalculationList(indicators) {
+  function getCalculationList(indicators: Indicator[]) {
     return indicators
       .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
       .map((i) => i.id)
@@ -183,7 +221,7 @@ function indexCore(
       e.user[indicatorID] = value;
     }
 
-    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
+    const onlyIdIndicators = getIndexableIndicators();
     const calculationList = getCalculationList(onlyIdIndicators);
 
     indexedData[e.name] = indexEntity(e, calculationList, true);
@@ -194,8 +232,8 @@ function indexCore(
     return adjustedEntity;
   }
 
-  function createStructure(indicatorIds) {
-    const tree = { id: 'root', children: [] };
+  function createStructure(indicatorIds: IndicatorId[]): IndexStructure {
+    const tree: IndexStructure = { id: 'root', children: [] };
 
     indicatorIds.forEach((id) => {
       const bits = id.split('.');
@@ -221,13 +259,13 @@ function indexCore(
     return tree;
   }
 
-  function calculateIndex(overwrite = allowOverwrite) {
+  function calculateIndex(overwrite: boolean = allowOverwrite) {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to the shallowist
-    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
+    const onlyIdIndicators: Indicator[] = getIndexableIndicators();
     const calculationList = getCalculationList(onlyIdIndicators);
 
-    indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
+    indexStructure = createStructure(onlyIdIndicators.map((i: Indicator) => i.id));
 
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList, overwrite);
@@ -236,14 +274,14 @@ function indexCore(
     });
   }
 
-  function adjustWeight(indicatorID, weight) {
+  function adjustWeight(indicatorID: IndicatorId, weight): void {
     // TODO: make the index recalculating take into account what
     //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
     calculateIndex(true);
   }
 
-  function filterIndicators(exclude = () => false, overwrite = allowOverwrite) {
+  function filterIndicators(exclude = () => false, overwrite: boolean = allowOverwrite) {
     excludeIndicator = exclude;
     calculateIndex(overwrite);
   }
@@ -262,6 +300,7 @@ function indexCore(
     getIndicatorLookup,
     indexedData,
     indexStructure,
+    debug: indexStructure
   };
 }
 
