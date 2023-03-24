@@ -38,6 +38,8 @@ type IndicatorScore = number | string
 
 // how can we be strict about the n.n.n format? perhaps using indicatorIdTest?
 type IndicatorId = string
+// there's a purpose to this i guarantee it
+type IndicatorIdBit = string
 
 type IndexStructure = {
   id: IndicatorId
@@ -235,16 +237,16 @@ function indexCore(
   function createStructure(indicatorIds: IndicatorId[]): IndexStructure {
     const tree: IndexStructure = { id: 'root', children: [] };
 
-    indicatorIds.forEach((id) => {
-      const bits = id.split('.');
-      let current = tree;
-      let builtId = '';
-      bits.forEach((bit, i) => {
+    indicatorIds.forEach((id: IndicatorId) => {
+      const bits: IndicatorIdBit[] = id.split('.');
+      let current: IndexStructure = tree;
+      let builtId: IndicatorId = '';
+      bits.forEach((bit: IndicatorIdBit, i) => {
         builtId = (i === 0)
           ? `${bit}`
           : `${builtId}.${bit}`;
 
-        let next = current.children.find((c) => c.id === builtId);
+        let next: IndexStructure | undefined = current.children.find((c: IndexStructure) => c.id === builtId);
         if (next === undefined) {
           next = {
             id: builtId,
