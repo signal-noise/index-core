@@ -4,7 +4,7 @@ import * as Types from './types';
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
-function indexCore(
+const index: Types.Index = function indexCore(
   indicatorsData: Types.Indicator[] = [],
   entitiesData: Types.Entity[] = [],
   indexMax: number = 100,
@@ -201,7 +201,7 @@ function indexCore(
           ? `${bit}`
           : `${builtId}.${bit}`;
 
-        let next: Types.IndexStructure | undefined = current.children.find((c: IndexStructure) => c.id === builtId);
+        let next: Types.IndexStructure | undefined = current.children.find((c: Types.IndexStructure) => c.id === builtId);
         if (next === undefined) {
           next = {
             id: builtId,
@@ -261,4 +261,4 @@ function indexCore(
   };
 }
 
-export default indexCore;
+export default index;

@@ -1,3 +1,7 @@
+import { DSVRowArray } from "d3";
+
+export type Index = any;
+
 export type Indicator = {
   id: IndicatorId
   min: number
@@ -7,6 +11,10 @@ export type Indicator = {
   userWeighting: number
   weighting: number
   invert: boolean
+}
+
+export interface IndicatorInterface extends DSVRowArray<keyof Indicator> {
+
 }
 
 // ???
@@ -21,7 +29,10 @@ export type FormattedIndicator = {
 export type Entity = {
   name: string
   user: Record<string, any> // User-generated scores
+}
 
+export interface EntityInterface extends DSVRowArray<keyof Entity> {
+  
 }
 
 export type IndicatorLookup = {

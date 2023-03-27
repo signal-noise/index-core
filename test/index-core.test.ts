@@ -1,21 +1,22 @@
-import {csvParse} from 'd3';
+import { csvParse } from 'd3';
+import * as Types from '../src/types';
 // import { expect } from '@jest/globals';
 import fs from 'fs';
 import indexCore from '../src/index-core.js';
 
 const waterRootDir = 'data/wateroptimisation';
 
-const waterIndicators = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8'));
-const waterEntities = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8'));
+const waterIndicators: Types.IndicatorInterface = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8'));
+const waterEntities: Types.EntityInterface = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8'));
 
 const simpleRootDir = 'data/simple-index-set';
 
-const simpleIndicators = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8'));
-const simpleEntities = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8'));
+const simpleIndicators: Types.IndicatorInterface = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8'));
+const simpleEntities: Types.EntityInterface = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8'));
 
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
-  expect.anything(waterOptimisationIndex);
+  expect(waterOptimisationIndex).toBe(expect.anything());
   expect(waterOptimisationIndex.indexedData['Naples'].value.toFixed(1)).toBe('76.2');
 });
 
