@@ -1,75 +1,30 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
-
-type Indicator = {
-  id: IndicatorId
-  min: number
-  max: number
-  type: "calculated" | "discrete"
-  diverging: boolean
-  userWeighting: number
-  weighting: number
-  invert: boolean
-}
-
-// ???
-type FormattedIndicator = {
-  id: IndicatorId
-  value: IndicatorScore
-  weight: number
-  range: number[]
-  invert: boolean
-}
-
-type Entity = {
-  name: string
-  user: Record<string, any> // User-generated scores
-
-}
-
-type IndicatorLookup = {
-
-}
-
-type IndexedData = {
-  [key: string]: Entity
-}
-
-type IndicatorScore = number | string
-
-// how can we be strict about the n.n.n format? perhaps using indicatorIdTest?
-type IndicatorId = string
-// there's a purpose to this i guarantee it
-type IndicatorIdBit = string
-
-type IndexStructure = {
-  id: IndicatorId
-  children: IndexStructure[]
-}
+import * as Types from './types';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
 function indexCore(
-  indicatorsData: Indicator[] = [],
-  entitiesData: Entity[] = [],
+  indicatorsData: Types.Indicator[] = [],
+  entitiesData: Types.Entity[] = [],
   indexMax: number = 100,
   allowOverwrite: boolean = true,
   clamp: boolean = false,
 ) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
-  const indicatorLookup: IndicatorLookup = Object.fromEntries(
+  const indicatorLookup: Types.IndicatorLookup = Object.fromEntries(
     indicatorsData
-      .map((indicator: Indicator) => ([indicator.id, indicator])),
+      .map((indicator: Types.Indicator) => ([indicator.id, indicator])),
   );
 
-  const indexedData: IndexedData = {};
-  let indexStructure: IndexStructure = {
+  const indexedData: Types.IndexedData = {};
+  let indexStructure: Types.IndexStructure = {
     id: '',
     children: []
   };
-  let excludeIndicator = (indicator: Indicator) => false; // by default no valid indicators are excluded
+  let excludeIndicator = (indicator: Types.Indicator) => false; // by default no valid indicators are excluded
 
-  function getEntity(entityName): Entity {
+  function getEntity(entityName): Types.Entity {
     return indexedData[entityName];
   }
 
@@ -84,15 +39,15 @@ function indexCore(
     return entitiesData.map((d: { name: string }) => d.name);
   }
 
-  function getIndicator(id): Indicator {
+  function getIndicator(id): Types.Indicator {
     return indicatorLookup[id];
   }
 
-  function getIndicatorLookup(): IndicatorLookup {
+  function getIndicatorLookup(): Types.IndicatorLookup {
     return indicatorLookup;
   }
 
-  function getIndexMean(indicatorID: IndicatorId = 'value', normalised: boolean = true) {
+  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised: boolean = true) {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
@@ -119,7 +74,7 @@ function indexCore(
   }
 
   // format an indicator for passing to the weighted mean function
-  function formatIndicator(indicator: Indicator, entity: Entity, max: number): FormattedIndicator {
+  function formatIndicator(indicator: Types.Indicator, entity: Types.Entity, max: number): Types.FormattedIndicator {
     const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
     let value = entity.user && entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
@@ -157,15 +112,15 @@ function indexCore(
     };
   }
 
-  function indexEntity(entity: Entity, calculationList, overwrite = allowOverwrite) {
+  function indexEntity(entity: Types.Entity, calculationList, overwrite = allowOverwrite) {
     const newEntity = clone(entity);
     calculationList.forEach((parentIndicatorID) => {
       if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
-        const componentIndicators: FormattedIndicator[] = indicatorsData
-          .filter((indicator: Indicator) => (
+        const componentIndicators: Types.FormattedIndicator[] = indicatorsData
+          .filter((indicator: Types.Indicator) => (
             indicator.id.indexOf(parentIndicatorID) === 0 // the
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
@@ -190,7 +145,7 @@ function indexCore(
     return newEntity;
   }
 
-  function getIndexableIndicators(): Indicator[] {
+  function getIndexableIndicators(): Types.Indicator[] {
     return indicatorsData
       .filter((i) => {
         const isIndicator = String(i.id).match(indicatorIdTest);
@@ -199,14 +154,14 @@ function indexCore(
       });
   }
 
-  function getCalculationList(indicators: Indicator[]) {
+  function getCalculationList(indicators: Types.Indicator[]) {
     return indicators
       .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
   }
 
-  function adjustValue(entityName, indicatorID, value) {
+  function adjustValue(entityName, indicatorID, value): Types.Entity {
     const e = getEntity(entityName);
 
     if ((!indicatorID && !value) || !e.user) {
@@ -234,19 +189,19 @@ function indexCore(
     return adjustedEntity;
   }
 
-  function createStructure(indicatorIds: IndicatorId[]): IndexStructure {
-    const tree: IndexStructure = { id: 'root', children: [] };
+  function createStructure(indicatorIds: Types.IndicatorId[]): Types.IndexStructure {
+    const tree: Types.IndexStructure = { id: 'root', children: [] };
 
-    indicatorIds.forEach((id: IndicatorId) => {
-      const bits: IndicatorIdBit[] = id.split('.');
-      let current: IndexStructure = tree;
-      let builtId: IndicatorId = '';
-      bits.forEach((bit: IndicatorIdBit, i) => {
+    indicatorIds.forEach((id: Types.IndicatorId) => {
+      const bits: Types.IndicatorIdBit[] = id.split('.');
+      let current: Types.IndexStructure = tree;
+      let builtId: Types.IndicatorId = '';
+      bits.forEach((bit: Types.IndicatorIdBit, i) => {
         builtId = (i === 0)
           ? `${bit}`
           : `${builtId}.${bit}`;
 
-        let next: IndexStructure | undefined = current.children.find((c: IndexStructure) => c.id === builtId);
+        let next: Types.IndexStructure | undefined = current.children.find((c: IndexStructure) => c.id === builtId);
         if (next === undefined) {
           next = {
             id: builtId,
@@ -264,10 +219,10 @@ function indexCore(
   function calculateIndex(overwrite: boolean = allowOverwrite) {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to the shallowist
-    const onlyIdIndicators: Indicator[] = getIndexableIndicators();
+    const onlyIdIndicators: Types.Indicator[] = getIndexableIndicators();
     const calculationList = getCalculationList(onlyIdIndicators);
 
-    indexStructure = createStructure(onlyIdIndicators.map((i: Indicator) => i.id));
+    indexStructure = createStructure(onlyIdIndicators.map((i: Types.Indicator) => i.id));
 
     entitiesData.forEach((entity) => {
       const indexedEntity = indexEntity(entity, calculationList, overwrite);
@@ -276,7 +231,7 @@ function indexCore(
     });
   }
 
-  function adjustWeight(indicatorID: IndicatorId, weight): void {
+  function adjustWeight(indicatorID: Types.IndicatorId, weight): void {
     // TODO: make the index recalculating take into account what
     //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
