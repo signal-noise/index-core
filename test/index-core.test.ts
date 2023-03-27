@@ -1,5 +1,5 @@
 import {csvParse} from 'd3';
-import { expect } from '@jest/globals';
+// import { expect } from '@jest/globals';
 import fs from 'fs';
 import indexCore from '../src/index-core.js';
 
