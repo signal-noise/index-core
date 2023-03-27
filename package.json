@@ -34,7 +34,8 @@
     "sirv-cli": "^1.0.14",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@jest/globals": "^29.5.0"
