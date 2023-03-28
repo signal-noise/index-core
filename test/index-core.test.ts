@@ -16,7 +16,7 @@ const simpleEntities: Types.EntityInterface = csvParse(fs.readFileSync(`${simple
 
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
-  expect(waterOptimisationIndex).toBe(expect.anything());
+  expect(waterOptimisationIndex).toEqual(expect.anything());
   expect(waterOptimisationIndex.indexedData['Naples'].value.toFixed(1)).toBe('76.2');
 });
 
@@ -25,7 +25,7 @@ test('adjust indicator', ()=>{
   const originalValue = simpleIndex.indexedData['Monopoly'].value;
   simpleIndex.adjustValue('Monopoly','1.1',10);
   const adjustedValue = simpleIndex.indexedData['Monopoly'].value;
-  simpleIndex.adjustValue('Monopoly');
+  simpleIndex.adjustValue('Monopoly', null, null);
   const resetValue = simpleIndex.indexedData['Monopoly'].value;
   expect(originalValue.toFixed(3)).toBe('50.118')
   expect(adjustedValue.toFixed(3)).toBe('53.451')
@@ -36,7 +36,7 @@ test('reset individual indicator', ()=>{
   const simpleIndex = indexCore(simpleIndicators, simpleEntities);
   simpleIndex.adjustValue('Monopoly','1.1',10);
   simpleIndex.adjustValue('Monopoly','1.2',1);
-  simpleIndex.adjustValue('Monopoly','1.2');
+  simpleIndex.adjustValue('Monopoly','1.2', null);
   const resetValue = simpleIndex.indexedData['Monopoly'].value;
   expect(resetValue.toFixed(3)).toBe('53.451')
 })
@@ -54,7 +54,7 @@ test('getIndicatorMean index-core', ()=>{
 
 test('filterIndicators index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
-  const excluder = (indicator) => (String(indicator.id).indexOf('b')>0); // if the indicator includes "b" in it's id ignore it
+  const excluder = (indicator: Types.Indicator) => (String(indicator.id).indexOf('b')>0); // if the indicator includes "b" in it's id ignore it
   waterOptimisationIndex.filterIndicators(excluder)
   expect(waterOptimisationIndex.getIndexMean('1').toFixed(1)).toBe('71.2');
   expect(waterOptimisationIndex.getIndexMean('1.2').toFixed(1)).toBe('87.9');

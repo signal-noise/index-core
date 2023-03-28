@@ -18,11 +18,14 @@ const index: Types.Index = function indexCore(
   );
 
   const indexedData: Types.IndexedData = {};
+  let indexStructureChildren: Types.IndexStructure[] = [];
+
   let indexStructure: Types.IndexStructure = {
     id: '',
-    children: []
+    children: indexStructureChildren
   };
-  let excludeIndicator = (indicator: Types.Indicator) => false; // by default no valid indicators are excluded
+
+  let excludeIndicator = (indicator?: Types.Indicator) => false; // by default no valid indicators are excluded
 
   function getEntity(entityName): Types.Entity {
     return indexedData[entityName];
@@ -51,10 +54,17 @@ const index: Types.Index = function indexCore(
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
-    const entityValues = Object.values(indexedData);
-    const indicator = indicatorLookup[indicatorID]
+    const entityValues: Types.Entity[] = Object.values(indexedData);
+    const indicator: Types.Indicator = indicatorLookup[indicatorID]
       ? indicatorLookup[indicatorID]
-      : { min: 0, max: indexMax };
+      : { 
+        min: 0,
+        max: indexMax,
+        id: '',
+        type: Types.IndicatorType.DISCRETE,
+        diverging: false,
+        invert: false
+      };
     const indicatorRange = [
       indicator.min ? Number(indicator.min) : 0,
       indicator.max ? Number(indicator.max) : indexMax,
@@ -103,6 +113,10 @@ const index: Types.Index = function indexCore(
     return {
       id: indicator.id,
       value,
+      type: indicator.type,
+      min: indicator.min,
+      max: indicator.max,
+      diverging,
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
@@ -112,7 +126,7 @@ const index: Types.Index = function indexCore(
     };
   }
 
-  function indexEntity(entity: Types.Entity, calculationList, overwrite = allowOverwrite) {
+  function indexEntity(entity: Types.Entity, calculationList, overwrite = allowOverwrite): Types.Entity {
     const newEntity = clone(entity);
     calculationList.forEach((parentIndicatorID) => {
       if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
@@ -147,7 +161,7 @@ const index: Types.Index = function indexCore(
 
   function getIndexableIndicators(): Types.Indicator[] {
     return indicatorsData
-      .filter((i) => {
+      .filter((i: Types.Indicator) => {
         const isIndicator = String(i.id).match(indicatorIdTest);
         const isExcluded = excludeIndicator(i);
         return isIndicator && !isExcluded;
@@ -156,21 +170,22 @@ const index: Types.Index = function indexCore(
 
   function getCalculationList(indicators: Types.Indicator[]) {
     return indicators
-      .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
+      .filter((i) => (i.type === Types.IndicatorType.CALCULATED && !excludeIndicator(i)))
       .map((i) => i.id)
       .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
   }
 
-  function adjustValue(entityName, indicatorID, value): Types.Entity {
-    const e = getEntity(entityName);
+  function adjustValue(entityName: Types.EntityName, indicatorID: Types.IndicatorId, value: Types.IndicatorScore): Types.Entity {
+    const e: Types.Entity = getEntity(entityName);
 
     if ((!indicatorID && !value) || !e.user) {
-      e.user = {}; // no value or indicator specified, reset
+      const newUser: Types.User = {};
+      e.user = newUser; // no value or indicator specified, reset
     } else if (!value && e.user) {
       delete e.user[indicatorID]; // no value specified, reset the indicator
     }
 
-    if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === 'calculated') {
+    if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === Types.IndicatorType.CALCULATED) {
       console.warn(`${indicatorID} is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?`);
       return clone(e);
     }
@@ -224,7 +239,7 @@ const index: Types.Index = function indexCore(
 
     indexStructure = createStructure(onlyIdIndicators.map((i: Types.Indicator) => i.id));
 
-    entitiesData.forEach((entity) => {
+    entitiesData.forEach((entity: Types.Entity) => {
       const indexedEntity = indexEntity(entity, calculationList, overwrite);
       indexedEntity.data = entity;
       indexedData[entity.name] = indexedEntity;

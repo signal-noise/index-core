@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { expect } from '@jest/globals';
+
+import * as Types from '../src/types';
 import {
   calculateWeightedMean,
   clamper,
@@ -11,45 +13,80 @@ const testDataA = [{
   value: 50,
   weight: 0.5,
   range: [0, 100],
+  id: '1',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 },
 {
   value: 25,
   weight: 0.25,
   range: [0, 50],
+  id: '2',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 },
 {
   value: 25,
   weight: 0.25,
   range: [0, 50],
+  id: '3',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }];
 
 const testDataB = [{
   value: 0,
   weight: 0.5,
   range: [-100, 100],
+  id: '1',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }, {
   value: 25,
   weight: 0.25,
   range: [0, 50],
+  id: '2',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }, {
   value: 25,
   weight: 0.25,
   range: [0, 50],
+  id: '3',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }];
 
 const testDataC = [{
   value: 0,
   weight: 0.5,
   range: [-100, 100],
+  id: '1',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }, {
   value: 25,
   weight: 0.25,
   invert: true,
   range: [0, 100],
+  id: '2',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false
 }, {
   value: 25,
   weight: 0.25,
   range: [0, 100],
+  id: '3',
+  type: Types.IndicatorType.DISCRETE,
+  diverging: false,
+  invert: false
 }];
 
 test('simple weighted mean', () => {
