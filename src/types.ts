@@ -8,6 +8,7 @@ export type Indicator = {
   max?: number
   type: IndicatorType
   diverging: boolean
+  value: IndicatorScore | null
   userWeighting?: number
   weighting?: number
   invert: boolean
@@ -15,7 +16,8 @@ export type Indicator = {
 
 export enum IndicatorType {
   CALCULATED = "calculated",
-  DISCRETE = "discrete"
+  DISCRETE = "discrete",
+  CONTINUOUS = "continuous"
 }
 
 export interface IndicatorInterface extends DSVRowArray<keyof Indicator> {
@@ -24,7 +26,6 @@ export interface IndicatorInterface extends DSVRowArray<keyof Indicator> {
 
 // ???
 export interface FormattedIndicator extends Indicator {
-  value: IndicatorScore
   weight: number
   range: number[]
 }
@@ -32,10 +33,12 @@ export interface FormattedIndicator extends Indicator {
 export type EntityName = string;
 
 export type Entity = {
+  [key: IndicatorId]: IndicatorScore
+} & {
   name: EntityName
-  value: number
-  user: User
-  data: Entity
+  value?: number
+  user: User // THIS SHOULD BE OPTIONAL
+  data?: Entity // why?
 }
 
 // User-generated scores
@@ -43,7 +46,7 @@ export type User = {
   [key: IndicatorId]: IndicatorScore
 }
 
-export interface EntityInterface extends DSVRowArray<keyof Entity> {
+export interface EntityInterface extends DSVRowArray<IndicatorId> {
 
 }
 
@@ -55,7 +58,7 @@ export type IndexedData = {
   [key: string]: Entity
 }
 
-export type IndicatorScore = number | string
+export type IndicatorScore = number
 
 // how can we be strict about the n.n.n format? perhaps using indicatorIdTest?
 export type IndicatorId = string

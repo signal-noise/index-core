@@ -27,22 +27,24 @@ const index: Types.Index = function indexCore(
 
   let excludeIndicator = (indicator?: Types.Indicator) => false; // by default no valid indicators are excluded
 
-  function getEntity(entityName): Types.Entity {
+  function getEntity(entityName: string): Types.Entity {
     return indexedData[entityName];
   }
 
-  function getEntityIndicator(entityName: string, indicatorID: string) {
+  function getEntityIndicator(entityName: string, indicatorID: Types.IndicatorId): Types.IndicatorScore {
+    // If user has changed the value of the indicator, return that changed value instead of the original
     if (indexedData[entityName].user && indexedData[entityName].user[indicatorID]) {
       return indexedData[entityName].user[indicatorID];
     }
     return indexedData[entityName][indicatorID];
   }
 
-  function getEntities() {
+  // return the NAMES of the entities
+  function getEntities(): string[] {
     return entitiesData.map((d: { name: string }) => d.name);
   }
 
-  function getIndicator(id): Types.Indicator {
+  function getIndicator(id: Types.IndicatorId): Types.Indicator {
     return indicatorLookup[id];
   }
 
@@ -50,7 +52,7 @@ const index: Types.Index = function indexCore(
     return indicatorLookup;
   }
 
-  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised: boolean = true) {
+  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised: boolean = true): number {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
@@ -61,7 +63,8 @@ const index: Types.Index = function indexCore(
         min: 0,
         max: indexMax,
         id: '',
-        type: Types.IndicatorType.DISCRETE,
+        value: null,
+        type: Types.IndicatorType.CONTINUOUS,
         diverging: false,
         invert: false
       };
@@ -114,8 +117,6 @@ const index: Types.Index = function indexCore(
       id: indicator.id,
       value,
       type: indicator.type,
-      min: indicator.min,
-      max: indicator.max,
       diverging,
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
@@ -126,9 +127,9 @@ const index: Types.Index = function indexCore(
     };
   }
 
-  function indexEntity(entity: Types.Entity, calculationList, overwrite = allowOverwrite): Types.Entity {
+  function indexEntity(entity: Types.Entity, calculationList: Types.IndicatorId[], overwrite = allowOverwrite): Types.Entity {
     const newEntity = clone(entity);
-    calculationList.forEach((parentIndicatorID) => {
+    calculationList.forEach((parentIndicatorID: Types.IndicatorId) => {
       if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
@@ -231,7 +232,7 @@ const index: Types.Index = function indexCore(
     return tree;
   }
 
-  function calculateIndex(overwrite: boolean = allowOverwrite) {
+  function calculateIndex(overwrite: boolean = allowOverwrite): void {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to the shallowist
     const onlyIdIndicators: Types.Indicator[] = getIndexableIndicators();
@@ -246,14 +247,14 @@ const index: Types.Index = function indexCore(
     });
   }
 
-  function adjustWeight(indicatorID: Types.IndicatorId, weight): void {
+  function adjustWeight(indicatorID: Types.IndicatorId, weight: number): void {
     // TODO: make the index recalculating take into account what
     //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
     calculateIndex(true);
   }
 
-  function filterIndicators(exclude = () => false, overwrite: boolean = allowOverwrite) {
+  function filterIndicators(exclude = () => false, overwrite: boolean = allowOverwrite): void {
     excludeIndicator = exclude;
     calculateIndex(overwrite);
   }
