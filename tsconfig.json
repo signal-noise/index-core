@@ -103,9 +103,10 @@
   "exclude": [
     // "test",
     "rollup.config.js",
+    "jest.config.js",
     // "index.js",
     "dist",
-    // "data",
+    "data",
     // "build"
   ]
 }
