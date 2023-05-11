@@ -62,7 +62,7 @@
             id: '',
             children: indexStructureChildren
         };
-        var excludeIndicator = function (indicator) { return false; }; // by default no valid indicators are excluded
+        var excludeIndicator = function () { return false; }; // by default no valid indicators are excluded
         function getEntity(entityName) {
             return indexedData[entityName];
         }

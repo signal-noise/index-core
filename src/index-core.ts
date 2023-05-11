@@ -4,12 +4,12 @@ import * as Types from './types';
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
-const index: Types.Index = function indexCore(
+const index = function indexCore(
   indicatorsData: Types.Indicator[] = [],
   entitiesData: Types.Entity[] = [],
-  indexMax: number = 100,
-  allowOverwrite: boolean = true,
-  clamp: boolean = false,
+  indexMax = 100,
+  allowOverwrite = true,
+  clamp = false,
 ) {
   if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
   const indicatorLookup: Types.IndicatorLookup = Object.fromEntries(
@@ -18,14 +18,14 @@ const index: Types.Index = function indexCore(
   );
 
   const indexedData: Types.IndexedData = {};
-  let indexStructureChildren: Types.IndexStructure[] = [];
+  const indexStructureChildren: Types.IndexStructure[] = [];
 
   let indexStructure: Types.IndexStructure = {
     id: '',
     children: indexStructureChildren
   };
 
-  let excludeIndicator = (indicator?: Types.Indicator) => false; // by default no valid indicators are excluded
+  let excludeIndicator = () => false; // by default no valid indicators are excluded
 
   function getEntity(entityName: string): Types.Entity {
     return indexedData[entityName];
@@ -52,7 +52,7 @@ const index: Types.Index = function indexCore(
     return indicatorLookup;
   }
 
-  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised: boolean = true): number {
+  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised = true): number {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
