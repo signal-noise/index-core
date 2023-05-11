@@ -11,7 +11,8 @@ export type Indicator = {
   value: IndicatorScore | null
   userWeighting?: number
   weighting?: number
-  invert: boolean
+  // invert: boolean
+  invert: any
 }
 
 export enum IndicatorType {

@@ -6,6 +6,9 @@ export default {
     file: 'dist/bundle.js',
     format: 'umd',
     name: 'indexCore',
+    sourcemap: true,
   },
-  plugins: [typescript()],
+  plugins: [typescript({
+    sourceMap: true,
+  })],
 };

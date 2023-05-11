@@ -8,22 +8,27 @@
         return JSON.parse(JSON.stringify(o));
     }
     function clamper(range, value) {
-        return Math.min(Math.max(value, range[0]), range[1]);
+        return Math.min(Math.max(Number(value), range[0]), range[1]);
     }
-    function normalise(value, range = [0, 100], normaliseTo = 100, clamp = false) {
-        let x = value;
+    function normalise(value, range, normaliseTo, clamp) {
+        if (range === void 0) { range = [0, 100]; }
+        if (normaliseTo === void 0) { normaliseTo = 100; }
+        if (clamp === void 0) { clamp = false; }
+        var x = Number(value);
         if (clamp) {
             x = clamper(range, value);
         }
         return ((x - range[0]) / (range[1] - range[0])) * normaliseTo;
     }
-    function calculateWeightedMean(weightedValues, normaliseTo = 100, clamp = false) {
-        let weightedSum = 0;
-        let cumulativeWeight = 0;
-        for (let i = 0; i < weightedValues.length; i += 1) {
-            const indicator = weightedValues[i];
-            const normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
-            const weightedValue = indicator.invert
+    function calculateWeightedMean(weightedValues, normaliseTo, clamp) {
+        if (normaliseTo === void 0) { normaliseTo = 100; }
+        if (clamp === void 0) { clamp = false; }
+        var weightedSum = 0;
+        var cumulativeWeight = 0;
+        for (var i = 0; i < weightedValues.length; i += 1) {
+            var indicator = weightedValues[i];
+            var normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
+            var weightedValue = indicator.invert
                 ? ((normaliseTo - normalisedValue) * indicator.weight)
                 : (normalisedValue * indicator.weight);
             weightedSum += weightedValue;
@@ -32,30 +37,45 @@
         return weightedSum / cumulativeWeight;
     }
 
-    const indicatorIdTest = /^([\w]\.)*\w{1}$/;
+    var IndicatorType;
+    (function (IndicatorType) {
+        IndicatorType["CALCULATED"] = "calculated";
+        IndicatorType["DISCRETE"] = "discrete";
+        IndicatorType["CONTINUOUS"] = "continuous";
+    })(IndicatorType || (IndicatorType = {}));
+
+    var indicatorIdTest = /^([\w]\.)*\w{1}$/;
     // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
-    const index = function indexCore(indicatorsData = [], entitiesData = [], indexMax = 100, allowOverwrite = true, clamp = false) {
+    var index = function indexCore(indicatorsData, entitiesData, indexMax, allowOverwrite, clamp) {
+        if (indicatorsData === void 0) { indicatorsData = []; }
+        if (entitiesData === void 0) { entitiesData = []; }
+        if (indexMax === void 0) { indexMax = 100; }
+        if (allowOverwrite === void 0) { allowOverwrite = true; }
+        if (clamp === void 0) { clamp = false; }
         if (indicatorsData.length === 0 || entitiesData.length === 0)
             return {};
-        const indicatorLookup = Object.fromEntries(indicatorsData
-            .map((indicator) => ([indicator.id, indicator])));
-        const indexedData = {};
-        let indexStructure = {
+        var indicatorLookup = Object.fromEntries(indicatorsData
+            .map(function (indicator) { return ([indicator.id, indicator]); }));
+        var indexedData = {};
+        var indexStructureChildren = [];
+        var indexStructure = {
             id: '',
-            children: []
+            children: indexStructureChildren
         };
-        let excludeIndicator = (indicator) => false; // by default no valid indicators are excluded
+        var excludeIndicator = function (indicator) { return false; }; // by default no valid indicators are excluded
         function getEntity(entityName) {
             return indexedData[entityName];
         }
         function getEntityIndicator(entityName, indicatorID) {
+            // If user has changed the value of the indicator, return that changed value instead of the original
             if (indexedData[entityName].user && indexedData[entityName].user[indicatorID]) {
                 return indexedData[entityName].user[indicatorID];
             }
             return indexedData[entityName][indicatorID];
         }
+        // return the NAMES of the entities
         function getEntities() {
-            return entitiesData.map((d) => d.name);
+            return entitiesData.map(function (d) { return d.name; });
         }
         function getIndicator(id) {
             return indicatorLookup[id];
@@ -63,20 +83,30 @@
         function getIndicatorLookup() {
             return indicatorLookup;
         }
-        function getIndexMean(indicatorID = 'value', normalised = true) {
+        function getIndexMean(indicatorID, normalised) {
+            if (indicatorID === void 0) { indicatorID = 'value'; }
+            if (normalised === void 0) { normalised = true; }
             // get the mean index value for a given indicator id,
             // if the value of an indicator on an entiry is falsey
             // dont take it into account
-            const entityValues = Object.values(indexedData);
-            const indicator = indicatorLookup[indicatorID]
+            var entityValues = Object.values(indexedData);
+            var indicator = indicatorLookup[indicatorID]
                 ? indicatorLookup[indicatorID]
-                : { min: 0, max: indexMax };
-            const indicatorRange = [
+                : {
+                    min: 0,
+                    max: indexMax,
+                    id: '',
+                    value: null,
+                    type: IndicatorType.CONTINUOUS,
+                    diverging: false,
+                    invert: false
+                };
+            var indicatorRange = [
                 indicator.min ? Number(indicator.min) : 0,
                 indicator.max ? Number(indicator.max) : indexMax,
             ];
-            let { length } = entityValues;
-            const sum = entityValues.reduce((acc, v) => {
+            var length = entityValues.length;
+            var sum = entityValues.reduce(function (acc, v) {
                 if (Number.isNaN(Number(v[indicatorID]))) {
                     length -= 1;
                     return acc;
@@ -90,17 +120,17 @@
         }
         // format an indicator for passing to the weighted mean function
         function formatIndicator(indicator, entity, max) {
-            const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
-            let value = entity.user && entity.user[indicator.id]
+            var diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
+            var value = entity.user && entity.user[indicator.id]
                 ? Number(entity.user[indicator.id])
                 : Number(entity[indicator.id]);
-            let range = [
+            var range = [
                 indicator.min ? Number(indicator.min) : 0,
                 indicator.max ? Number(indicator.max) : max,
             ];
             if (diverging) {
                 // currently no way to set this diffeently included here as a signpost for the future
-                const centerpoint = 0;
+                var centerpoint = 0;
                 if (indicator.max) {
                     range = [0, indicator.max];
                     if (indicator.min) {
@@ -114,38 +144,41 @@
             }
             return {
                 id: indicator.id,
-                value,
+                value: value,
+                type: indicator.type,
+                diverging: diverging,
                 weight: indicator.userWeighting
                     ? Number(indicator.userWeighting)
                     : Number(indicator.weighting),
-                // invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
-                invert: indicator.invert === true,
-                range,
+                invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+                // invert: indicator.invert === true,
+                range: range,
             };
         }
-        function indexEntity(entity, calculationList, overwrite = allowOverwrite) {
-            const newEntity = clone(entity);
-            calculationList.forEach((parentIndicatorID) => {
+        function indexEntity(entity, calculationList, overwrite) {
+            if (overwrite === void 0) { overwrite = allowOverwrite; }
+            var newEntity = clone(entity);
+            calculationList.forEach(function (parentIndicatorID) {
                 if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
                     // get the required component indicators to calculate the parent value
                     // this is a bit brittle maybe?
-                    const componentIndicators = indicatorsData
-                        .filter((indicator) => (indicator.id.indexOf(parentIndicatorID) === 0 // the
-                        && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
-                        .filter((indicator) => excludeIndicator(indicator) === false)
-                        .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+                    var componentIndicators = indicatorsData
+                        .filter(function (indicator) { return (indicator.id.indexOf(parentIndicatorID) === 0 // the
+                        && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1); })
+                        .filter(function (indicator) { return excludeIndicator(indicator) === false; })
+                        .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
                     // calculate the weighted mean of the component indicators on the newEntity
                     // assign that value to the newEntity
                     newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
                 }
                 else {
-                    console.warn(`retaining existing value for ${newEntity.name} - ${parentIndicatorID} : ${Number(entity[parentIndicatorID])}`);
+                    console.warn("retaining existing value for ".concat(newEntity.name, " - ").concat(parentIndicatorID, " : ").concat(Number(entity[parentIndicatorID])));
                     newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
                 }
             });
-            const pillarIndicators = indicatorsData
-                .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
-                .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+            var pillarIndicators = indicatorsData
+                .filter(function (indicator) { return String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1; })
+                .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
             newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
             if (!newEntity.user) {
                 newEntity.user = {};
@@ -154,53 +187,54 @@
         }
         function getIndexableIndicators() {
             return indicatorsData
-                .filter((i) => {
-                const isIndicator = String(i.id).match(indicatorIdTest);
-                const isExcluded = excludeIndicator(i);
+                .filter(function (i) {
+                var isIndicator = String(i.id).match(indicatorIdTest);
+                var isExcluded = excludeIndicator(i);
                 return isIndicator && !isExcluded;
             });
         }
         function getCalculationList(indicators) {
             return indicators
-                .filter((i) => (i.type === 'calculated' && !excludeIndicator(i)))
-                .map((i) => i.id)
-                .sort((i1, i2) => (i2.split('.').length - i1.split('.').length));
+                .filter(function (i) { return (i.type === IndicatorType.CALCULATED && !excludeIndicator(i)); })
+                .map(function (i) { return i.id; })
+                .sort(function (i1, i2) { return (i2.split('.').length - i1.split('.').length); });
         }
         function adjustValue(entityName, indicatorID, value) {
-            const e = getEntity(entityName);
+            var e = getEntity(entityName);
             if ((!indicatorID && !value) || !e.user) {
-                e.user = {}; // no value or indicator specified, reset
+                var newUser = {};
+                e.user = newUser; // no value or indicator specified, reset
             }
             else if (!value && e.user) {
                 delete e.user[indicatorID]; // no value specified, reset the indicator
             }
-            if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === 'calculated') {
-                console.warn(`${indicatorID} is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?`);
+            if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === IndicatorType.CALCULATED) {
+                console.warn("".concat(indicatorID, " is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?"));
                 return clone(e);
             }
             if (indicatorID !== undefined && value !== undefined) {
                 e.user[indicatorID] = value;
             }
-            const onlyIdIndicators = getIndexableIndicators();
-            const calculationList = getCalculationList(onlyIdIndicators);
+            var onlyIdIndicators = getIndexableIndicators();
+            var calculationList = getCalculationList(onlyIdIndicators);
             indexedData[e.name] = indexEntity(e, calculationList, true);
             // console.log(indexedData[e.name])
-            const adjustedEntity = Object.assign(clone(indexedData[e.name]), indexedData[e.name].user);
+            var adjustedEntity = Object.assign(clone(indexedData[e.name]), indexedData[e.name].user);
             delete adjustedEntity.user;
             delete adjustedEntity.data;
             return adjustedEntity;
         }
         function createStructure(indicatorIds) {
-            const tree = { id: 'root', children: [] };
-            indicatorIds.forEach((id) => {
-                const bits = id.split('.');
-                let current = tree;
-                let builtId = '';
-                bits.forEach((bit, i) => {
+            var tree = { id: 'root', children: [] };
+            indicatorIds.forEach(function (id) {
+                var bits = id.split('.');
+                var current = tree;
+                var builtId = '';
+                bits.forEach(function (bit, i) {
                     builtId = (i === 0)
-                        ? `${bit}`
-                        : `${builtId}.${bit}`;
-                    let next = current.children.find((c) => c.id === builtId);
+                        ? "".concat(bit)
+                        : "".concat(builtId, ".").concat(bit);
+                    var next = current.children.find(function (c) { return c.id === builtId; });
                     if (next === undefined) {
                         next = {
                             id: builtId,
@@ -213,14 +247,15 @@
             });
             return tree;
         }
-        function calculateIndex(overwrite = allowOverwrite) {
+        function calculateIndex(overwrite) {
+            if (overwrite === void 0) { overwrite = allowOverwrite; }
             // get a list of the values we need to calculate
             // in order of deepest in the heirachy to the shallowist
-            const onlyIdIndicators = getIndexableIndicators();
-            const calculationList = getCalculationList(onlyIdIndicators);
-            indexStructure = createStructure(onlyIdIndicators.map((i) => i.id));
-            entitiesData.forEach((entity) => {
-                const indexedEntity = indexEntity(entity, calculationList, overwrite);
+            var onlyIdIndicators = getIndexableIndicators();
+            var calculationList = getCalculationList(onlyIdIndicators);
+            indexStructure = createStructure(onlyIdIndicators.map(function (i) { return i.id; }));
+            entitiesData.forEach(function (entity) {
+                var indexedEntity = indexEntity(entity, calculationList, overwrite);
                 indexedEntity.data = entity;
                 indexedData[entity.name] = indexedEntity;
             });
@@ -231,23 +266,25 @@
             indicatorLookup[indicatorID].userWeighting = weight;
             calculateIndex(true);
         }
-        function filterIndicators(exclude = () => false, overwrite = allowOverwrite) {
+        function filterIndicators(exclude, overwrite) {
+            if (exclude === void 0) { exclude = function () { return false; }; }
+            if (overwrite === void 0) { overwrite = allowOverwrite; }
             excludeIndicator = exclude;
             calculateIndex(overwrite);
         }
         calculateIndex(allowOverwrite);
         return {
-            adjustValue,
-            adjustWeight,
-            filterIndicators,
-            getEntities,
-            getEntity,
-            getEntityIndicator,
-            getIndexMean,
-            getIndicator,
-            getIndicatorLookup,
-            indexedData,
-            indexStructure,
+            adjustValue: adjustValue,
+            adjustWeight: adjustWeight,
+            filterIndicators: filterIndicators,
+            getEntities: getEntities,
+            getEntity: getEntity,
+            getEntityIndicator: getEntityIndicator,
+            getIndexMean: getIndexMean,
+            getIndicator: getIndicator,
+            getIndicatorLookup: getIndicatorLookup,
+            indexedData: indexedData,
+            indexStructure: indexStructure,
             debug: indexStructure
         };
     };
@@ -255,3 +292,4 @@
     return index;
 
 }));
+//# sourceMappingURL=bundle.js.map

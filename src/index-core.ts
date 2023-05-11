@@ -59,7 +59,7 @@ const index: Types.Index = function indexCore(
     const entityValues: Types.Entity[] = Object.values(indexedData);
     const indicator: Types.Indicator = indicatorLookup[indicatorID]
       ? indicatorLookup[indicatorID]
-      : { 
+      : {
         min: 0,
         max: indexMax,
         id: '',
@@ -121,8 +121,8 @@ const index: Types.Index = function indexCore(
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
-      // invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
-      invert: indicator.invert === true,
+      invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+      // invert: indicator.invert === true,
       range,
     };
   }
@@ -140,6 +140,7 @@ const index: Types.Index = function indexCore(
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
           .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+        
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
         newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
