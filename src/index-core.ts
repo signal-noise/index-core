@@ -25,7 +25,9 @@ const index = function indexCore(
     children: indexStructureChildren
   };
 
-  let excludeIndicator = () => false; // by default no valid indicators are excluded
+  // I assume the following is meant to be replaced with a custom function responsible for determining whether an indicator should be excluded
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
+  let excludeIndicator = (indicator: Types.Indicator) => false; // by default no valid indicators are excluded
 
   function getEntity(entityName: string): Types.Entity {
     return indexedData[entityName];
@@ -72,6 +74,7 @@ const index = function indexCore(
       indicator.min ? Number(indicator.min) : 0,
       indicator.max ? Number(indicator.max) : indexMax,
     ];
+
     let { length } = entityValues;
     const sum = entityValues.reduce((acc, v) => {
       if (Number.isNaN(Number(v[indicatorID]))) {
@@ -121,7 +124,7 @@ const index = function indexCore(
       weight: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
-      invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+      invert: indicator.invert,
       // invert: indicator.invert === true,
       range,
     };
@@ -255,7 +258,7 @@ const index = function indexCore(
     calculateIndex(true);
   }
 
-  function filterIndicators(exclude = () => false, overwrite: boolean = allowOverwrite): void {
+  function filterIndicators(exclude = (indicator: Types.Indicator) => false, overwrite: boolean = allowOverwrite): void {
     excludeIndicator = exclude;
     calculateIndex(overwrite);
   }

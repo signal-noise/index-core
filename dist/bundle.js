@@ -62,7 +62,9 @@
             id: '',
             children: indexStructureChildren
         };
-        var excludeIndicator = function () { return false; }; // by default no valid indicators are excluded
+        // I assume the following is meant to be replaced with a custom function responsible for determining whether an indicator should be excluded
+        /* eslint-disable  @typescript-eslint/no-unused-vars */
+        var excludeIndicator = function (indicator) { return false; }; // by default no valid indicators are excluded
         function getEntity(entityName) {
             return indexedData[entityName];
         }
@@ -150,7 +152,7 @@
                 weight: indicator.userWeighting
                     ? Number(indicator.userWeighting)
                     : Number(indicator.weighting),
-                invert: indicator.invert === true || indicator.invert.toLowerCase() === 'true',
+                invert: indicator.invert,
                 // invert: indicator.invert === true,
                 range: range,
             };

@@ -1,5 +1,3 @@
-import { DSVRowArray } from "d3";
-
 export type Indicator = {
   id: IndicatorId
   min?: number
@@ -10,18 +8,13 @@ export type Indicator = {
   userWeighting?: number
   weighting?: number
   // invert: boolean
-  invert: boolean | string
+  invert: boolean
 }
 
 export enum IndicatorType {
   CALCULATED = "calculated",
   DISCRETE = "discrete",
   CONTINUOUS = "continuous"
-}
-
-/* eslint-disable  @typescript-eslint/no-empty-interface */
-export interface IndicatorInterface extends DSVRowArray<keyof Indicator> {
-
 }
 
 // ???
@@ -44,11 +37,6 @@ export type Entity = {
 // User-generated scores
 export type User = {
   [key: IndicatorId]: IndicatorScore
-}
-
-/* eslint-disable  @typescript-eslint/no-empty-interface */
-export interface EntityInterface extends DSVRowArray<IndicatorId> {
-
 }
 
 export type IndicatorLookup = {
