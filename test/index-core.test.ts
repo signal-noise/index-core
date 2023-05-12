@@ -16,30 +16,36 @@ const formatIndicator = (indicator: any): Types.Indicator => {
         return Types.IndicatorType.DISCRETE;
       case "continuous":
         return Types.IndicatorType.CONTINUOUS;
+      default:
+        return Types.IndicatorType.CONTINUOUS;
     }
   }
 
 
   const coerceBoolean = (prop: any) => {
-    if (typeof prop === "boolean") {
-      return prop;
-    } else if (typeof prop === "string") {
-      try {
-        return Boolean(prop.toLowerCase());
-      } catch (e) {
-        console.error("Boolean coercion failed: ", e);
-        throw e;
-      }
+    if (prop === "true") {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  return {
+  const result = {
     id: indicator.id,
     diverging: coerceBoolean(indicator.diverging),
     type: getIndicatorType(),
-    value: Number(indicator.value),
-    invert: coerceBoolean(indicator.invert)
+    value: !!indicator.value ? indicator.value : null,
+    invert: coerceBoolean(indicator.invert),
+    min: indicator.min,
+    max: indicator.max,
+    weighting: indicator.weighting,
+    indicatorName: indicator.indicatorName
   }
+
+  console.log("indicator: ", indicator);
+  console.log(result);
+
+  return result;
 }
 
 const formatEntity = (entity: any): Types.Entity => {

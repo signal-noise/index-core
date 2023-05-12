@@ -125,7 +125,6 @@ const index = function indexCore(
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
       invert: indicator.invert,
-      // invert: indicator.invert === true,
       range,
     };
   }
