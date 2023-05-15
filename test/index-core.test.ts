@@ -23,7 +23,7 @@ const formatIndicator = (indicator: any): Types.Indicator => {
 
 
   const coerceBoolean = (prop: any) => {
-    if (prop === "true") {
+    if (prop && prop.toLowerCase() === "true") {
       return true;
     } else {
       return false;
@@ -34,7 +34,7 @@ const formatIndicator = (indicator: any): Types.Indicator => {
     id: indicator.id,
     diverging: coerceBoolean(indicator.diverging),
     type: getIndicatorType(),
-    value: !!indicator.value ? indicator.value : null,
+    value: indicator.value ? indicator.value : null,
     invert: coerceBoolean(indicator.invert),
     min: indicator.min,
     max: indicator.max,
