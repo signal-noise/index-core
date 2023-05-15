@@ -163,7 +163,7 @@ const index = function indexCore(
     return newEntity;
   }
 
-  function getIndexableIndicators(): Types.Indicator[] {
+  function getIndexableIndicators(indicatorsData: Types.Indicator[]): Types.Indicator[] {
     return indicatorsData
       .filter((i: Types.Indicator) => {
         const isIndicator = String(i.id).match(indicatorIdTest);
@@ -197,7 +197,7 @@ const index = function indexCore(
       e.user[indicatorID] = value;
     }
 
-    const onlyIdIndicators = getIndexableIndicators();
+    const onlyIdIndicators = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
 
     indexedData[e.name] = indexEntity(e, calculationList, true);
@@ -238,7 +238,7 @@ const index = function indexCore(
   function calculateIndex(overwrite: boolean = allowOverwrite): void {
     // get a list of the values we need to calculate
     // in order of deepest in the heirachy to the shallowist
-    const onlyIdIndicators: Types.Indicator[] = getIndexableIndicators();
+    const onlyIdIndicators: Types.Indicator[] = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
 
     indexStructure = createStructure(onlyIdIndicators.map((i: Types.Indicator) => i.id));
