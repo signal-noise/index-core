@@ -9,7 +9,9 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint',
+    "no-loops",
+    "no-comments"],
   root: true,
   parserOptions: {
     ecmaVersion: 12,
@@ -17,5 +19,8 @@ module.exports = {
   },
   rules: {
     'import/extensions': 0,
+    "no-console": 1,
+    "no-loops/no-loops": 2,
+    "no-comments/disallowComments": 1
   },
 };
