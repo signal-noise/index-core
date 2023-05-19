@@ -279,8 +279,7 @@ const index = function indexCore(
     getIndicator,
     getIndicatorLookup,
     indexedData,
-    indexStructure,
-    debug: indexStructure
+    indexStructure
   };
 }
 

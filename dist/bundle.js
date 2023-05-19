@@ -351,8 +351,7 @@
             getIndicator: getIndicator,
             getIndicatorLookup: getIndicatorLookup,
             indexedData: indexedData,
-            indexStructure: indexStructure,
-            debug: indexStructure
+            indexStructure: indexStructure
         };
     };
 
