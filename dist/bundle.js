@@ -8,7 +8,7 @@
         return JSON.parse(JSON.stringify(o));
     }
     function clamper(range, value) {
-        return Math.min(Math.max(Number(value), range[0]), range[1]);
+        return Math.min(Math.max(value, range[0]), range[1]);
     }
     function normalise(value, range, normaliseTo, clamp) {
         if (range === void 0) { range = [0, 100]; }
@@ -44,16 +44,83 @@
         IndicatorType["CONTINUOUS"] = "continuous";
     })(IndicatorType || (IndicatorType = {}));
 
+    /******************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    // TODO rewrite this into a validator of some kind and/or merge with formatIndicator in indexcore
+    var validateIndicator = function (indicator) {
+        var getIndicatorType = function () {
+            switch (indicator.type) {
+                case "calculated":
+                    return IndicatorType.CALCULATED;
+                case "discrete":
+                    return IndicatorType.DISCRETE;
+                case "continuous":
+                    return IndicatorType.CONTINUOUS;
+                default:
+                    return IndicatorType.CONTINUOUS;
+            }
+        };
+        var coerceBoolean = function (prop) {
+            if (prop && prop.toLowerCase() === "true") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        var result = {
+            id: indicator.id,
+            diverging: coerceBoolean(indicator.diverging),
+            type: getIndicatorType(),
+            // we start off with no indicator values because they are not set in the indicators csv, they are set later from the entities list
+            invert: coerceBoolean(indicator.invert),
+            min: indicator.min,
+            max: indicator.max,
+            weighting: indicator.weighting,
+            indicatorName: indicator.indicatorName
+        };
+        return result;
+    };
+    var validateEntity = function (entity) {
+        return __assign({}, entity);
+    };
+
     var indicatorIdTest = /^([\w]\.)*\w{1}$/;
     // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
-    var index = function indexCore(indicatorsData, entitiesData, indexMax, allowOverwrite, clamp) {
-        if (indicatorsData === void 0) { indicatorsData = []; }
-        if (entitiesData === void 0) { entitiesData = []; }
+    var index = function indexCore(rawIndicatorsData, rawEntitiesData, indexMax, allowOverwrite, clamp) {
+        if (rawIndicatorsData === void 0) { rawIndicatorsData = []; }
+        if (rawEntitiesData === void 0) { rawEntitiesData = []; }
         if (indexMax === void 0) { indexMax = 100; }
         if (allowOverwrite === void 0) { allowOverwrite = true; }
         if (clamp === void 0) { clamp = false; }
-        if (indicatorsData.length === 0 || entitiesData.length === 0)
+        if (rawIndicatorsData.length === 0 || rawEntitiesData.length === 0)
             return {};
+        var indicatorsData = rawIndicatorsData.map(function (i) { return validateIndicator(i); });
+        var entitiesData = rawEntitiesData.map(function (e) { return validateEntity(e); });
         var indicatorLookup = Object.fromEntries(indicatorsData
             .map(function (indicator) { return ([indicator.id, indicator]); }));
         var indexedData = {};
@@ -98,7 +165,6 @@
                     min: 0,
                     max: indexMax,
                     id: '',
-                    value: null,
                     type: IndicatorType.CONTINUOUS,
                     diverging: false,
                     invert: false
@@ -153,7 +219,6 @@
                     ? Number(indicator.userWeighting)
                     : Number(indicator.weighting),
                 invert: indicator.invert,
-                // invert: indicator.invert === true,
                 range: range,
             };
         }
@@ -187,7 +252,7 @@
             }
             return newEntity;
         }
-        function getIndexableIndicators() {
+        function getIndexableIndicators(indicatorsData) {
             return indicatorsData
                 .filter(function (i) {
                 var isIndicator = String(i.id).match(indicatorIdTest);
@@ -217,7 +282,7 @@
             if (indicatorID !== undefined && value !== undefined) {
                 e.user[indicatorID] = value;
             }
-            var onlyIdIndicators = getIndexableIndicators();
+            var onlyIdIndicators = getIndexableIndicators(indicatorsData);
             var calculationList = getCalculationList(onlyIdIndicators);
             indexedData[e.name] = indexEntity(e, calculationList, true);
             // console.log(indexedData[e.name])
@@ -253,7 +318,7 @@
             if (overwrite === void 0) { overwrite = allowOverwrite; }
             // get a list of the values we need to calculate
             // in order of deepest in the heirachy to the shallowist
-            var onlyIdIndicators = getIndexableIndicators();
+            var onlyIdIndicators = getIndexableIndicators(indicatorsData);
             var calculationList = getCalculationList(onlyIdIndicators);
             indexStructure = createStructure(onlyIdIndicators.map(function (i) { return i.id; }));
             entitiesData.forEach(function (entity) {
@@ -269,7 +334,7 @@
             calculateIndex(true);
         }
         function filterIndicators(exclude, overwrite) {
-            if (exclude === void 0) { exclude = function () { return false; }; }
+            if (exclude === void 0) { exclude = function (indicator) { return false; }; }
             if (overwrite === void 0) { overwrite = allowOverwrite; }
             excludeIndicator = exclude;
             calculateIndex(overwrite);

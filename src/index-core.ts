@@ -1,17 +1,22 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
 import * as Types from './types';
+import { validateIndicator, validateEntity } from './formatters';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
 const index = function indexCore(
-  indicatorsData: Types.Indicator[] = [],
-  entitiesData: Types.Entity[] = [],
+  rawIndicatorsData: Array<object> = [],
+  rawEntitiesData: Array<object> = [],
   indexMax = 100,
   allowOverwrite = true,
   clamp = false,
 ) {
-  if (indicatorsData.length === 0 || entitiesData.length === 0) return {};
+  if (rawIndicatorsData.length === 0 || rawEntitiesData.length === 0) return {};
+
+  const indicatorsData: Types.Indicator[] = rawIndicatorsData.map((i: object) => validateIndicator(i));
+  const entitiesData:  Types.Entity[] = rawEntitiesData.map((e: object) => validateEntity(e));
+
   const indicatorLookup: Types.IndicatorLookup = Object.fromEntries(
     indicatorsData
       .map((indicator: Types.Indicator) => ([indicator.id, indicator])),
@@ -65,7 +70,6 @@ const index = function indexCore(
         min: 0,
         max: indexMax,
         id: '',
-        value: null,
         type: Types.IndicatorType.CONTINUOUS,
         diverging: false,
         invert: false

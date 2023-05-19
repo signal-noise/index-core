@@ -2,63 +2,17 @@ import { csvParse } from 'd3';
 import * as Types from '../src/types';
 // import { expect } from '@jest/globals';
 import fs from 'fs';
-import indexCore from '../src/index-core.js';
+import indexCore from '../src/index-core';
 
 const waterRootDir = 'data/wateroptimisation';
 
-// TODO refactor this into a validator
-const formatIndicator = (indicator: any): Types.Indicator => {
-  const getIndicatorType = () => {
-    switch (indicator.type) {
-      case "calculated":
-        return Types.IndicatorType.CALCULATED;
-      case "discrete":
-        return Types.IndicatorType.DISCRETE;
-      case "continuous":
-        return Types.IndicatorType.CONTINUOUS;
-      default:
-        return Types.IndicatorType.CONTINUOUS;
-    }
-  }
-
-
-  const coerceBoolean = (prop: any) => {
-    if (prop && prop.toLowerCase() === "true") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  const result = {
-    id: indicator.id,
-    diverging: coerceBoolean(indicator.diverging),
-    type: getIndicatorType(),
-    value: indicator.value ? indicator.value : null,
-    invert: coerceBoolean(indicator.invert),
-    min: indicator.min,
-    max: indicator.max,
-    weighting: indicator.weighting,
-    indicatorName: indicator.indicatorName
-  }
-
-  console.log("indicator: ", indicator);
-  console.log(result);
-
-  return result;
-}
-
-const formatEntity = (entity: any): Types.Entity => {
-  return {...entity};
-}
-
-const waterIndicators: Types.Indicator[] = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8')).map((indicator) => formatIndicator(indicator));
-const waterEntities: Types.Entity[] = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8')).map((entity) => formatEntity(entity));
+const waterIndicators: object[] = csvParse(fs.readFileSync(`${waterRootDir}/indicators.csv`, 'utf-8'));
+const waterEntities: object[] = csvParse(fs.readFileSync(`${waterRootDir}/entities.csv`, 'utf-8'));
 
 const simpleRootDir = 'data/simple-index-set';
 
-const simpleIndicators: Types.Indicator[] = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8')).map((indicator) => formatIndicator(indicator));
-const simpleEntities: Types.Entity[] = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8')).map((entity) => formatEntity(entity));
+const simpleIndicators: object[] = csvParse(fs.readFileSync(`${simpleRootDir}/indicators.csv`, 'utf-8'));
+const simpleEntities: object[] = csvParse(fs.readFileSync(`${simpleRootDir}/entities.csv`, 'utf-8'));
 
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);

@@ -4,10 +4,8 @@ export type Indicator = {
   max?: number
   type: IndicatorType
   diverging: boolean
-  value: IndicatorScore | null
   userWeighting?: number
   weighting?: number
-  // invert: boolean
   invert: boolean
 }
 
@@ -21,6 +19,7 @@ export enum IndicatorType {
 export interface FormattedIndicator extends Indicator {
   weight: number
   range: number[]
+  value: IndicatorScore
 }
 
 export type EntityName = string;
