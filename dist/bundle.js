@@ -4,46 +4,6 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.indexCore = factory());
 })(this, (function () { 'use strict';
 
-    function clone(o) {
-        return JSON.parse(JSON.stringify(o));
-    }
-    function clamper(range, value) {
-        return Math.min(Math.max(value, range[0]), range[1]);
-    }
-    function normalise(value, range, normaliseTo, clamp) {
-        if (range === void 0) { range = [0, 100]; }
-        if (normaliseTo === void 0) { normaliseTo = 100; }
-        if (clamp === void 0) { clamp = false; }
-        var x = Number(value);
-        if (clamp) {
-            x = clamper(range, value);
-        }
-        return ((x - range[0]) / (range[1] - range[0])) * normaliseTo;
-    }
-    function calculateWeightedMean(weightedValues, normaliseTo, clamp) {
-        if (normaliseTo === void 0) { normaliseTo = 100; }
-        if (clamp === void 0) { clamp = false; }
-        var weightedSum = 0;
-        var cumulativeWeight = 0;
-        for (var i = 0; i < weightedValues.length; i += 1) {
-            var indicator = weightedValues[i];
-            var normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
-            var weightedValue = indicator.invert
-                ? ((normaliseTo - normalisedValue) * indicator.weight)
-                : (normalisedValue * indicator.weight);
-            weightedSum += weightedValue;
-            cumulativeWeight += indicator.weight;
-        }
-        return weightedSum / cumulativeWeight;
-    }
-
-    var IndicatorType;
-    (function (IndicatorType) {
-        IndicatorType["CALCULATED"] = "calculated";
-        IndicatorType["DISCRETE"] = "discrete";
-        IndicatorType["CONTINUOUS"] = "continuous";
-    })(IndicatorType || (IndicatorType = {}));
-
     /******************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -70,8 +30,59 @@
         return __assign.apply(this, arguments);
     };
 
+    function clone(o) {
+        return JSON.parse(JSON.stringify(o));
+    }
+    function clamper(range, value) {
+        return Math.min(Math.max(value, range[0]), range[1]);
+    }
+    function normalise(value, range, normaliseTo, clamp) {
+        if (range === void 0) { range = [0, 100]; }
+        if (normaliseTo === void 0) { normaliseTo = 100; }
+        if (clamp === void 0) { clamp = false; }
+        var x = Number(value);
+        if (clamp) {
+            x = clamper(range, value);
+        }
+        var res = ((x - range[0]) / (range[1] - range[0])) * normaliseTo;
+        return res;
+    }
+    function calculateWeightedMean(weightedValues, normaliseTo, clamp) {
+        if (normaliseTo === void 0) { normaliseTo = 100; }
+        if (clamp === void 0) { clamp = false; }
+        var weightedSum = 0;
+        var cumulativeWeight = 0;
+        for (var i = 0; i < weightedValues.length; i += 1) {
+            var indicator = weightedValues[i];
+            var normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
+            var weightedValue = indicator.invert
+                ? ((normaliseTo - normalisedValue) * indicator.weighting)
+                : (normalisedValue * indicator.weighting);
+            weightedSum += weightedValue;
+            cumulativeWeight += indicator.weighting;
+        }
+        return weightedSum / cumulativeWeight;
+    }
+
+    var IndicatorType;
+    (function (IndicatorType) {
+        IndicatorType["CALCULATED"] = "calculated";
+        IndicatorType["DISCRETE"] = "discrete";
+        IndicatorType["CONTINUOUS"] = "continuous";
+    })(IndicatorType || (IndicatorType = {}));
+
     // TODO rewrite this into a validator of some kind and/or merge with formatIndicator in indexcore
-    var validateIndicator = function (indicator) {
+    var validateIndicator = function (indicator, indexMax) {
+        if (!indicator.id) {
+            console.warn("Skipping: Indicator doesn't have an id and is probably invalid: ".concat(JSON.stringify(indicator)));
+            return;
+        }
+        if (indicator.id.includes('BG')) {
+            // We're not counting background indicators for now
+            // TODO: return a separate array of background indicators
+            console.warn("Skipping: Background Indicator: ".concat(JSON.stringify(indicator)));
+            return;
+        }
         var getIndicatorType = function () {
             switch (indicator.type) {
                 case "calculated":
@@ -92,21 +103,40 @@
                 return false;
             }
         };
+        var getRange = function (min, max) {
+            // If the max is absent we're going to set it to 0 here and then change it again in index-core to whatever the custom max is
+            var range = [
+                !Number.isNaN(Number(min)) ? Number(min) : 0,
+                !Number.isNaN(Number(max)) && Number(max) !== 0 ? Number(max) : indexMax
+            ];
+            return range;
+        };
         var result = {
             id: indicator.id,
             diverging: coerceBoolean(indicator.diverging),
             type: getIndicatorType(),
-            // we start off with no indicator values because they are not set in the indicators csv, they are set later from the entities list
             invert: coerceBoolean(indicator.invert),
-            min: indicator.min,
-            max: indicator.max,
-            weighting: indicator.weighting,
-            indicatorName: indicator.indicatorName
+            range: getRange(indicator.min, indicator.max),
+            weighting: Number(indicator.weighting),
+            indicatorName: indicator.indicatorName || '',
+            value: 0 // is this safe? We'll Find Out!!!!
         };
         return result;
     };
     var validateEntity = function (entity) {
-        return __assign({}, entity);
+        var scores = {};
+        for (var _i = 0, _a = Object.entries(entity); _i < _a.length; _i++) {
+            var _b = _a[_i], key = _b[0], value = _b[1];
+            if (!Number.isNaN(Number(value))) {
+                scores[key] = Number(value);
+            }
+        }
+        var newEntity = {
+            name: entity.name || '',
+            scores: scores,
+            user: {}
+        };
+        return newEntity;
     };
 
     var indicatorIdTest = /^([\w]\.)*\w{1}$/;
@@ -119,8 +149,8 @@
         if (clamp === void 0) { clamp = false; }
         if (rawIndicatorsData.length === 0 || rawEntitiesData.length === 0)
             return {};
-        var indicatorsData = rawIndicatorsData.map(function (i) { return validateIndicator(i); });
-        var entitiesData = rawEntitiesData.map(function (e) { return validateEntity(e); });
+        var indicatorsData = rawIndicatorsData.map(function (i) { return validateIndicator(i, indexMax); }).filter(function (i) { return i !== undefined; });
+        var entitiesData = rawEntitiesData.map(function (e) { return validateEntity(e); }).filter(function (i) { return i !== undefined; });
         var indicatorLookup = Object.fromEntries(indicatorsData
             .map(function (indicator) { return ([indicator.id, indicator]); }));
         var indexedData = {};
@@ -136,11 +166,12 @@
             return indexedData[entityName];
         }
         function getEntityIndicator(entityName, indicatorID) {
+            var _a;
             // If user has changed the value of the indicator, return that changed value instead of the original
-            if (indexedData[entityName].user && indexedData[entityName].user[indicatorID]) {
+            if (indexedData[entityName].user && ((_a = indexedData[entityName].user) === null || _a === void 0 ? void 0 : _a[indicatorID])) {
                 return indexedData[entityName].user[indicatorID];
             }
-            return indexedData[entityName][indicatorID];
+            return indexedData[entityName].scores[indicatorID];
         }
         // return the NAMES of the entities
         function getEntities() {
@@ -159,102 +190,109 @@
             // if the value of an indicator on an entiry is falsey
             // dont take it into account
             var entityValues = Object.values(indexedData);
+            // Shouldn't we just be throwing an error if it can't be found in the lookup?
             var indicator = indicatorLookup[indicatorID]
-                ? indicatorLookup[indicatorID]
-                : {
-                    min: 0,
-                    max: indexMax,
-                    id: '',
-                    type: IndicatorType.CONTINUOUS,
-                    diverging: false,
-                    invert: false
-                };
-            var indicatorRange = [
-                indicator.min ? Number(indicator.min) : 0,
-                indicator.max ? Number(indicator.max) : indexMax,
-            ];
+                ? indicatorLookup[indicatorID] : {
+                id: indicatorID,
+                type: IndicatorType.CONTINUOUS,
+                range: [0, indexMax],
+                diverging: false,
+                invert: false,
+                weighting: 0,
+                indicatorName: '',
+                value: 0
+            };
             var length = entityValues.length;
+            var range = [
+                indicator.range[0],
+                indicator.range[1] === 0 ? indexMax : indicator.range[1]
+            ];
             var sum = entityValues.reduce(function (acc, v) {
-                if (Number.isNaN(Number(v[indicatorID]))) {
+                if (Number.isNaN(Number(v.scores[indicatorID]))) {
                     length -= 1;
                     return acc;
                 }
-                if (!normalised) {
-                    return acc + Number(v[indicatorID]);
+                else {
+                    if (!normalised) {
+                        return acc + Number(v.scores[indicatorID]);
+                    }
+                    return acc + normalise(Number(v.scores[indicatorID]), range, indexMax, clamp);
                 }
-                return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax, clamp);
             }, 0);
+            if (Number.isNaN(Number(sum / length))) {
+                console.log('NaN: -------------------------', indicator, range);
+            }
             return sum / length;
         }
         // format an indicator for passing to the weighted mean function
-        function formatIndicator(indicator, entity, max) {
-            var diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
-            var value = entity.user && entity.user[indicator.id]
+        function formatIndicator(indicator, entity) {
+            var value = entity.user[indicator.id]
                 ? Number(entity.user[indicator.id])
-                : Number(entity[indicator.id]);
-            var range = [
-                indicator.min ? Number(indicator.min) : 0,
-                indicator.max ? Number(indicator.max) : max,
-            ];
-            if (diverging) {
-                // currently no way to set this diffeently included here as a signpost for the future
+                : Number(entity.scores[indicator.id]);
+            // We have to reset the range according to the max passed through the function
+            // TODO this needs to be reconsidered
+            // const range = [
+            //   indicator.range[0],
+            //   indicator.range[1] === 0 ? max : indicator.range[1]
+            // ];
+            if (indicator.diverging) {
+                // TODO: set centerpoint somewhere in a config
                 var centerpoint = 0;
-                if (indicator.max) {
-                    range = [0, indicator.max];
-                    if (indicator.min) {
-                        range = [0, Math.max(Math.abs(indicator.min), Math.abs(indicator.max))];
-                    }
-                }
-                else {
-                    range = [0, max];
-                }
                 value = Math.abs(value - centerpoint);
             }
-            return {
+            var result = {
                 id: indicator.id,
                 value: value,
                 type: indicator.type,
-                diverging: diverging,
-                weight: indicator.userWeighting
+                diverging: indicator.diverging,
+                weighting: indicator.userWeighting
                     ? Number(indicator.userWeighting)
                     : Number(indicator.weighting),
                 invert: indicator.invert,
-                range: range,
+                range: indicator.range,
+                indicatorName: indicator.indicatorName
             };
+            return result;
         }
         function indexEntity(entity, calculationList, overwrite) {
             if (overwrite === void 0) { overwrite = allowOverwrite; }
-            var newEntity = clone(entity);
+            var newEntityScores = clone(entity.scores);
+            var newEntity = {
+                value: 0,
+                name: entity.name,
+                scores: newEntityScores,
+                user: entity.user ? entity.user : {}
+            };
             calculationList.forEach(function (parentIndicatorID) {
-                if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
+                if ((newEntityScores[parentIndicatorID] && overwrite === true) || !newEntityScores[parentIndicatorID]) {
                     // get the required component indicators to calculate the parent value
                     // this is a bit brittle maybe?
                     var componentIndicators = indicatorsData
                         .filter(function (indicator) { return (indicator.id.indexOf(parentIndicatorID) === 0 // the
                         && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1); })
                         .filter(function (indicator) { return excludeIndicator(indicator) === false; })
-                        .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
+                        .map(function (indicator) { return formatIndicator(indicator, newEntity); });
                     // calculate the weighted mean of the component indicators on the newEntity
                     // assign that value to the newEntity
-                    newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
+                    newEntityScores[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
                 }
                 else {
-                    console.warn("retaining existing value for ".concat(newEntity.name, " - ").concat(parentIndicatorID, " : ").concat(Number(entity[parentIndicatorID])));
-                    newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
+                    console.warn("retaining existing value for ".concat(entity.name, " - ").concat(parentIndicatorID, " : ").concat(Number(entity.scores[parentIndicatorID])));
+                    newEntityScores[parentIndicatorID] = Number(entity.scores[parentIndicatorID]);
                 }
             });
             var pillarIndicators = indicatorsData
                 .filter(function (indicator) { return String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1; })
-                .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
+                .map(function (indicator) { return formatIndicator(indicator, newEntity); });
             newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
-            if (!newEntity.user) {
-                newEntity.user = {};
-            }
             return newEntity;
         }
         function getIndexableIndicators(indicatorsData) {
             return indicatorsData
                 .filter(function (i) {
+                if (!i.id) {
+                    console.warn("Weird id: ".concat(JSON.stringify(i)));
+                }
                 var isIndicator = String(i.id).match(indicatorIdTest);
                 var isExcluded = excludeIndicator(i);
                 return isIndicator && !isExcluded;
@@ -268,11 +306,8 @@
         }
         function adjustValue(entityName, indicatorID, value) {
             var e = getEntity(entityName);
-            if ((!indicatorID && !value) || !e.user) {
-                var newUser = {};
-                e.user = newUser; // no value or indicator specified, reset
-            }
-            else if (!value && e.user) {
+            var isEmpty = function (obj) { return Object.keys(obj).length === 0; };
+            if (!value && !isEmpty(e.user)) {
                 delete e.user[indicatorID]; // no value specified, reset the indicator
             }
             if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === IndicatorType.CALCULATED) {
@@ -286,9 +321,10 @@
             var calculationList = getCalculationList(onlyIdIndicators);
             indexedData[e.name] = indexEntity(e, calculationList, true);
             // console.log(indexedData[e.name])
-            var adjustedEntity = Object.assign(clone(indexedData[e.name]), indexedData[e.name].user);
-            delete adjustedEntity.user;
-            delete adjustedEntity.data;
+            var adjustedEntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
+            var adjustedEntity = __assign(__assign({}, indexedData[e.name]), { scores: adjustedEntityScores });
+            adjustedEntity.user = {};
+            delete adjustedEntity.data; // TODO leave as empty object. Also why do we even use it?
             return adjustedEntity;
         }
         function createStructure(indicatorIds) {

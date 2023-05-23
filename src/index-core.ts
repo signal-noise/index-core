@@ -1,21 +1,22 @@
 import { calculateWeightedMean, clone, normalise } from './utils.js';
 import * as Types from './types';
 import { validateIndicator, validateEntity } from './formatters';
+import { DSVRowString } from 'd3';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
 // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
 const index = function indexCore(
-  rawIndicatorsData: Array<object> = [],
-  rawEntitiesData: Array<object> = [],
+  rawIndicatorsData: DSVRowString<string>[] = [],
+  rawEntitiesData: DSVRowString<string>[] = [],
   indexMax = 100,
   allowOverwrite = true,
   clamp = false,
 ) {
   if (rawIndicatorsData.length === 0 || rawEntitiesData.length === 0) return {};
 
-  const indicatorsData: Types.Indicator[] = rawIndicatorsData.map((i: object) => validateIndicator(i));
-  const entitiesData:  Types.Entity[] = rawEntitiesData.map((e: object) => validateEntity(e));
+  const indicatorsData: Types.Indicator[] = rawIndicatorsData.map((i: DSVRowString<string>) => validateIndicator(i, indexMax)).filter(i => i !== undefined);
+  const entitiesData:  Types.Entity[] = rawEntitiesData.map((e: DSVRowString<string>) => validateEntity(e)).filter(i => i !== undefined);
 
   const indicatorLookup: Types.IndicatorLookup = Object.fromEntries(
     indicatorsData
@@ -40,10 +41,10 @@ const index = function indexCore(
 
   function getEntityIndicator(entityName: string, indicatorID: Types.IndicatorId): Types.IndicatorScore {
     // If user has changed the value of the indicator, return that changed value instead of the original
-    if (indexedData[entityName].user && indexedData[entityName].user[indicatorID]) {
+    if (indexedData[entityName].user && indexedData[entityName].user?.[indicatorID]) {
       return indexedData[entityName].user[indicatorID];
     }
-    return indexedData[entityName][indicatorID];
+    return indexedData[entityName].scores[indicatorID];
   }
 
   // return the NAMES of the entities
@@ -64,119 +65,136 @@ const index = function indexCore(
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
     const entityValues: Types.Entity[] = Object.values(indexedData);
+    // Shouldn't we just be throwing an error if it can't be found in the lookup?
     const indicator: Types.Indicator = indicatorLookup[indicatorID]
-      ? indicatorLookup[indicatorID]
-      : {
-        min: 0,
-        max: indexMax,
-        id: '',
+      ? indicatorLookup[indicatorID] : {
+        id: indicatorID,
         type: Types.IndicatorType.CONTINUOUS,
+        range: [0, indexMax],
         diverging: false,
-        invert: false
-      };
-    const indicatorRange = [
-      indicator.min ? Number(indicator.min) : 0,
-      indicator.max ? Number(indicator.max) : indexMax,
-    ];
+        invert: false,
+        weighting: 0,
+        indicatorName: '',
+        value: 0
+      }
 
     let { length } = entityValues;
+
+    const range = [
+      indicator.range[0],
+      indicator.range[1] === 0 ? indexMax : indicator.range[1]
+    ]
+
     const sum = entityValues.reduce((acc, v) => {
-      if (Number.isNaN(Number(v[indicatorID]))) {
+      if (Number.isNaN(Number(v.scores[indicatorID]))) {
         length -= 1;
         return acc;
+      } else {
+        if (!normalised) {
+          return acc + Number(v.scores[indicatorID]);
+        }
+
+        return acc + normalise(Number(v.scores[indicatorID]), range, indexMax, clamp);
       }
-      if (!normalised) {
-        return acc + Number(v[indicatorID]);
-      }
-      return acc + normalise(Number(v[indicatorID]), indicatorRange, indexMax, clamp);
     }, 0);
+
+    if (Number.isNaN(Number(sum / length))) {
+      console.log('NaN: -------------------------', indicator, range);
+    }
     return sum / length;
   }
 
   // format an indicator for passing to the weighted mean function
-  function formatIndicator(indicator: Types.Indicator, entity: Types.Entity, max: number): Types.FormattedIndicator {
-    const diverging = (indicator.diverging === true || String(indicator.diverging).toLocaleLowerCase() === 'true');
-    let value = entity.user && entity.user[indicator.id]
+  function formatIndicator(indicator: Types.Indicator, entity: Types.Entity): Types.Indicator {
+    let value = entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
-      : Number(entity[indicator.id]);
+      : Number(entity.scores[indicator.id]);
 
-    let range = [
-      indicator.min ? Number(indicator.min) : 0,
-      indicator.max ? Number(indicator.max) : max,
-    ];
+    // We have to reset the range according to the max passed through the function
+    // TODO this needs to be reconsidered
+    // const range = [
+    //   indicator.range[0],
+    //   indicator.range[1] === 0 ? max : indicator.range[1]
+    // ];
 
-    if (diverging) {
-      // currently no way to set this diffeently included here as a signpost for the future
+    if (indicator.diverging) {
+      // TODO: set centerpoint somewhere in a config
       const centerpoint = 0;
-
-      if (indicator.max) {
-        range = [0, indicator.max];
-        if (indicator.min) {
-          range = [0, Math.max(Math.abs(indicator.min), Math.abs(indicator.max))];
-        }
-      } else {
-        range = [0, max];
-      }
       value = Math.abs(value - centerpoint);
     }
 
-    return {
+    const result = {
       id: indicator.id,
       value,
       type: indicator.type,
-      diverging,
-      weight: indicator.userWeighting
+      diverging: indicator.diverging,
+      weighting: indicator.userWeighting
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
       invert: indicator.invert,
-      range,
+      range: indicator.range,
+      indicatorName: indicator.indicatorName
     };
+
+    return result;
   }
 
   function indexEntity(entity: Types.Entity, calculationList: Types.IndicatorId[], overwrite = allowOverwrite): Types.Entity {
-    const newEntity = clone(entity);
+
+    const newEntityScores: Types.EntityScores = clone(entity.scores);
+
+    const newEntity: Types.Entity = {
+      value: 0,
+      name: entity.name,
+      scores: newEntityScores,
+      user: entity.user ? entity.user : {}
+    }
+    
     calculationList.forEach((parentIndicatorID: Types.IndicatorId) => {
-      if ((newEntity[parentIndicatorID] && overwrite === true) || !newEntity[parentIndicatorID]) {
+      if ((newEntityScores[parentIndicatorID] && overwrite === true) || !newEntityScores[parentIndicatorID]) {
         // get the required component indicators to calculate the parent value
         // this is a bit brittle maybe?
 
-        const componentIndicators: Types.FormattedIndicator[] = indicatorsData
+        const componentIndicators: Types.Indicator[] = indicatorsData
           .filter((indicator: Types.Indicator) => (
             indicator.id.indexOf(parentIndicatorID) === 0 // the
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
-          .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+          .map((indicator) => formatIndicator(indicator, newEntity));
         
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
-        newEntity[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
+        newEntityScores[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
       } else {
-        console.warn(`retaining existing value for ${newEntity.name} - ${parentIndicatorID} : ${Number(entity[parentIndicatorID])}`);
-        newEntity[parentIndicatorID] = Number(entity[parentIndicatorID]);
+        console.warn(`retaining existing value for ${entity.name} - ${parentIndicatorID} : ${Number(entity.scores[parentIndicatorID])}`);
+        newEntityScores[parentIndicatorID] = Number(entity.scores[parentIndicatorID]);
       }
     });
 
     const pillarIndicators = indicatorsData
       .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
-      .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
+      .map((indicator) => formatIndicator(indicator, newEntity));
 
     newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
-    if (!newEntity.user) {
-      newEntity.user = {};
-    }
+  
     return newEntity;
   }
 
   function getIndexableIndicators(indicatorsData: Types.Indicator[]): Types.Indicator[] {
     return indicatorsData
       .filter((i: Types.Indicator) => {
+        if (!i.id) {
+          console.warn(`Weird id: ${JSON.stringify(i)}`);
+        }
+
         const isIndicator = String(i.id).match(indicatorIdTest);
         const isExcluded = excludeIndicator(i);
+
         return isIndicator && !isExcluded;
       });
   }
 
-  function getCalculationList(indicators: Types.Indicator[]) {
+  function getCalculationList(indicators: Types.Indicator[]): Types.IndicatorId[] {
     return indicators
       .filter((i) => (i.type === Types.IndicatorType.CALCULATED && !excludeIndicator(i)))
       .map((i) => i.id)
@@ -185,11 +203,9 @@ const index = function indexCore(
 
   function adjustValue(entityName: Types.EntityName, indicatorID: Types.IndicatorId, value: Types.IndicatorScore): Types.Entity {
     const e: Types.Entity = getEntity(entityName);
+    const isEmpty = (obj: Types.User) => Object.keys(obj).length === 0;
 
-    if ((!indicatorID && !value) || !e.user) {
-      const newUser: Types.User = {};
-      e.user = newUser; // no value or indicator specified, reset
-    } else if (!value && e.user) {
+    if (!value && !isEmpty(e.user)) {
       delete e.user[indicatorID]; // no value specified, reset the indicator
     }
 
@@ -206,9 +222,14 @@ const index = function indexCore(
 
     indexedData[e.name] = indexEntity(e, calculationList, true);
     // console.log(indexedData[e.name])
-    const adjustedEntity = Object.assign(clone(indexedData[e.name]), indexedData[e.name].user);
-    delete adjustedEntity.user;
-    delete adjustedEntity.data;
+    const adjustedEntityScores: Types.EntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
+
+    const adjustedEntity: Types.Entity = {
+      ...indexedData[e.name],
+      scores: adjustedEntityScores
+    }
+    adjustedEntity.user = {};
+    delete adjustedEntity.data; // TODO leave as empty object. Also why do we even use it?
     return adjustedEntity;
   }
 

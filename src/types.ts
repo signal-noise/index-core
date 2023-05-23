@@ -1,36 +1,44 @@
-export type Indicator = {
-  id: IndicatorId
-  min?: number
-  max?: number
-  type: IndicatorType
-  diverging: boolean
-  userWeighting?: number
-  weighting?: number
-  invert: boolean
-}
-
 export enum IndicatorType {
   CALCULATED = "calculated",
   DISCRETE = "discrete",
   CONTINUOUS = "continuous"
 }
 
-// ???
-export interface FormattedIndicator extends Indicator {
-  weight: number
-  range: number[]
+// Pre-calculated, formatted indicator
+export type Indicator = {
+  id: IndicatorId
+  type: IndicatorType
+  range: IndicatorRangeNumber[]
+  invert: boolean
+  diverging: boolean
+  weighting: number
+  userWeighting?: number
+  indicatorName: string
   value: IndicatorScore
 }
+
+export type BackgroundIndicator = {
+  id: BackgroundIndicatorId
+  description: string
+  unit: string
+}
+
+export type BackgroundIndicatorId = string;
+
+export type IndicatorRangeNumber = number;
 
 export type EntityName = string;
 
 export type Entity = {
-  [key: IndicatorId]: IndicatorScore
-} & {
   name: EntityName
   value?: number
-  user: User // THIS SHOULD BE OPTIONAL
+  user: User
   data?: Entity // why?
+  scores: EntityScores
+}
+
+export type EntityScores = {
+  [key: IndicatorId]: IndicatorScore
 }
 
 // User-generated scores

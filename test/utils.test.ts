@@ -11,82 +11,91 @@ import {
 
 const testDataA = [{
   value: 50,
-  weight: 0.5,
+  weighting: 0.5,
   range: [0, 100],
   id: '1',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 },
 {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   range: [0, 50],
   id: '2',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 },
 {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   range: [0, 50],
   id: '3',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }];
 
 const testDataB = [{
   value: 0,
-  weight: 0.5,
+  weighting: 0.5,
   range: [-100, 100],
   id: '1',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }, {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   range: [0, 50],
   id: '2',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }, {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   range: [0, 50],
   id: '3',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }];
 
 const testDataC = [{
   value: 0,
-  weight: 0.5,
+  weighting: 0.5,
   range: [-100, 100],
   id: '1',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }, {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   invert: true,
   range: [0, 100],
   id: '2',
   type: Types.IndicatorType.DISCRETE,
-  diverging: false
+  diverging: false,
+  indicatorName: '',
 }, {
   value: 25,
-  weight: 0.25,
+  weighting: 0.25,
   range: [0, 100],
   id: '3',
   type: Types.IndicatorType.DISCRETE,
   diverging: false,
-  invert: false
+  invert: false,
+  indicatorName: '',
 }];
 
 test('simple weighted mean', () => {
