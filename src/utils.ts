@@ -10,6 +10,7 @@ export function clamper(range: number[], value: Types.IndicatorScore): number { 
 
 export function normalise(value: number, range = [0, 100], normaliseTo = 100, clamp = false): number {
   let x = Number(value);
+
   if (clamp) {
     x = clamper(range, value);
   }

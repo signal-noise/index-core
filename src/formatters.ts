@@ -70,6 +70,8 @@ export const validateEntity = (entity: DSVRowString<string>): Types.Entity => {
     }
   }
 
+  scores[0] = 0; // will be calculated as the top level value
+
   const newEntity = {
     name: entity.name || '',
     scores,

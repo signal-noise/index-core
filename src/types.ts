@@ -31,7 +31,6 @@ export type EntityName = string;
 
 export type Entity = {
   name: EntityName
-  value?: number
   user: User
   data?: Entity // why?
   scores: EntityScores

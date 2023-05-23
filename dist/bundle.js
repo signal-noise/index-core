@@ -131,6 +131,7 @@
                 scores[key] = Number(value);
             }
         }
+        scores[0] = 0; // will be calculated as the top level value
         var newEntity = {
             name: entity.name || '',
             scores: scores,
@@ -184,13 +185,13 @@
             return indicatorLookup;
         }
         function getIndexMean(indicatorID, normalised) {
-            if (indicatorID === void 0) { indicatorID = 'value'; }
+            if (indicatorID === void 0) { indicatorID = '0'; }
             if (normalised === void 0) { normalised = true; }
             // get the mean index value for a given indicator id,
             // if the value of an indicator on an entiry is falsey
             // dont take it into account
             var entityValues = Object.values(indexedData);
-            // Shouldn't we just be throwing an error if it can't be found in the lookup?
+            // If it doesn't exist in the lookup, create new indicator for top level value
             var indicator = indicatorLookup[indicatorID]
                 ? indicatorLookup[indicatorID] : {
                 id: indicatorID,
@@ -219,9 +220,6 @@
                     return acc + normalise(Number(v.scores[indicatorID]), range, indexMax, clamp);
                 }
             }, 0);
-            if (Number.isNaN(Number(sum / length))) {
-                console.log('NaN: -------------------------', indicator, range);
-            }
             return sum / length;
         }
         // format an indicator for passing to the weighted mean function
@@ -258,7 +256,6 @@
             if (overwrite === void 0) { overwrite = allowOverwrite; }
             var newEntityScores = clone(entity.scores);
             var newEntity = {
-                value: 0,
                 name: entity.name,
                 scores: newEntityScores,
                 user: entity.user ? entity.user : {}
@@ -284,7 +281,7 @@
             var pillarIndicators = indicatorsData
                 .filter(function (indicator) { return String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1; })
                 .map(function (indicator) { return formatIndicator(indicator, newEntity); });
-            newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
+            newEntity.scores[0] = calculateWeightedMean(pillarIndicators, indexMax, clamp);
             return newEntity;
         }
         function getIndexableIndicators(indicatorsData) {

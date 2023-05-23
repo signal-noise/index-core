@@ -60,12 +60,12 @@ const index = function indexCore(
     return indicatorLookup;
   }
 
-  function getIndexMean(indicatorID: Types.IndicatorId = 'value', normalised = true): number {
+  function getIndexMean(indicatorID: Types.IndicatorId = '0', normalised = true): number {
     // get the mean index value for a given indicator id,
     // if the value of an indicator on an entiry is falsey
     // dont take it into account
     const entityValues: Types.Entity[] = Object.values(indexedData);
-    // Shouldn't we just be throwing an error if it can't be found in the lookup?
+    // If it doesn't exist in the lookup, create new indicator for top level value
     const indicator: Types.Indicator = indicatorLookup[indicatorID]
       ? indicatorLookup[indicatorID] : {
         id: indicatorID,
@@ -98,9 +98,6 @@ const index = function indexCore(
       }
     }, 0);
 
-    if (Number.isNaN(Number(sum / length))) {
-      console.log('NaN: -------------------------', indicator, range);
-    }
     return sum / length;
   }
 
@@ -144,7 +141,6 @@ const index = function indexCore(
     const newEntityScores: Types.EntityScores = clone(entity.scores);
 
     const newEntity: Types.Entity = {
-      value: 0,
       name: entity.name,
       scores: newEntityScores,
       user: entity.user ? entity.user : {}
@@ -175,7 +171,7 @@ const index = function indexCore(
       .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
       .map((indicator) => formatIndicator(indicator, newEntity));
 
-    newEntity.value = calculateWeightedMean(pillarIndicators, indexMax, clamp);
+    newEntity.scores[0] = calculateWeightedMean(pillarIndicators, indexMax, clamp);
   
     return newEntity;
   }

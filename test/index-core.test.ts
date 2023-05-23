@@ -18,16 +18,16 @@ const simpleEntities: DSVRowArray<string> = csvParse(fs.readFileSync(`${simpleRo
 test('create index-core', ()=>{
   const waterOptimisationIndex = indexCore(waterIndicators, waterEntities);
   expect(waterOptimisationIndex).toEqual(expect.anything());
-  expect(waterOptimisationIndex.indexedData['Naples'].value.toFixed(1)).toBe('76.2');
+  expect(waterOptimisationIndex.indexedData['Naples'].scores['0'].toFixed(1)).toBe('76.2');
 });
 
 test('adjust indicator', ()=>{
   const simpleIndex = indexCore(simpleIndicators, simpleEntities);
-  const originalValue = simpleIndex.indexedData['Monopoly'].value;
+  const originalValue = simpleIndex.indexedData['Monopoly'].scores['0'];
   simpleIndex.adjustValue('Monopoly','1.1',10);
-  const adjustedValue = simpleIndex.indexedData['Monopoly'].value;
+  const adjustedValue = simpleIndex.indexedData['Monopoly'].scores['0'];
   simpleIndex.adjustValue('Monopoly', null, null);
-  const resetValue = simpleIndex.indexedData['Monopoly'].value;
+  const resetValue = simpleIndex.indexedData['Monopoly'].scores['0'];
   expect(originalValue.toFixed(3)).toBe('50.118')
   expect(adjustedValue.toFixed(3)).toBe('53.451')
   expect(originalValue).toBe(resetValue);
@@ -38,7 +38,7 @@ test('reset individual indicator', ()=>{
   simpleIndex.adjustValue('Monopoly','1.1',10);
   simpleIndex.adjustValue('Monopoly','1.2',1);
   simpleIndex.adjustValue('Monopoly','1.2', null);
-  const resetValue = simpleIndex.indexedData['Monopoly'].value;
+  const resetValue = simpleIndex.indexedData['Monopoly'].scores['0'];
   expect(resetValue.toFixed(3)).toBe('53.451')
 })
 
