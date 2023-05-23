@@ -200,7 +200,10 @@ const index = function indexCore(
     const e: Types.Entity = getEntity(entityName);
     const isEmpty = (obj: Types.User) => Object.keys(obj).length === 0;
 
-    if (!value && !isEmpty(e.user)) {
+    if ((!indicatorID && !value) || !e.user) {
+      const newUser: Types.User = {};
+      e.user = newUser;
+    } else if (!value && !isEmpty(e.user)) {
       delete e.user[indicatorID]; // no value specified, reset the indicator
     }
 
@@ -223,6 +226,7 @@ const index = function indexCore(
       ...indexedData[e.name],
       scores: adjustedEntityScores
     }
+
     adjustedEntity.user = {};
     delete adjustedEntity.data; // TODO leave as empty object. Also why do we even use it?
     return adjustedEntity;

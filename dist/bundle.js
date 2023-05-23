@@ -312,7 +312,11 @@
         function adjustValue(entityName, indicatorID, value) {
             var e = getEntity(entityName);
             var isEmpty = function (obj) { return Object.keys(obj).length === 0; };
-            if (!value && !isEmpty(e.user)) {
+            if ((!indicatorID && !value) || !e.user) {
+                var newUser = {};
+                e.user = newUser;
+            }
+            else if (!value && !isEmpty(e.user)) {
                 delete e.user[indicatorID]; // no value specified, reset the indicator
             }
             if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === IndicatorType.CALCULATED) {
