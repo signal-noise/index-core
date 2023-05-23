@@ -80,43 +80,42 @@ const index = function indexCore(
 
     let { length } = entityValues;
 
-    const range = [
-      indicator.range[0],
-      indicator.range[1] === 0 ? indexMax : indicator.range[1]
-    ]
-
     const sum = entityValues.reduce((acc, v) => {
       if (Number.isNaN(Number(v.scores[indicatorID]))) {
         length -= 1;
         return acc;
-      } else {
-        if (!normalised) {
-          return acc + Number(v.scores[indicatorID]);
-        }
-
-        return acc + normalise(Number(v.scores[indicatorID]), range, indexMax, clamp);
       }
+
+      if (!normalised) {
+        return acc + Number(v.scores[indicatorID]);
+      }
+
+      return acc + normalise(Number(v.scores[indicatorID]), indicator.range, indexMax, clamp);
     }, 0);
 
     return sum / length;
   }
 
   // format an indicator for passing to the weighted mean function
-  function formatIndicator(indicator: Types.Indicator, entity: Types.Entity): Types.Indicator {
+  function formatIndicator(indicator: Types.Indicator, entity: Types.Entity, max: number): Types.Indicator {
     let value = entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
       : Number(entity.scores[indicator.id]);
 
-    // We have to reset the range according to the max passed through the function
-    // TODO this needs to be reconsidered
-    // const range = [
-    //   indicator.range[0],
-    //   indicator.range[1] === 0 ? max : indicator.range[1]
-    // ];
+    let range = [...indicator.range];
 
     if (indicator.diverging) {
       // TODO: set centerpoint somewhere in a config
       const centerpoint = 0;
+
+      // TODO do we need to check if these exist anymore?
+      if (indicator.range[1]) {
+        if (indicator.range[0]) {
+          range = [0, Math.max(Math.abs(indicator.range[0]), Math.abs(indicator.range[1]))]
+        } else {
+          range = [0, max];
+        }
+      }
       value = Math.abs(value - centerpoint);
     }
 
@@ -129,7 +128,7 @@ const index = function indexCore(
         ? Number(indicator.userWeighting)
         : Number(indicator.weighting),
       invert: indicator.invert,
-      range: indicator.range,
+      range,
       indicatorName: indicator.indicatorName
     };
 
@@ -156,7 +155,7 @@ const index = function indexCore(
             indicator.id.indexOf(parentIndicatorID) === 0 // the
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
-          .map((indicator) => formatIndicator(indicator, newEntity));
+          .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
         
         // calculate the weighted mean of the component indicators on the newEntity
         // assign that value to the newEntity
@@ -169,7 +168,7 @@ const index = function indexCore(
 
     const pillarIndicators = indicatorsData
       .filter((indicator) => String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1)
-      .map((indicator) => formatIndicator(indicator, newEntity));
+      .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
 
     newEntity.scores[0] = calculateWeightedMean(pillarIndicators, indexMax, clamp);
   

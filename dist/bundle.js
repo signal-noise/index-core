@@ -30,6 +30,16 @@
         return __assign.apply(this, arguments);
     };
 
+    function __spreadArray(to, from, pack) {
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+            if (ar || !(i in from)) {
+                if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+                ar[i] = from[i];
+            }
+        }
+        return to.concat(ar || Array.prototype.slice.call(from));
+    }
+
     function clone(o) {
         return JSON.parse(JSON.stringify(o));
     }
@@ -204,38 +214,36 @@
                 value: 0
             };
             var length = entityValues.length;
-            var range = [
-                indicator.range[0],
-                indicator.range[1] === 0 ? indexMax : indicator.range[1]
-            ];
             var sum = entityValues.reduce(function (acc, v) {
                 if (Number.isNaN(Number(v.scores[indicatorID]))) {
                     length -= 1;
                     return acc;
                 }
-                else {
-                    if (!normalised) {
-                        return acc + Number(v.scores[indicatorID]);
-                    }
-                    return acc + normalise(Number(v.scores[indicatorID]), range, indexMax, clamp);
+                if (!normalised) {
+                    return acc + Number(v.scores[indicatorID]);
                 }
+                return acc + normalise(Number(v.scores[indicatorID]), indicator.range, indexMax, clamp);
             }, 0);
             return sum / length;
         }
         // format an indicator for passing to the weighted mean function
-        function formatIndicator(indicator, entity) {
+        function formatIndicator(indicator, entity, max) {
             var value = entity.user[indicator.id]
                 ? Number(entity.user[indicator.id])
                 : Number(entity.scores[indicator.id]);
-            // We have to reset the range according to the max passed through the function
-            // TODO this needs to be reconsidered
-            // const range = [
-            //   indicator.range[0],
-            //   indicator.range[1] === 0 ? max : indicator.range[1]
-            // ];
+            var range = __spreadArray([], indicator.range, true);
             if (indicator.diverging) {
                 // TODO: set centerpoint somewhere in a config
                 var centerpoint = 0;
+                // TODO do we need to check if these exist anymore?
+                if (indicator.range[1]) {
+                    if (indicator.range[0]) {
+                        range = [0, Math.max(Math.abs(indicator.range[0]), Math.abs(indicator.range[1]))];
+                    }
+                    else {
+                        range = [0, max];
+                    }
+                }
                 value = Math.abs(value - centerpoint);
             }
             var result = {
@@ -247,7 +255,7 @@
                     ? Number(indicator.userWeighting)
                     : Number(indicator.weighting),
                 invert: indicator.invert,
-                range: indicator.range,
+                range: range,
                 indicatorName: indicator.indicatorName
             };
             return result;
@@ -268,7 +276,7 @@
                         .filter(function (indicator) { return (indicator.id.indexOf(parentIndicatorID) === 0 // the
                         && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1); })
                         .filter(function (indicator) { return excludeIndicator(indicator) === false; })
-                        .map(function (indicator) { return formatIndicator(indicator, newEntity); });
+                        .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
                     // calculate the weighted mean of the component indicators on the newEntity
                     // assign that value to the newEntity
                     newEntityScores[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
@@ -280,7 +288,7 @@
             });
             var pillarIndicators = indicatorsData
                 .filter(function (indicator) { return String(indicator.id).match(indicatorIdTest) && indicator.id.split('.').length === 1; })
-                .map(function (indicator) { return formatIndicator(indicator, newEntity); });
+                .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
             newEntity.scores[0] = calculateWeightedMean(pillarIndicators, indexMax, clamp);
             return newEntity;
         }
