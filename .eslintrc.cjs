@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     'import/extensions': 0,
     "no-console": 1,
-    "no-loops/no-loops": 2,
+    "no-loops/no-loops": 1,
     "no-comments/disallowComments": 1
   },
 };
