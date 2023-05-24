@@ -140,6 +140,7 @@ const index = function indexCore(
     const newEntity: Types.Entity = {
       name: entity.name,
       scores: newEntityScores,
+      data: {},
       user: entity.user ? entity.user : {}
     }
     
@@ -226,7 +227,8 @@ const index = function indexCore(
     }
 
     adjustedEntity.user = {};
-    delete adjustedEntity.data; // TODO leave as empty object
+    adjustedEntity.data = {};
+
     return adjustedEntity;
   }
 
@@ -267,7 +269,7 @@ const index = function indexCore(
 
     entitiesData.forEach((entity: Types.Entity) => {
       const indexedEntity = indexEntity(entity, calculationList, overwrite);
-      indexedEntity.data = entity;
+      indexedEntity.data = entity.scores;
       indexedData[entity.name] = indexedEntity;
     });
   }

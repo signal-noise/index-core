@@ -77,7 +77,8 @@ export const validateEntity = (entity: DSVRowString<string>): Types.Entity => {
   const newEntity = {
     name: entity.name || '',
     scores,
-    user: {}
+    user: {},
+    data: {}
   };
 
   return newEntity;

@@ -93,7 +93,7 @@ test('check the return value from adjustValue', ()=>{
   const adjustedObject = simpleIndex.adjustValue('Monopoly', '1.2', 3.142);
   expect(adjustedObject.scores['1.2']).toBe(3.142);
   expect(adjustedObject['user']).toEqual({});
-  expect(adjustedObject['data']).toBe(undefined);
+  expect(adjustedObject['data']).toEqual({});
 })
 
 test('test for clamped values', ()=>{

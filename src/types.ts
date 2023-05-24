@@ -32,7 +32,7 @@ export type EntityName = string;
 export type Entity = {
   name: EntityName
   user: User
-  data?: Entity // why?
+  data: EntityScores // why?
   scores: EntityScores
 }
 
