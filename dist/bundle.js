@@ -62,15 +62,13 @@
         if (clamp === void 0) { clamp = false; }
         var weightedSum = 0;
         var cumulativeWeight = 0;
-        for (var i = 0; i < weightedValues.length; i += 1) {
-            var indicator = weightedValues[i];
-            var normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
-            var weightedValue = indicator.invert
-                ? ((normaliseTo - normalisedValue) * indicator.weighting)
-                : (normalisedValue * indicator.weighting);
+        weightedValues.forEach(function (indicator) {
+            var value = indicator.value, range = indicator.range, invert = indicator.invert, weighting = indicator.weighting;
+            var normalisedValue = normalise(value, range, normaliseTo, clamp);
+            var weightedValue = invert ? ((normaliseTo - normalisedValue) * weighting) : (normalisedValue * weighting);
             weightedSum += weightedValue;
-            cumulativeWeight += indicator.weighting;
-        }
+            cumulativeWeight += weighting;
+        });
         return weightedSum / cumulativeWeight;
     }
 
@@ -134,13 +132,13 @@
         return result;
     };
     var validateEntity = function (entity) {
-        var scores = {};
-        for (var _i = 0, _a = Object.entries(entity); _i < _a.length; _i++) {
-            var _b = _a[_i], key = _b[0], value = _b[1];
+        var scores = Object.entries(entity).reduce(function (acc, _a) {
+            var key = _a[0], value = _a[1];
             if (!Number.isNaN(Number(value))) {
-                scores[key] = Number(value);
+                acc[key] = Number(value);
             }
-        }
+            return acc;
+        }, {});
         scores[0] = 0; // will be calculated as the top level value
         var newEntity = {
             name: entity.name || '',
@@ -178,13 +176,11 @@
         }
         function getEntityIndicator(entityName, indicatorID) {
             var _a;
-            // If user has changed the value of the indicator, return that changed value instead of the original
             if (indexedData[entityName].user && ((_a = indexedData[entityName].user) === null || _a === void 0 ? void 0 : _a[indicatorID])) {
                 return indexedData[entityName].user[indicatorID];
             }
             return indexedData[entityName].scores[indicatorID];
         }
-        // return the NAMES of the entities
         function getEntities() {
             return entitiesData.map(function (d) { return d.name; });
         }

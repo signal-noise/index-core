@@ -40,14 +40,12 @@ const index = function indexCore(
   }
 
   function getEntityIndicator(entityName: string, indicatorID: Types.IndicatorId): Types.IndicatorScore {
-    // If user has changed the value of the indicator, return that changed value instead of the original
     if (indexedData[entityName].user && indexedData[entityName].user?.[indicatorID]) {
       return indexedData[entityName].user[indicatorID];
     }
     return indexedData[entityName].scores[indicatorID];
   }
 
-  // return the NAMES of the entities
   function getEntities(): string[] {
     return entitiesData.map((d: { name: string }) => d.name);
   }

@@ -62,13 +62,16 @@ export const validateIndicator = (indicator: DSVRowString<string>, indexMax: num
 }
 
 export const validateEntity = (entity: DSVRowString<string>): Types.Entity => {
-  const scores: Types.EntityScores = {};
 
-  for (const [key, value] of Object.entries(entity)) {
-    if (!Number.isNaN(Number(value))) {
-      scores[key] = Number(value);
-    }
-  }
+  const scores: Types.EntityScores = Object.entries(entity).reduce(
+    (acc: Types.EntityScores, [key, value]: [string, string]) => {
+      if (!Number.isNaN(Number(value))) {
+        acc[key] = Number(value);
+      }
+      return acc;
+    },
+    {}
+  );
 
   scores[0] = 0; // will be calculated as the top level value
 

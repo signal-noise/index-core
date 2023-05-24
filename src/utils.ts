@@ -23,15 +23,15 @@ export function normalise(value: number, range = [0, 100], normaliseTo = 100, cl
 export function calculateWeightedMean(weightedValues: Types.Indicator[], normaliseTo = 100, clamp = false): number {
   let weightedSum = 0;
   let cumulativeWeight = 0;
-  for (let i = 0; i < weightedValues.length; i += 1) {
-    const indicator = weightedValues[i];
-    const normalisedValue = normalise(indicator.value, indicator.range, normaliseTo, clamp);
-    const weightedValue = indicator.invert
-      ? ((normaliseTo - normalisedValue) * indicator.weighting)
-      : (normalisedValue * indicator.weighting);
+
+  weightedValues.forEach(indicator => {
+    const { value, range, invert, weighting } = indicator;
+    const normalisedValue = normalise(value, range, normaliseTo, clamp);
+    const weightedValue = invert ? ((normaliseTo - normalisedValue) * weighting) : (normalisedValue * weighting);
+
     weightedSum += weightedValue;
-    cumulativeWeight += indicator.weighting;
-  }
+    cumulativeWeight += weighting;
+  });
 
   return weightedSum / cumulativeWeight;
 }
