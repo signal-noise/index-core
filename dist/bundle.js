@@ -79,7 +79,6 @@
         IndicatorType["CONTINUOUS"] = "continuous";
     })(IndicatorType || (IndicatorType = {}));
 
-    // TODO rewrite this into a validator of some kind and/or merge with formatIndicator in indexcore
     var validateIndicator = function (indicator, indexMax) {
         if (!indicator.id) {
             console.warn("Skipping: Indicator doesn't have an id and is probably invalid: ".concat(JSON.stringify(indicator)));
@@ -127,7 +126,7 @@
             range: getRange(indicator.min, indicator.max),
             weighting: Number(indicator.weighting),
             indicatorName: indicator.indicatorName || '',
-            value: 0 // is this safe? We'll Find Out!!!!
+            value: 0
         };
         return result;
     };
@@ -139,7 +138,7 @@
             }
             return acc;
         }, {});
-        scores[0] = 0; // will be calculated as the top level value
+        scores[0] = 0;
         var newEntity = {
             name: entity.name || '',
             scores: scores,
@@ -328,7 +327,7 @@
             var adjustedEntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
             var adjustedEntity = __assign(__assign({}, indexedData[e.name]), { scores: adjustedEntityScores });
             adjustedEntity.user = {};
-            delete adjustedEntity.data; // TODO leave as empty object. Also why do we even use it?
+            delete adjustedEntity.data; // TODO leave as empty object
             return adjustedEntity;
         }
         function createStructure(indicatorIds) {

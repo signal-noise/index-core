@@ -1,7 +1,6 @@
 import * as Types from './types';
 import { DSVRowString } from 'd3';
 
-// TODO rewrite this into a validator of some kind and/or merge with formatIndicator in indexcore
 export const validateIndicator = (indicator: DSVRowString<string>, indexMax: number): Types.Indicator => {
 
   if (!indicator.id) {
@@ -55,7 +54,7 @@ export const validateIndicator = (indicator: DSVRowString<string>, indexMax: num
     range: getRange(indicator.min, indicator.max),
     weighting: Number(indicator.weighting),
     indicatorName: indicator.indicatorName || '',
-    value: 0 // is this safe? We'll Find Out!!!!
+    value: 0
   }
 
   return result;
@@ -73,7 +72,7 @@ export const validateEntity = (entity: DSVRowString<string>): Types.Entity => {
     {}
   );
 
-  scores[0] = 0; // will be calculated as the top level value
+  scores[0] = 0;
 
   const newEntity = {
     name: entity.name || '',

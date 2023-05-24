@@ -226,7 +226,7 @@ const index = function indexCore(
     }
 
     adjustedEntity.user = {};
-    delete adjustedEntity.data; // TODO leave as empty object. Also why do we even use it?
+    delete adjustedEntity.data; // TODO leave as empty object
     return adjustedEntity;
   }
 
