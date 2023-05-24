@@ -329,7 +329,6 @@
             var onlyIdIndicators = getIndexableIndicators(indicatorsData);
             var calculationList = getCalculationList(onlyIdIndicators);
             indexedData[e.name] = indexEntity(e, calculationList, true);
-            // console.log(indexedData[e.name])
             var adjustedEntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
             var adjustedEntity = __assign(__assign({}, indexedData[e.name]), { scores: adjustedEntityScores });
             adjustedEntity.user = {};

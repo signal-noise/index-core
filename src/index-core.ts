@@ -219,7 +219,7 @@ const index = function indexCore(
     const calculationList = getCalculationList(onlyIdIndicators);
 
     indexedData[e.name] = indexEntity(e, calculationList, true);
-    // console.log(indexedData[e.name])
+
     const adjustedEntityScores: Types.EntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
 
     const adjustedEntity: Types.Entity = {
