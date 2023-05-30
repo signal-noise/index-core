@@ -85,8 +85,6 @@
             return;
         }
         if (indicator.id.includes('BG')) {
-            // We're not counting background indicators for now
-            // TODO: return a separate array of background indicators
             console.warn("Skipping: Background Indicator: ".concat(JSON.stringify(indicator)));
             return;
         }
@@ -111,7 +109,6 @@
             }
         };
         var getRange = function (min, max) {
-            // If the max is absent we're going to set it to 0 here and then change it again in index-core to whatever the custom max is
             var range = [
                 !Number.isNaN(Number(min)) ? Number(min) : 0,
                 !Number.isNaN(Number(max)) && Number(max) !== 0 ? Number(max) : indexMax
@@ -149,7 +146,6 @@
     };
 
     var indicatorIdTest = /^([\w]\.)*\w{1}$/;
-    // TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
     var index = function indexCore(rawIndicatorsData, rawEntitiesData, indexMax, allowOverwrite, clamp) {
         if (rawIndicatorsData === void 0) { rawIndicatorsData = []; }
         if (rawEntitiesData === void 0) { rawEntitiesData = []; }
@@ -168,9 +164,8 @@
             id: '',
             children: indexStructureChildren
         };
-        // I assume the following is meant to be replaced with a custom function responsible for determining whether an indicator should be excluded
         /* eslint-disable  @typescript-eslint/no-unused-vars */
-        var excludeIndicator = function (indicator) { return false; }; // by default no valid indicators are excluded
+        var excludeIndicator = function (indicator) { return false; };
         function getEntity(entityName) {
             return indexedData[entityName];
         }
@@ -193,11 +188,7 @@
         function getIndexMean(indicatorID, normalised) {
             if (indicatorID === void 0) { indicatorID = '0'; }
             if (normalised === void 0) { normalised = true; }
-            // get the mean index value for a given indicator id,
-            // if the value of an indicator on an entiry is falsey
-            // dont take it into account
             var entityValues = Object.values(indexedData);
-            // If it doesn't exist in the lookup, create new indicator for top level value
             var indicator = indicatorLookup[indicatorID]
                 ? indicatorLookup[indicatorID] : {
                 id: indicatorID,
@@ -222,16 +213,13 @@
             }, 0);
             return sum / length;
         }
-        // format an indicator for passing to the weighted mean function
         function formatIndicator(indicator, entity, max) {
             var value = entity.user[indicator.id]
                 ? Number(entity.user[indicator.id])
                 : Number(entity.scores[indicator.id]);
             var range = __spreadArray([], indicator.range, true);
             if (indicator.diverging) {
-                // TODO: set centerpoint somewhere in a config
                 var centerpoint = 0;
-                // TODO do we need to check if these exist anymore?
                 if (indicator.range[1]) {
                     if (indicator.range[0]) {
                         range = [0, Math.max(Math.abs(indicator.range[0]), Math.abs(indicator.range[1]))];
@@ -267,15 +255,11 @@
             };
             calculationList.forEach(function (parentIndicatorID) {
                 if ((newEntityScores[parentIndicatorID] && overwrite === true) || !newEntityScores[parentIndicatorID]) {
-                    // get the required component indicators to calculate the parent value
-                    // this is a bit brittle maybe?
                     var componentIndicators = indicatorsData
-                        .filter(function (indicator) { return (indicator.id.indexOf(parentIndicatorID) === 0 // the
+                        .filter(function (indicator) { return (indicator.id.indexOf(parentIndicatorID) === 0
                         && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1); })
                         .filter(function (indicator) { return excludeIndicator(indicator) === false; })
                         .map(function (indicator) { return formatIndicator(indicator, newEntity, indexMax); });
-                    // calculate the weighted mean of the component indicators on the newEntity
-                    // assign that value to the newEntity
                     newEntityScores[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
                 }
                 else {
@@ -314,7 +298,7 @@
                 e.user = newUser;
             }
             else if (!value && !isEmpty(e.user)) {
-                delete e.user[indicatorID]; // no value specified, reset the indicator
+                delete e.user[indicatorID];
             }
             if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === IndicatorType.CALCULATED) {
                 console.warn("".concat(indicatorID, " is a calculated value and can not be adjusted directly, perhaps you meant to adjust the weighting?"));
@@ -357,8 +341,6 @@
         }
         function calculateIndex(overwrite) {
             if (overwrite === void 0) { overwrite = allowOverwrite; }
-            // get a list of the values we need to calculate
-            // in order of deepest in the heirachy to the shallowist
             var onlyIdIndicators = getIndexableIndicators(indicatorsData);
             var calculationList = getCalculationList(onlyIdIndicators);
             indexStructure = createStructure(onlyIdIndicators.map(function (i) { return i.id; }));
@@ -369,8 +351,6 @@
             });
         }
         function adjustWeight(indicatorID, weight) {
-            // TODO: make the index recalculating take into account what
-            //    has changed in the data rather than doing the whole shebang
             indicatorLookup[indicatorID].userWeighting = weight;
             calculateIndex(true);
         }

@@ -5,7 +5,6 @@ import { DSVRowString } from 'd3';
 
 const indicatorIdTest = /^([\w]\.)*\w{1}$/;
 
-// TODO: the last 3 args, (indexMax, allowOverwrite, clamp) should proabbly be an options object
 const index = function indexCore(
   rawIndicatorsData: DSVRowString<string>[] = [],
   rawEntitiesData: DSVRowString<string>[] = [],
@@ -31,9 +30,8 @@ const index = function indexCore(
     children: indexStructureChildren
   };
 
-  // I assume the following is meant to be replaced with a custom function responsible for determining whether an indicator should be excluded
   /* eslint-disable  @typescript-eslint/no-unused-vars */
-  let excludeIndicator = (indicator: Types.Indicator) => false; // by default no valid indicators are excluded
+  let excludeIndicator = (indicator: Types.Indicator) => false;
 
   function getEntity(entityName: string): Types.Entity {
     return indexedData[entityName];
@@ -59,11 +57,8 @@ const index = function indexCore(
   }
 
   function getIndexMean(indicatorID: Types.IndicatorId = '0', normalised = true): number {
-    // get the mean index value for a given indicator id,
-    // if the value of an indicator on an entiry is falsey
-    // dont take it into account
     const entityValues: Types.Entity[] = Object.values(indexedData);
-    // If it doesn't exist in the lookup, create new indicator for top level value
+
     const indicator: Types.Indicator = indicatorLookup[indicatorID]
       ? indicatorLookup[indicatorID] : {
         id: indicatorID,
@@ -94,7 +89,6 @@ const index = function indexCore(
     return sum / length;
   }
 
-  // format an indicator for passing to the weighted mean function
   function formatIndicator(indicator: Types.Indicator, entity: Types.Entity, max: number): Types.Indicator {
     let value = entity.user[indicator.id]
       ? Number(entity.user[indicator.id])
@@ -103,10 +97,8 @@ const index = function indexCore(
     let range = [...indicator.range];
 
     if (indicator.diverging) {
-      // TODO: set centerpoint somewhere in a config
       const centerpoint = 0;
 
-      // TODO do we need to check if these exist anymore?
       if (indicator.range[1]) {
         if (indicator.range[0]) {
           range = [0, Math.max(Math.abs(indicator.range[0]), Math.abs(indicator.range[1]))]
@@ -146,18 +138,13 @@ const index = function indexCore(
     
     calculationList.forEach((parentIndicatorID: Types.IndicatorId) => {
       if ((newEntityScores[parentIndicatorID] && overwrite === true) || !newEntityScores[parentIndicatorID]) {
-        // get the required component indicators to calculate the parent value
-        // this is a bit brittle maybe?
-
         const componentIndicators: Types.Indicator[] = indicatorsData
           .filter((indicator: Types.Indicator) => (
-            indicator.id.indexOf(parentIndicatorID) === 0 // the
+            indicator.id.indexOf(parentIndicatorID) === 0
             && indicator.id.split('.').length === parentIndicatorID.split('.').length + 1))
           .filter((indicator) => excludeIndicator(indicator) === false)
           .map((indicator) => formatIndicator(indicator, newEntity, indexMax));
-        
-        // calculate the weighted mean of the component indicators on the newEntity
-        // assign that value to the newEntity
+
         newEntityScores[parentIndicatorID] = calculateWeightedMean(componentIndicators, indexMax, clamp);
       } else {
         console.warn(`retaining existing value for ${entity.name} - ${parentIndicatorID} : ${Number(entity.scores[parentIndicatorID])}`);
@@ -203,7 +190,7 @@ const index = function indexCore(
       const newUser: Types.User = {};
       e.user = newUser;
     } else if (!value && !isEmpty(e.user)) {
-      delete e.user[indicatorID]; // no value specified, reset the indicator
+      delete e.user[indicatorID];
     }
 
     if (indicatorLookup[indicatorID] && indicatorLookup[indicatorID].type === Types.IndicatorType.CALCULATED) {
@@ -260,8 +247,6 @@ const index = function indexCore(
   }
 
   function calculateIndex(overwrite: boolean = allowOverwrite): void {
-    // get a list of the values we need to calculate
-    // in order of deepest in the heirachy to the shallowist
     const onlyIdIndicators: Types.Indicator[] = getIndexableIndicators(indicatorsData);
     const calculationList = getCalculationList(onlyIdIndicators);
 
@@ -275,8 +260,6 @@ const index = function indexCore(
   }
 
   function adjustWeight(indicatorID: Types.IndicatorId, weight: number): void {
-    // TODO: make the index recalculating take into account what
-    //    has changed in the data rather than doing the whole shebang
     indicatorLookup[indicatorID].userWeighting = weight;
     calculateIndex(true);
   }

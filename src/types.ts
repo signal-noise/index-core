@@ -4,7 +4,6 @@ export enum IndicatorType {
   CONTINUOUS = "continuous"
 }
 
-// Pre-calculated, formatted indicator
 export type Indicator = {
   id: IndicatorId
   type: IndicatorType
@@ -32,7 +31,7 @@ export type EntityName = string;
 export type Entity = {
   name: EntityName
   user: User
-  data: EntityScores // why?
+  data: EntityScores
   scores: EntityScores
 }
 
@@ -40,7 +39,6 @@ export type EntityScores = {
   [key: IndicatorId]: IndicatorScore
 }
 
-// User-generated scores
 export type User = {
   [key: IndicatorId]: IndicatorScore
 }
@@ -55,10 +53,8 @@ export type IndexedData = {
 
 export type IndicatorScore = number
 
-// how can we be strict about the n.n.n format? perhaps using indicatorIdTest?
 export type IndicatorId = string
 
-// there's a purpose to this i guarantee it
 export type IndicatorIdBit = string
 
 export type IndexStructure = {

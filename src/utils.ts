@@ -4,7 +4,7 @@ export function clone(o: object) {
   return JSON.parse(JSON.stringify(o));
 }
 
-export function clamper(range: number[], value: Types.IndicatorScore): number { // restrict a value to between the vales of a tuple
+export function clamper(range: number[], value: Types.IndicatorScore): number {
   return Math.min(Math.max(value, range[0]), range[1]);
 }
 

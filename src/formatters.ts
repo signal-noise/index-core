@@ -9,8 +9,6 @@ export const validateIndicator = (indicator: DSVRowString<string>, indexMax: num
   }
 
   if (indicator.id.includes('BG')) {
-    // We're not counting background indicators for now
-    // TODO: return a separate array of background indicators
     console.warn(`Skipping: Background Indicator: ${JSON.stringify(indicator)}`)
     return;
   }
@@ -37,7 +35,6 @@ export const validateIndicator = (indicator: DSVRowString<string>, indexMax: num
   }
 
   const getRange = (min: string | undefined, max: string | undefined): Types.IndicatorRangeNumber[] => {
-    // If the max is absent we're going to set it to 0 here and then change it again in index-core to whatever the custom max is
     const range = [
       !Number.isNaN(Number(min)) ? Number(min) : 0,
       !Number.isNaN(Number(max)) && Number(max) !== 0 ? Number(max) : indexMax
