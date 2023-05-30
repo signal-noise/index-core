@@ -178,7 +178,7 @@ const index = function indexCore(
     return indicatorsData
       .filter((i: Types.Indicator) => {
         if (!i.id) {
-          console.warn(`Weird id: ${JSON.stringify(i)}`);
+          console.warn(`Missing id: ${JSON.stringify(i)}`);
         }
 
         const isIndicator = String(i.id).match(indicatorIdTest);

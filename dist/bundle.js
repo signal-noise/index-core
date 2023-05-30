@@ -142,7 +142,8 @@
         var newEntity = {
             name: entity.name || '',
             scores: scores,
-            user: {}
+            user: {},
+            data: {}
         };
         return newEntity;
     };
@@ -261,6 +262,7 @@
             var newEntity = {
                 name: entity.name,
                 scores: newEntityScores,
+                data: {},
                 user: entity.user ? entity.user : {}
             };
             calculationList.forEach(function (parentIndicatorID) {
@@ -291,7 +293,7 @@
             return indicatorsData
                 .filter(function (i) {
                 if (!i.id) {
-                    console.warn("Weird id: ".concat(JSON.stringify(i)));
+                    console.warn("Missing id: ".concat(JSON.stringify(i)));
                 }
                 var isIndicator = String(i.id).match(indicatorIdTest);
                 var isExcluded = excludeIndicator(i);
@@ -327,7 +329,7 @@
             var adjustedEntityScores = Object.assign(clone(indexedData[e.name].scores), indexedData[e.name].user);
             var adjustedEntity = __assign(__assign({}, indexedData[e.name]), { scores: adjustedEntityScores });
             adjustedEntity.user = {};
-            delete adjustedEntity.data; // TODO leave as empty object
+            adjustedEntity.data = {};
             return adjustedEntity;
         }
         function createStructure(indicatorIds) {
@@ -362,7 +364,7 @@
             indexStructure = createStructure(onlyIdIndicators.map(function (i) { return i.id; }));
             entitiesData.forEach(function (entity) {
                 var indexedEntity = indexEntity(entity, calculationList, overwrite);
-                indexedEntity.data = entity;
+                indexedEntity.data = entity.scores;
                 indexedData[entity.name] = indexedEntity;
             });
         }
