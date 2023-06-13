@@ -1,0 +1,7 @@
+- apiVersion: backstage.io/v1beta1
+  kind: System
+  metadata:
+    name: index-core
+    title: index-core
+    namespace: economist-impact
+    description: index-core for SignalNoise Economist Impact Project
