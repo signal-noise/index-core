@@ -5,9 +5,9 @@
     title: index-core
     namespace: economist-impact
     annotations: 
-      github.com/project-slug: signal-noise/covid-relative-risk/
+      github.com/project-slug: signal-noise/index-core
       # the circleCI project, mirrors github repo in this case: 
-    circleci.com/project-slug: github/signal-noise/covid-relative-risk
+    circleci.com/project-slug: github/signal-noise/index-core
       # GUID - see https://docs.newrelic.com/docs/query-your-data/explore-query-data/dashboards/manage-your-dashboard/
     newrelic.com/dashboard-guid: MzY1MjgxOXxWSVp8REFTSEJPQVJEfGRhOjE3MDkwOA
     newrelic.com/dashboard-guid: MzY1MjgxOXxWSVp8REFTSEJPQVJEfGRhOjE5NTIyNw
